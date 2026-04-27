@@ -6,9 +6,23 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight, MessageCircle, Mail, Instagram, Facebook } from "lucide-react";
 
 const WHATSAPP_NUMBER = "573000000000"; // TODO: replace with real number
+
+const EMAILS = [
+  { label: "Información general", value: "info@ayoecosystem.com" },
+  { label: "Talento", value: "talento@ayoecosystem.com" },
+  { label: "Alianzas", value: "alianzas@ayoecosystem.com" },
+];
+
+const SOCIALS = [
+  { icon: Instagram, label: "A&O Ecosystem", url: "https://www.instagram.com/ao.ecosystem?igsh=MWllOXNxM3ZxN2llMg==" },
+  { icon: Instagram, label: "ANMA Soluciones", url: "https://www.instagram.com/anmasoluciones?igsh=NzN2c2c3bGtkeDE5" },
+  { icon: Instagram, label: "Inverfact", url: "https://www.instagram.com/inverfactcol?igsh=ZW91dzl0aDgxM2k2" },
+  { icon: Facebook, label: "A&O Ecosystem", url: "https://www.facebook.com/share/1ChyTws68j/" },
+  { icon: Facebook, label: "ANMA Soluciones", url: "https://www.facebook.com/share/1DjCux4LSo/" },
+];
 
 const schema = z.object({
   name: z.string().trim().min(2, "Tu nombre es muy corto").max(80),
@@ -78,6 +92,49 @@ const Contact = () => {
                 <MessageCircle className="h-5 w-5" /> Hablar por WhatsApp
               </a>
             </Button>
+
+            <div className="mt-10 space-y-6">
+              <div>
+                <h3 className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">
+                  Correos directos
+                </h3>
+                <ul className="space-y-2">
+                  {EMAILS.map((e) => (
+                    <li key={e.value} className="flex items-center gap-3 text-sm">
+                      <Mail className="h-4 w-4 text-primary shrink-0" />
+                      <a
+                        href={`mailto:${e.value}`}
+                        className="text-foreground hover:text-primary transition-colors"
+                      >
+                        {e.value}
+                      </a>
+                      <span className="text-muted-foreground hidden sm:inline">— {e.label}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">
+                  Síguenos
+                </h3>
+                <ul className="flex flex-wrap gap-2">
+                  {SOCIALS.map((s, i) => (
+                    <li key={i}>
+                      <a
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full border border-border bg-background/40 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
+                      >
+                        <s.icon className="h-3.5 w-3.5" />
+                        {s.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </motion.div>
 
           <motion.form
