@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, TrendingUp, ShoppingBag, Building2, Briefcase, Cpu } from "lucide-react";
+import { ArrowUpRight, TrendingUp, ShoppingBag, Laptop, Briefcase, Cpu } from "lucide-react";
 import inverfact from "@/assets/brand-inverfact.jpg";
 import anma from "@/assets/brand-anma.jpg";
 import nomadhive from "@/assets/brand-nomadhive.jpg";
@@ -32,13 +32,13 @@ const units = [
   },
   {
     n: "03",
-    layer: "Monetización de activos",
+    layer: "Trabajo remoto e ingresos digitales",
     name: "NOMADHIVE",
-    icon: Building2,
+    icon: Laptop,
     img: nomadhive,
-    pitch: "Renta corta de aparta-suites de lujo. Convierte activos en ingresos pasivos.",
-    bullets: ["Sistemas de renta corta", "Modelos tipo Airbnb", "Estrategias de ingresos pasivos"],
-    benefit: "Convierte activos en flujos de ingreso con posicionamiento inteligente.",
+    pitch: "Sistema de trabajo remoto e ingresos digitales. Construye flujos de ingreso independientes de tu ubicación.",
+    bullets: ["Formación en modelos de ingreso remoto", "Oportunidades de trabajo digital", "Sistemas escalables de ingreso online"],
+    benefit: "Construye sistemas de ingreso que te permitan trabajar desde cualquier lugar — no por suerte, sino por estructura.",
     cta: { label: "Conocer NOMADHIVE", href: "#contacto" },
   },
   {
