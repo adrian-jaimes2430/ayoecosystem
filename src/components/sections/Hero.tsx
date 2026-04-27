@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Send, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import heroImg from "@/assets/hero-ecosystem.jpg";
 import founder from "@/assets/founder.png";
 import logoAO from "@/assets/logo-ao.png";
@@ -54,8 +54,8 @@ const Hero = () => {
               </a>
             </Button>
             <Button asChild variant="glass" size="xl">
-              <a href="#oferta-libre">
-                <Send className="h-5 w-5" /> Acceder al grupo gratuito
+              <a href="#contacto">
+                Hablar con el equipo
               </a>
             </Button>
           </div>

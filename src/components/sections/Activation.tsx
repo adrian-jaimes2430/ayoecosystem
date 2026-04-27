@@ -61,7 +61,7 @@ const Activation = () => {
                 {[
                   { i: GraduationCap, t: "Mentoría de inversión" },
                   { i: Wallet, t: "Herramientas y dashboards" },
-                  { i: TrendingUp, t: "Grupo gratuito en Telegram (GT)" },
+                  { i: TrendingUp, t: "Comunidad de inversionistas" },
                 ].map((b) => (
                   <li key={b.t} className="flex items-center gap-3">
                     <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[hsl(var(--brand-inverfact)/0.12)] text-[hsl(var(--brand-inverfact))] border border-[hsl(var(--brand-inverfact)/0.3)]">
@@ -77,8 +77,8 @@ const Activation = () => {
                   "Construye sistemas reales de riqueza."
                 </p>
                 <Button asChild className="bg-[hsl(var(--brand-inverfact))] hover:bg-[hsl(var(--brand-inverfact)/0.9)] text-black font-semibold">
-                  <a href="#oferta-libre">
-                    Acceder gratis <ArrowUpRight className="h-4 w-4" />
+                  <a href="#contacto">
+                    Más información <ArrowUpRight className="h-4 w-4" />
                   </a>
                 </Button>
               </div>
