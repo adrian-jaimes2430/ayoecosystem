@@ -52,6 +52,17 @@ All colors MUST be HSL.
     --shadow-elegant: 0 30px 80px -30px hsl(0 0% 0% / 0.8);
     --shadow-glow: 0 0 80px hsl(38 78% 58% / 0.35);
 
+    /* Per-brand accent tokens */
+    --brand-ao: 0 100% 50%;            /* Red — A&O */
+    --brand-nomad: 152 100% 50%;       /* Green — NomadHive */
+    --brand-inverfact: 28 100% 50%;    /* Orange — Inverfact */
+    --brand-anma: 28 100% 50%;         /* Orange — ANMA */
+
+    --gradient-ao: linear-gradient(135deg, hsl(0 100% 50%), hsl(0 90% 35%));
+    --gradient-nomad: linear-gradient(135deg, hsl(152 100% 50%), hsl(160 80% 35%));
+    --gradient-inverfact: linear-gradient(135deg, hsl(28 100% 50%), hsl(20 95% 45%));
+    --gradient-anma: linear-gradient(135deg, hsl(28 100% 55%), hsl(18 95% 45%));
+
     --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 
     --sidebar-background: 0 0% 98%;
@@ -122,6 +133,15 @@ All colors MUST be HSL.
       linear-gradient(90deg, hsl(40 30% 96% / 0.04) 1px, transparent 1px);
     background-size: 56px 56px;
   }
+
+  .text-brand-ao { color: hsl(var(--brand-ao)); }
+  .text-brand-nomad { color: hsl(var(--brand-nomad)); }
+  .text-brand-inverfact { color: hsl(var(--brand-inverfact)); }
+  .text-brand-anma { color: hsl(var(--brand-anma)); }
+  .bg-gradient-ao { background: var(--gradient-ao); }
+  .bg-gradient-nomad { background: var(--gradient-nomad); }
+  .bg-gradient-inverfact { background: var(--gradient-inverfact); }
+  .bg-gradient-anma { background: var(--gradient-anma); }
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }
