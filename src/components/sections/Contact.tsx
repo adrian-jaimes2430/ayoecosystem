@@ -6,9 +6,37 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight, MessageCircle, Mail } from "lucide-react";
+
+const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <rect x="2" y="2" width="20" height="20" rx="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
+
+const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
 
 const WHATSAPP_NUMBER = "573000000000"; // TODO: replace with real number
+
+const EMAILS = [
+  { label: "Información general", value: "info@ayoecosystem.com" },
+  { label: "Talento", value: "talento@ayoecosystem.com" },
+  { label: "Alianzas", value: "alianzas@ayoecosystem.com" },
+];
+
+const SOCIALS = [
+  { icon: InstagramIcon, label: "A&O Ecosystem", url: "https://www.instagram.com/ao.ecosystem?igsh=MWllOXNxM3ZxN2llMg==" },
+  { icon: InstagramIcon, label: "ANMA Soluciones", url: "https://www.instagram.com/anmasoluciones?igsh=NzN2c2c3bGtkeDE5" },
+  { icon: InstagramIcon, label: "Inverfact", url: "https://www.instagram.com/inverfactcol?igsh=ZW91dzl0aDgxM2k2" },
+  { icon: FacebookIcon, label: "A&O Ecosystem", url: "https://www.facebook.com/share/1ChyTws68j/" },
+  { icon: FacebookIcon, label: "ANMA Soluciones", url: "https://www.facebook.com/share/1DjCux4LSo/" },
+];
 
 const schema = z.object({
   name: z.string().trim().min(2, "Tu nombre es muy corto").max(80),
@@ -78,6 +106,49 @@ const Contact = () => {
                 <MessageCircle className="h-5 w-5" /> Hablar por WhatsApp
               </a>
             </Button>
+
+            <div className="mt-10 space-y-6">
+              <div>
+                <h3 className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">
+                  Correos directos
+                </h3>
+                <ul className="space-y-2">
+                  {EMAILS.map((e) => (
+                    <li key={e.value} className="flex items-center gap-3 text-sm">
+                      <Mail className="h-4 w-4 text-primary shrink-0" />
+                      <a
+                        href={`mailto:${e.value}`}
+                        className="text-foreground hover:text-primary transition-colors"
+                      >
+                        {e.value}
+                      </a>
+                      <span className="text-muted-foreground hidden sm:inline">— {e.label}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">
+                  Síguenos
+                </h3>
+                <ul className="flex flex-wrap gap-2">
+                  {SOCIALS.map((s, i) => (
+                    <li key={i}>
+                      <a
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full border border-border bg-background/40 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
+                      >
+                        <s.icon className="h-3.5 w-3.5" />
+                        {s.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </motion.div>
 
           <motion.form
