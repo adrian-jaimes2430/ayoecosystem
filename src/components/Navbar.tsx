@@ -4,9 +4,9 @@ import { Menu, X } from "lucide-react";
 
 const links = [
   { href: "#ecosistema", label: "Ecosistema" },
-  { href: "#unidades", label: "Unidades" },
-  { href: "#valor", label: "Propuesta" },
-  { href: "#mentoria", label: "Mentoría" },
+  { href: "#activacion", label: "Activar" },
+  { href: "#monetizacion", label: "Generar" },
+  { href: "#escalamiento", label: "Escalar" },
   { href: "#contacto", label: "Contacto" },
 ];
 

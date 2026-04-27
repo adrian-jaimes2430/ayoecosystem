@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Send, Sparkles } from "lucide-react";
 import heroImg from "@/assets/hero-ecosystem.jpg";
+import founder from "@/assets/founder.png";
+import logoAO from "@/assets/logo-ao.png";
 
 const Hero = () => {
   return (
@@ -13,65 +15,86 @@ const Hero = () => {
           alt="Ecosistema de crecimiento financiero y empresarial A&O"
           width={1920}
           height={1080}
-          className="h-full w-full object-cover opacity-50"
+          className="h-full w-full object-cover opacity-30"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background" />
-        <div className="absolute inset-0 bg-radial-gold" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/70 to-background" />
+        <div className="absolute inset-0 bg-radial-gold opacity-60" />
         <div className="absolute inset-0 grid-bg opacity-40" />
       </div>
 
-      <div className="mx-auto max-w-6xl px-6 w-full">
+      <div className="mx-auto max-w-7xl px-6 w-full grid lg:grid-cols-12 gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-3xl"
+          className="lg:col-span-7"
         >
           <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-muted-foreground mb-8">
-            <Sparkles className="h-3.5 w-3.5 text-primary" />
-            Multi-brand business ecosystem
+            <Sparkles className="h-3.5 w-3.5 text-[hsl(var(--brand-ao))]" />
+            Business ecosystem · A&O
           </div>
 
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight">
-            Construimos
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.98] tracking-tight">
+            Construye ingresos.
             <br />
-            <span className="text-gradient-gold">sistemas</span> que
+            <span className="text-gradient-gold">Escala tu vida.</span>
             <br />
-            generan resultados.
+            Domina tu crecimiento.
           </h1>
 
           <p className="mt-8 max-w-xl text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Un ecosistema diseñado para escalar tu libertad financiera y tu negocio.
-            Educación, mentoría, consultoría y herramientas — bajo un solo sistema.
+            Un ecosistema diseñado para ayudarte a generar ingresos, crear sistemas
+            y escalar tu negocio — desde cero hasta empresa.
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
             <Button asChild variant="hero" size="xl">
-              <a href="#contacto">
-                Acceder al ecosistema <ArrowRight className="ml-1" />
+              <a href="#activacion">
+                Empezar ahora <ArrowRight className="ml-1" />
               </a>
             </Button>
             <Button asChild variant="glass" size="xl">
-              <a href="#unidades">Ver unidades de negocio</a>
+              <a href="#oferta-libre">
+                <Send className="h-5 w-5" /> Acceder al grupo gratuito
+              </a>
             </Button>
           </div>
 
-          <div className="mt-16 grid grid-cols-3 gap-6 md:gap-12 max-w-lg">
-            {[
-              { k: "4", v: "Unidades de negocio" },
-              { k: "100%", v: "Enfocado en resultados" },
-              { k: "0", v: "Promesas vacías" },
-            ].map((s) => (
-              <div key={s.v}>
-                <div className="font-display text-3xl md:text-4xl font-bold text-gradient-gold">
-                  {s.k}
-                </div>
-                <div className="text-xs md:text-sm text-muted-foreground mt-1">
-                  {s.v}
+          <div className="mt-12 flex items-center gap-6 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+            <span className="text-[hsl(var(--brand-inverfact))]">01 Activar</span>
+            <span className="h-px w-8 bg-border" />
+            <span className="text-[hsl(var(--brand-anma))]">02 Generar</span>
+            <span className="h-px w-8 bg-border" />
+            <span className="text-[hsl(var(--brand-ao))]">03 Escalar</span>
+          </div>
+        </motion.div>
+
+        {/* Founder visual */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:col-span-5 relative hidden lg:block"
+        >
+          <div className="relative aspect-[4/5] rounded-3xl overflow-hidden glass shadow-elegant">
+            <div className="absolute inset-0 bg-gradient-to-tr from-[hsl(var(--brand-ao)/0.25)] via-transparent to-transparent z-10 pointer-events-none" />
+            <img
+              src={founder}
+              alt="Fundador de A&O Ecosystem"
+              className="h-full w-full object-cover object-top"
+              loading="eager"
+            />
+            <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-background via-background/70 to-transparent z-20">
+              <div className="flex items-center gap-3">
+                <img src={logoAO} alt="A&O" className="h-10 w-10 rounded-full bg-black/60 p-1" />
+                <div>
+                  <div className="font-display font-semibold text-sm">Fundador & CEO</div>
+                  <div className="text-xs text-muted-foreground">A&O Ecosystem S.A.S</div>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
+          <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-[hsl(var(--brand-ao)/0.15)] blur-3xl" />
         </motion.div>
       </div>
 
