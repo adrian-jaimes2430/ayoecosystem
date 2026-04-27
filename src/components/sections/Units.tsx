@@ -1,33 +1,66 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, TrendingUp, ShoppingBag, Building2, Briefcase, Cpu } from "lucide-react";
 import inverfact from "@/assets/brand-inverfact.jpg";
+import anma from "@/assets/brand-anma.jpg";
+import nomadhive from "@/assets/brand-nomadhive.jpg";
 import consulting from "@/assets/brand-consulting.jpg";
 import software from "@/assets/brand-software.jpg";
 
 const units = [
   {
-    tag: "Educación financiera",
+    n: "01",
+    layer: "Crecimiento financiero",
     name: "INVERFACT",
+    icon: TrendingUp,
     img: inverfact,
-    pitch: "Finanzas personales, inversión y mentalidad. Mentoría, herramientas y comunidad.",
-    bullets: ["Mentoría de inversión", "Educación financiera real", "Acceso libre vía Telegram (GT)"],
+    pitch: "Finanzas personales, inversión y mentalidad. Construye sistemas reales de riqueza.",
+    bullets: ["Mentoría de inversión", "Dashboards y herramientas", "Comunidad Telegram (GT)"],
+    benefit: "Inicia tu transformación financiera y construye sistemas reales de riqueza.",
     cta: { label: "Unirme al GT", href: "#oferta-libre" },
   },
   {
-    tag: "Consultoría",
-    name: "A&O CONSULTING",
+    n: "02",
+    layer: "E-commerce y ventas",
+    name: "ANMA SOLUCIONES",
+    icon: ShoppingBag,
+    img: anma,
+    pitch: "Venta de productos digitales, dropshipping y marketing orientado a conversión.",
+    bullets: ["Productos listos para vender", "Estrategias de venta probadas", "Sistemas de venta automatizados"],
+    benefit: "Lanza y escala ventas online con sistemas comprobados.",
+    cta: { label: "Explorar ANMA", href: "#contacto" },
+  },
+  {
+    n: "03",
+    layer: "Monetización de activos",
+    name: "NOMADHIVE",
+    icon: Building2,
+    img: nomadhive,
+    pitch: "Renta corta de aparta-suites de lujo. Convierte activos en ingresos pasivos.",
+    bullets: ["Sistemas de renta corta", "Modelos tipo Airbnb", "Estrategias de ingresos pasivos"],
+    benefit: "Convierte activos en flujos de ingreso con posicionamiento inteligente.",
+    cta: { label: "Conocer NOMADHIVE", href: "#contacto" },
+  },
+  {
+    n: "04",
+    layer: "Consultoría empresarial",
+    name: "A&O ECOSYSTEM",
+    icon: Briefcase,
     img: consulting,
-    pitch: "Diagnóstico, estrategia, posicionamiento y sistemas de ventas para PyMEs.",
-    bullets: ["Diagnóstico empresarial", "Estrategia de crecimiento", "Sistemas de ventas y marca"],
+    pitch: "Diagnóstico, posicionamiento, marketing y sistemas de crecimiento para empresas.",
+    bullets: ["Diagnóstico empresarial", "Posicionamiento de marca", "Sistemas de marketing y ventas"],
+    benefit: "Construimos sistemas que escalan empresas, no solo ideas.",
     cta: { label: "Aplicar a consultoría", href: "#contacto" },
   },
   {
-    tag: "Software (próximo)",
-    name: "A&O TOOLS",
+    n: "05",
+    layer: "Capa de innovación",
+    name: "FUTURE SOFTWARE",
+    icon: Cpu,
     img: software,
     pitch: "Herramientas SaaS para emprendedores: CRM, tracking, productividad y automatización.",
-    bullets: ["CRM ligero", "Tracking financiero", "Automatización de procesos"],
+    bullets: ["CRM y automatización", "Tracking financiero", "Productividad para equipos"],
+    benefit: "Creamos herramientas que eliminan trabajo manual y aumentan ingresos.",
     cta: { label: "Lista de espera", href: "#contacto" },
   },
 ];
@@ -42,28 +75,39 @@ const Units = () => {
               Unidades de negocio
             </span>
             <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight max-w-2xl">
-              Tres marcas. <span className="text-gradient-gold">Un sistema.</span>
+              Cinco unidades. <span className="text-gradient-gold">Un ecosistema.</span>
             </h2>
           </div>
           <p className="text-muted-foreground max-w-sm">
-            Cada unidad tiene un propósito claro. Juntas forman el ecosistema completo de transformación.
+            Un camino claro: crece financieramente, construye un negocio y escálalo con sistemas.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Growth path indicator */}
+        <div className="hidden md:flex items-center gap-3 mb-12 text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+          <span className="text-primary">Personal</span>
+          <span className="h-px flex-1 bg-gradient-to-r from-primary/60 to-primary/10" />
+          <span className="text-primary">Negocio</span>
+          <span className="h-px flex-1 bg-gradient-to-r from-primary/60 to-primary/10" />
+          <span className="text-primary">Sistemas</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {units.map((u, i) => (
             <motion.article
               key={u.name}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.7, delay: i * 0.1 }}
-              className="group relative overflow-hidden rounded-3xl glass shadow-elegant hover:shadow-gold transition-all duration-500 flex flex-col"
+              transition={{ duration: 0.7, delay: i * 0.08 }}
+              className={`group relative overflow-hidden rounded-3xl glass shadow-elegant hover:shadow-gold transition-all duration-500 flex flex-col ${
+                i === 4 ? "lg:col-span-1 md:col-span-2" : ""
+              }`}
             >
-              <div className="relative h-56 overflow-hidden">
+              <div className="relative h-48 overflow-hidden">
                 <img
                   src={u.img}
-                  alt={`${u.name} — ${u.tag}`}
+                  alt={`${u.name} — ${u.layer}`}
                   width={1024}
                   height={1024}
                   loading="lazy"
@@ -71,14 +115,22 @@ const Units = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
                 <span className="absolute top-4 left-4 text-[10px] uppercase tracking-[0.25em] text-primary glass px-3 py-1 rounded-full">
-                  {u.tag}
+                  {u.layer}
+                </span>
+                <span className="absolute top-4 right-4 font-display text-xs text-primary/80 glass px-2.5 py-1 rounded-full">
+                  {u.n}
                 </span>
               </div>
 
               <div className="p-7 flex-1 flex flex-col">
-                <h3 className="font-display text-2xl font-bold tracking-tight">
-                  {u.name}
-                </h3>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20">
+                    <u.icon className="h-4 w-4" />
+                  </span>
+                  <h3 className="font-display text-2xl font-bold tracking-tight">
+                    {u.name}
+                  </h3>
+                </div>
                 <p className="mt-3 text-muted-foreground text-sm leading-relaxed">
                   {u.pitch}
                 </p>
@@ -90,6 +142,9 @@ const Units = () => {
                     </li>
                   ))}
                 </ul>
+                <p className="mt-5 pt-5 border-t border-border/50 text-sm italic text-foreground/80 leading-relaxed">
+                  "{u.benefit}"
+                </p>
                 <Button asChild variant="ghost" className="mt-6 self-start text-primary hover:text-primary hover:bg-primary/10 -ml-3">
                   <a href={u.cta.href}>
                     {u.cta.label} <ArrowUpRight className="h-4 w-4" />
