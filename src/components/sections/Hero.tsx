@@ -27,7 +27,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="lg:col-span-7"
+          className="lg:col-span-7 order-2 lg:order-1"
         >
           <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-muted-foreground mb-8">
             <Sparkles className="h-3.5 w-3.5 text-[hsl(var(--brand-ao))]" />
@@ -74,13 +74,15 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="lg:col-span-5 relative hidden lg:block"
+          className="lg:col-span-5 relative order-1 lg:order-2 max-w-sm mx-auto w-full"
         >
           <div className="relative aspect-[4/5] rounded-3xl overflow-hidden glass shadow-elegant">
             <div className="absolute inset-0 bg-gradient-to-tr from-[hsl(var(--brand-ao)/0.25)] via-transparent to-transparent z-10 pointer-events-none" />
             <img
               src={founder}
               alt="Fundador de A&O Ecosystem"
+              width={497}
+              height={1024}
               className="h-full w-full object-cover object-top"
               loading="eager"
             />
