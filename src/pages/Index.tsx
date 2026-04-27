@@ -1,7 +1,9 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
-import Units from "@/components/sections/Units";
+import Activation from "@/components/sections/Activation";
+import Monetization from "@/components/sections/Monetization";
+import Scaling from "@/components/sections/Scaling";
 import Value from "@/components/sections/Value";
 import FreeOffer from "@/components/sections/FreeOffer";
 import Pricing from "@/components/sections/Pricing";
@@ -16,7 +18,9 @@ const Index = () => {
       <Navbar />
       <Hero />
       <About />
-      <Units />
+      <Activation />
+      <Monetization />
+      <Scaling />
       <Value />
       <FreeOffer />
       <Pricing />
