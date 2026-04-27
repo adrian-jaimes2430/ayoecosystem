@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer className="border-t border-border py-14">
-      <div className="mx-auto max-w-6xl px-6 grid md:grid-cols-3 gap-8 items-start">
+      <div className="mx-auto max-w-6xl px-6 grid md:grid-cols-4 gap-8 items-start">
         <div>
           <div className="flex items-center gap-2 font-display font-bold text-lg">
             <span className="inline-block h-2.5 w-2.5 rounded-full bg-gradient-gold" />
@@ -20,10 +20,21 @@ const Footer = () => {
           </ul>
         </div>
         <div className="text-sm">
-          <h4 className="font-semibold mb-3">Conecta</h4>
+          <h4 className="font-semibold mb-3">Contacto</h4>
           <ul className="space-y-2 text-muted-foreground">
-            <li><a href="#contacto" className="hover:text-foreground">Solicitar acceso</a></li>
-            <li><a href="#contacto" className="hover:text-foreground">WhatsApp</a></li>
+            <li><a href="mailto:info@ayoecosystem.com" className="hover:text-foreground">info@ayoecosystem.com</a></li>
+            <li><a href="mailto:talento@ayoecosystem.com" className="hover:text-foreground">talento@ayoecosystem.com</a></li>
+            <li><a href="mailto:alianzas@ayoecosystem.com" className="hover:text-foreground">alianzas@ayoecosystem.com</a></li>
+          </ul>
+        </div>
+        <div className="text-sm">
+          <h4 className="font-semibold mb-3">Síguenos</h4>
+          <ul className="space-y-2 text-muted-foreground">
+            <li><a href="https://www.instagram.com/ao.ecosystem?igsh=MWllOXNxM3ZxN2llMg==" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Instagram · A&O</a></li>
+            <li><a href="https://www.instagram.com/anmasoluciones?igsh=NzN2c2c3bGtkeDE5" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Instagram · ANMA</a></li>
+            <li><a href="https://www.instagram.com/inverfactcol?igsh=ZW91dzl0aDgxM2k2" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Instagram · Inverfact</a></li>
+            <li><a href="https://www.facebook.com/share/1ChyTws68j/" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Facebook · A&O</a></li>
+            <li><a href="https://www.facebook.com/share/1DjCux4LSo/" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">Facebook · ANMA</a></li>
           </ul>
         </div>
       </div>
