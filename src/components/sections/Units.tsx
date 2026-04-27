@@ -15,9 +15,9 @@ const units = [
     icon: TrendingUp,
     img: inverfact,
     pitch: "Finanzas personales, inversión y mentalidad. Construye sistemas reales de riqueza.",
-    bullets: ["Mentoría de inversión", "Dashboards y herramientas", "Comunidad Telegram (GT)"],
+    bullets: ["Mentoría de inversión", "Dashboards y herramientas", "Comunidad de inversionistas"],
     benefit: "Inicia tu transformación financiera y construye sistemas reales de riqueza.",
-    cta: { label: "Unirme al GT", href: "#oferta-libre" },
+    cta: { label: "Más información", href: "#contacto" },
   },
   {
     n: "02",

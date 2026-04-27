@@ -23,7 +23,6 @@ const Footer = () => {
           <h4 className="font-semibold mb-3">Conecta</h4>
           <ul className="space-y-2 text-muted-foreground">
             <li><a href="#contacto" className="hover:text-foreground">Solicitar acceso</a></li>
-            <li><a href="#oferta-libre" className="hover:text-foreground">Comunidad Telegram</a></li>
             <li><a href="#contacto" className="hover:text-foreground">WhatsApp</a></li>
           </ul>
         </div>
