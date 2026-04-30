@@ -75,7 +75,7 @@ const Units = () => {
               Unidades de negocio
             </span>
             <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight max-w-2xl">
-              Cinco unidades. <span className="text-gradient-gold">Un ecosistema.</span>
+              Cinco unidades. <span className="text-gradient-gold text-destructive">Un ecosistema.</span>
             </h2>
           </div>
           <p className="text-muted-foreground max-w-sm">
