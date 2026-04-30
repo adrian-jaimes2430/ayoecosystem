@@ -35,16 +35,16 @@ const Hero = () => {
           </div>
 
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.98] tracking-tight">
-            Construye ingresos.
+            Genera ingresos desde cero.
             <br />
             <span className="text-gradient-gold text-destructive">Escala tu vida.</span>
             <br />
-            Domina tu crecimiento.
+            Con un sistema probado.
           </h1>
 
           <p className="mt-8 max-w-xl text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Un ecosistema diseñado para ayudarte a generar ingresos, crear sistemas
-            y escalar tu negocio — desde cero hasta empresa.
+            Accede gratis al grupo privado donde te mostraremos cómo generar ingresos reales paso a paso,
+            escala tu vida o negocio - desde cero al éxito sin atajos ni humo.
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
@@ -54,8 +54,8 @@ const Hero = () => {
               </a>
             </Button>
             <Button asChild variant="glass" size="xl">
-              <a href="#contacto">
-                Hablar con el equipo
+              <a href="https://wa.me/573204836063?text=Hola,%20quiero%20acceder%20al%20grupo%20A&O">
+                Acceder al sistema
               </a>
             </Button>
           </div>
@@ -91,8 +91,8 @@ const Hero = () => {
                 <img src={logoAO} alt="A&O" className="h-10 w-10 rounded-full bg-black/60 p-1" />
                 <div>
                   <div className="font-display font-semibold text-sm leading-tight">Adrián Jaimes</div>
-                  <div className="text-[11px] uppercase tracking-[0.2em] text-primary/90 mt-0.5">Fundador & CEO</div>
-                  <div className="text-xs text-muted-foreground">A&O Ecosystem S.A.S</div>
+                  <div className="text-[11px] uppercase tracking-[0.2em] text-primary/90 mt-0.5">CEO & Fundier</div>
+                  <div className="text-xs text-muted-foreground">Company A&O Ecosystem S.A.S</div>
                 </div>
               </div>
             </div>
@@ -103,7 +103,7 @@ const Hero = () => {
 
       {/* scroll cue */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-muted-foreground text-xs">
-        <span className="uppercase tracking-[0.3em]">Scroll</span>
+        <span className="uppercase tracking-[0.3em]">Pasos de exito</span>
         <span className="block h-10 w-px bg-gradient-to-b from-primary to-transparent" />
       </div>
     </section>
