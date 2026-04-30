@@ -20,9 +20,9 @@ All colors MUST be HSL.
     --popover: 0 0% 6%;
     --popover-foreground: 40 30% 96%;
 
-    --primary: 38 78% 58%;
-    --primary-foreground: 0 0% 5%;
-    --primary-glow: 42 95% 68%;
+    --primary: 0 85% 52%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 0 95% 65%;
 
     --secondary: 0 0% 10%;
     --secondary-foreground: 40 30% 96%;
@@ -30,27 +30,27 @@ All colors MUST be HSL.
     --muted: 0 0% 11%;
     --muted-foreground: 40 8% 65%;
 
-    --accent: 38 78% 58%;
-    --accent-foreground: 0 0% 5%;
+    --accent: 0 85% 52%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 40 10% 16%;
-    --input: 40 10% 16%;
-    --ring: 38 78% 58%;
+    --border: 0 10% 16%;
+    --input: 0 10% 16%;
+    --ring: 0 85% 52%;
 
     --radius: 1rem;
 
     /* Brand gradients & shadows */
-    --gradient-gold: linear-gradient(135deg, hsl(38 78% 58%), hsl(42 95% 68%));
-    --gradient-dark: linear-gradient(180deg, hsl(0 0% 4%) 0%, hsl(220 30% 6%) 100%);
-    --gradient-radial: radial-gradient(ellipse at top, hsl(38 78% 58% / 0.15), transparent 60%);
-    --gradient-text: linear-gradient(135deg, hsl(40 30% 96%) 0%, hsl(38 78% 58%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(0 90% 50%), hsl(0 95% 65%));
+    --gradient-dark: linear-gradient(180deg, hsl(0 0% 4%) 0%, hsl(0 30% 6%) 100%);
+    --gradient-radial: radial-gradient(ellipse at top, hsl(0 85% 52% / 0.18), transparent 60%);
+    --gradient-text: linear-gradient(135deg, hsl(40 30% 96%) 0%, hsl(0 85% 52%) 100%);
 
-    --shadow-gold: 0 20px 60px -20px hsl(38 78% 58% / 0.45);
+    --shadow-gold: 0 20px 60px -20px hsl(0 85% 52% / 0.5);
     --shadow-elegant: 0 30px 80px -30px hsl(0 0% 0% / 0.8);
-    --shadow-glow: 0 0 80px hsl(38 78% 58% / 0.35);
+    --shadow-glow: 0 0 80px hsl(0 85% 52% / 0.4);
 
     /* Per-brand accent tokens */
     --brand-ao: 0 100% 50%;            /* Red — A&O */
@@ -154,7 +154,7 @@ All colors MUST be HSL.
     100% { background-position: 200% 0; }
   }
   .animate-shimmer {
-    background: linear-gradient(90deg, transparent, hsl(38 78% 58% / 0.3), transparent);
+    background: linear-gradient(90deg, transparent, hsl(0 85% 52% / 0.3), transparent);
     background-size: 200% 100%;
     animation: shimmer 3s linear infinite;
   }
