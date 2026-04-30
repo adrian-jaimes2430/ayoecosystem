@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import logoAO from "@/assets/logo-ao.png";
 
 const links = [
   { href: "#ecosistema", label: "Ecosistema" },
@@ -34,7 +35,7 @@ const Navbar = () => {
           }`}
         >
           <a href="#top" className="flex items-center gap-2 font-display font-bold text-lg tracking-tight">
-            <span className="inline-block h-2.5 w-2.5 rounded-full bg-gradient-gold shadow-glow" />
+            <img src={logoAO} alt="A&O Ecosystem" className="h-7 w-7 object-contain" />
             A&O <span className="text-muted-foreground font-normal">Ecosystem</span>
           </a>
           <ul className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
