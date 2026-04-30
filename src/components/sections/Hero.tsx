@@ -35,7 +35,7 @@ const Hero = () => {
           </div>
 
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.98] tracking-tight">
-            Genera ingresos desde cero.
+            Genera ingresos desde cero
             <br />
             <span className="text-gradient-gold text-destructive">Escala tu vida.</span>
             <br />
@@ -91,7 +91,7 @@ const Hero = () => {
                 <img src={logoAO} alt="A&O" className="h-10 w-10 rounded-full bg-black/60 p-1" />
                 <div>
                   <div className="font-display font-semibold text-sm leading-tight">Adrián Jaimes</div>
-                  <div className="text-[11px] uppercase tracking-[0.2em] text-primary/90 mt-0.5">CEO & Fundier</div>
+                  <div className="text-[11px] uppercase tracking-[0.2em] text-primary/90 mt-0.5">CEO & Foundier</div>
                   <div className="text-xs text-muted-foreground">Company A&O Ecosystem S.A.S</div>
                 </div>
               </div>
