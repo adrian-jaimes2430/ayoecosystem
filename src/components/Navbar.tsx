@@ -34,9 +34,18 @@ const Navbar = () => {
             scrolled ? "glass shadow-elegant" : "bg-transparent"
           }`}
         >
-          <a href="#top" className="flex items-center gap-2 font-display font-bold text-lg tracking-tight">
-            <img src={logoAO} alt="A&O Ecosystem" className="h-7 w-7 object-contain" />
-            A&O <span className="text-muted-foreground font-normal">Ecosystem</span>
+          <a href="#top" className="flex items-center gap-2 sm:gap-3 font-display font-bold text-base sm:text-lg tracking-tight shrink-0">
+            <img
+              src={logoAO}
+              alt="A&O Ecosystem"
+              width={40}
+              height={40}
+              loading="eager"
+              decoding="async"
+              className="h-8 w-8 sm:h-9 sm:w-9 object-contain shrink-0 select-none"
+              draggable={false}
+            />
+            <span className="leading-none">A&O <span className="text-muted-foreground font-normal hidden xs:inline sm:inline">Ecosystem</span></span>
           </a>
           <ul className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
             {links.map((l) => (
