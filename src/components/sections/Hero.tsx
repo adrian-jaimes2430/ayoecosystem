@@ -37,7 +37,7 @@ const Hero = () => {
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.98] tracking-tight">
             Construye ingresos.
             <br />
-            <span className="text-gradient-gold">Escala tu vida.</span>
+            <span className="text-gradient-gold text-destructive">Escala tu vida.</span>
             <br />
             Domina tu crecimiento.
           </h1>
