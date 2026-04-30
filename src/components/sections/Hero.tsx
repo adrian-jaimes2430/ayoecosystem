@@ -90,7 +90,8 @@ const Hero = () => {
               <div className="flex items-center gap-3">
                 <img src={logoAO} alt="A&O" className="h-10 w-10 rounded-full bg-black/60 p-1" />
                 <div>
-                  <div className="font-display font-semibold text-sm">Fundador & CEO</div>
+                  <div className="font-display font-semibold text-sm leading-tight">Adrián Jaimes</div>
+                  <div className="text-[11px] uppercase tracking-[0.2em] text-primary/90 mt-0.5">Fundador & CEO</div>
                   <div className="text-xs text-muted-foreground">A&O Ecosystem S.A.S</div>
                 </div>
               </div>
