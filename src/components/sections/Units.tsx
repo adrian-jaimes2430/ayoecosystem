@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, TrendingUp, ShoppingBag, Laptop, Briefcase, Cpu } from "lucide-react";
+import { Link } from "react-router-dom";
 import inverfact from "@/assets/brand-inverfact.jpg";
 import anma from "@/assets/brand-anma.jpg";
 import nomadhive from "@/assets/brand-nomadhive.jpg";
@@ -17,7 +18,7 @@ const units = [
     pitch: "Finanzas personales, inversión y mentalidad. Construye sistemas reales de riqueza.",
     bullets: ["Mentoría de inversión", "Dashboards y herramientas", "Comunidad de inversionistas"],
     benefit: "Inicia tu transformación financiera y construye sistemas reales de riqueza.",
-    cta: { label: "Más información", href: "#contacto" },
+    cta: { label: "Más información", href: "/inverfact" },
   },
   {
     n: "02",
@@ -146,9 +147,15 @@ const Units = () => {
                   "{u.benefit}"
                 </p>
                 <Button asChild variant="ghost" className="mt-6 self-start text-primary hover:text-primary hover:bg-primary/10 -ml-3">
-                  <a href={u.cta.href}>
-                    {u.cta.label} <ArrowUpRight className="h-4 w-4" />
-                  </a>
+                  {u.cta.href.startsWith("/") ? (
+                    <Link to={u.cta.href}>
+                      {u.cta.label} <ArrowUpRight className="h-4 w-4" />
+                    </Link>
+                  ) : (
+                    <a href={u.cta.href}>
+                      {u.cta.label} <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                  )}
                 </Button>
               </div>
             </motion.article>
