@@ -22,7 +22,7 @@ const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const WHATSAPP_NUMBER = "573000000000"; // TODO: replace with real number
+const WHATSAPP_NUMBER = "573204836063"; // TODO: replace with real number
 
 const EMAILS = [
   { label: "Información general", value: "info@ayoecosystem.com" },
@@ -103,7 +103,7 @@ const Contact = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <MessageCircle className="h-5 w-5" /> Hablar por WhatsApp
+                <MessageCircle className="h-5 w-5" /> Accede al club ahora
               </a>
             </Button>
 
