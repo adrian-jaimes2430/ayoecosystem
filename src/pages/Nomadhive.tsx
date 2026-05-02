@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Helmet } from "react-helmet-async";
+import { useEffect } from "react";
 import {
   ArrowRight,
   CheckCircle2,
@@ -72,20 +72,23 @@ const benefits = [
 ];
 
 const Nomadhive = () => {
+  useEffect(() => {
+    const prevTitle = document.title;
+    document.title = "NomadHive | Sistema de talento remoto del ecosistema A&O";
+    const meta = document.querySelector('meta[name="description"]');
+    const prevDesc = meta?.getAttribute("content") ?? "";
+    meta?.setAttribute(
+      "content",
+      "NomadHive es un sistema estructurado de desarrollo de talento que permite generar ingresos remotos dentro del ecosistema empresarial A&O. Aplica al proceso de selección.",
+    );
+    return () => {
+      document.title = prevTitle;
+      meta?.setAttribute("content", prevDesc);
+    };
+  }, []);
+
   return (
     <div className="nomad-scope min-h-screen bg-background text-foreground">
-      <Helmet>
-        <title>NomadHive | Sistema de talento remoto del ecosistema A&O</title>
-        <meta
-          name="description"
-          content="NomadHive es un sistema estructurado de desarrollo de talento que permite generar ingresos remotos dentro del ecosistema empresarial A&O. Aplica al proceso de selección."
-        />
-        <link rel="canonical" href="https://ayoecosystem.com/nomadhive" />
-        <meta property="og:title" content="NomadHive — No es un empleo. Es un sistema." />
-        <meta property="og:description" content="Estructura de desarrollo de talento para generar ingresos remotos dentro de un ecosistema empresarial real." />
-        <meta property="og:type" content="website" />
-      </Helmet>
-
       {/* NAV */}
       <header className="sticky top-0 z-40 backdrop-blur-md bg-background/70 border-b border-border/60">
         <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
