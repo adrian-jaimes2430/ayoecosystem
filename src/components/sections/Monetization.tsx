@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, ShoppingBag, Truck, Target, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
 import anmaLogo from "@/assets/logo-anma.png";
 
 const Monetization = () => {
@@ -86,9 +87,9 @@ const Monetization = () => {
                   "Lanza y escala ventas online con sistemas comprobados."
                 </p>
                 <Button asChild className="bg-[hsl(var(--brand-anma))] hover:bg-[hsl(var(--brand-anma)/0.9)] text-black font-semibold">
-                  <a href="#contacto">
-                    Ver productos <ArrowUpRight className="h-4 w-4" />
-                  </a>
+                  <Link to="/anma">
+                    Más información <ArrowUpRight className="h-4 w-4" />
+                  </Link>
                 </Button>
               </div>
             </div>
