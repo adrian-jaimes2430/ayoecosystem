@@ -7,6 +7,7 @@ import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Inverfact from "./pages/Inverfact.tsx";
 import Anma from "./pages/Anma.tsx";
+import Nomadhive from "./pages/Nomadhive.tsx";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/inverfact" element={<Inverfact />} />
           <Route path="/anma" element={<Anma />} />
+          <Route path="/nomadhive" element={<Nomadhive />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

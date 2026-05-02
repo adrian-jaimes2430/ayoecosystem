@@ -144,9 +144,9 @@ const Activation = () => {
                   "Ingresos por estructura, no por suerte."
                 </p>
                 <Button asChild className="bg-[hsl(var(--brand-nomad))] hover:bg-[hsl(var(--brand-nomad)/0.9)] text-black font-semibold">
-                  <a href="#contacto">
+                  <Link to="/nomadhive">
                     Explorar oportunidades <ArrowUpRight className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </div>
