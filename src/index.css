@@ -256,3 +256,45 @@ All colors MUST be HSL.
   .anma-scope .shadow-anma { box-shadow: var(--shadow-anma); }
   .anma-scope .bg-anma-dark { background: var(--gradient-anma-dark); }
 }
+
+/* =======================================================================
+   NomadHive funnel scope (/nomadhive)
+   Identidad verde corporativa sobre fondo oscuro. Profesional, sistémico.
+   ======================================================================= */
+@layer base {
+  .nomad-scope {
+    --background: 150 25% 5%;
+    --foreground: 150 10% 96%;
+    --card: 150 20% 8%;
+    --card-foreground: 150 10% 96%;
+    --popover: 150 20% 8%;
+    --popover-foreground: 150 10% 96%;
+    --primary: 152 80% 42%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 145 90% 55%;
+    --secondary: 150 15% 12%;
+    --secondary-foreground: 150 10% 96%;
+    --muted: 150 12% 14%;
+    --muted-foreground: 150 6% 68%;
+    --accent: 145 90% 50%;
+    --accent-foreground: 0 0% 6%;
+    --border: 150 18% 18%;
+    --input: 150 15% 14%;
+    --ring: 152 80% 42%;
+    --radius: 1rem;
+
+    --gradient-nomad-hero: linear-gradient(135deg, hsl(152 80% 38%) 0%, hsl(145 90% 50%) 100%);
+    --gradient-nomad-dark: linear-gradient(180deg, hsl(150 25% 5%) 0%, hsl(155 30% 8%) 100%);
+    --shadow-nomad: 0 25px 70px -25px hsl(152 80% 42% / 0.5);
+  }
+  .nomad-scope .bg-nomad-hero { background: var(--gradient-nomad-hero); }
+  .nomad-scope .text-nomad-gradient {
+    background: var(--gradient-nomad-hero);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .nomad-scope .shadow-nomad { box-shadow: var(--shadow-nomad); }
+  .nomad-scope .bg-nomad-dark { background: var(--gradient-nomad-dark); }
+}

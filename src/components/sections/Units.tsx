@@ -40,7 +40,7 @@ const units = [
     pitch: "Sistema de trabajo remoto e ingresos digitales. Construye flujos de ingreso independientes de tu ubicación.",
     bullets: ["Formación en modelos de ingreso remoto", "Oportunidades de trabajo digital", "Sistemas escalables de ingreso online"],
     benefit: "Construye sistemas de ingreso que te permitan trabajar desde cualquier lugar — no por suerte, sino por estructura.",
-    cta: { label: "Conocer NOMADHIVE", href: "#contacto" },
+    cta: { label: "Más información", href: "/nomadhive" },
   },
   {
     n: "04",
