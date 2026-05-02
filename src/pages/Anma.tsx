@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import anmaLogo from "@/assets/logo-anma.png";
 import AnmaLeadForm from "@/components/anma/AnmaLeadForm";
 
-const WHATSAPP = "573000000000"; // TODO: número real
+const WHATSAPP = "573058023023";
 const wa = (msg: string) =>
   `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
 
