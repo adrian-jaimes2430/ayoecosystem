@@ -29,7 +29,7 @@ const units = [
     pitch: "Venta de productos digitales, dropshipping y marketing orientado a conversión.",
     bullets: ["Productos listos para vender", "Estrategias de venta probadas", "Sistemas de venta automatizados"],
     benefit: "Lanza y escala ventas online con sistemas comprobados.",
-    cta: { label: "Explorar ANMA", href: "#contacto" },
+    cta: { label: "Más información", href: "/anma" },
   },
   {
     n: "03",
