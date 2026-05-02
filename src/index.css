@@ -213,3 +213,46 @@ All colors MUST be HSL.
   }
   .animate-pulse-glow { animation: pulse-glow 3.5s ease-in-out infinite; }
 }
+
+/* =======================================================================
+   ANMA Soluciones funnel scope (/anma)
+   Identidad propia naranja vibrante sobre fondo oscuro, alineada al
+   branding A&O pero con personalidad de marca para ANMA.
+   ======================================================================= */
+@layer base {
+  .anma-scope {
+    --background: 24 30% 5%;
+    --foreground: 30 15% 97%;
+    --card: 24 25% 8%;
+    --card-foreground: 30 15% 97%;
+    --popover: 24 25% 8%;
+    --popover-foreground: 30 15% 97%;
+    --primary: 22 100% 52%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 32 100% 60%;
+    --secondary: 24 20% 12%;
+    --secondary-foreground: 30 15% 97%;
+    --muted: 24 15% 14%;
+    --muted-foreground: 30 8% 68%;
+    --accent: 22 100% 52%;
+    --accent-foreground: 0 0% 100%;
+    --border: 24 20% 18%;
+    --input: 24 20% 14%;
+    --ring: 22 100% 52%;
+    --radius: 1rem;
+
+    --gradient-anma-hero: linear-gradient(135deg, hsl(22 100% 52%) 0%, hsl(32 100% 58%) 100%);
+    --gradient-anma-dark: linear-gradient(180deg, hsl(24 30% 5%) 0%, hsl(20 40% 8%) 100%);
+    --shadow-anma: 0 25px 70px -25px hsl(22 100% 52% / 0.55);
+  }
+  .anma-scope .bg-anma-hero { background: var(--gradient-anma-hero); }
+  .anma-scope .text-anma-gradient {
+    background: var(--gradient-anma-hero);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .anma-scope .shadow-anma { box-shadow: var(--shadow-anma); }
+  .anma-scope .bg-anma-dark { background: var(--gradient-anma-dark); }
+}
