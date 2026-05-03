@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, ShoppingBag, Truck, Target, Zap } from "lucide-react";
+import { ArrowUpRight, Megaphone, Users, Rocket, Repeat } from "lucide-react";
 import { Link } from "react-router-dom";
 import anmaLogo from "@/assets/logo-anma.png";
 
@@ -21,8 +21,8 @@ const Monetization = () => {
             </h2>
           </div>
           <p className="text-muted-foreground max-w-sm">
-            Convierte conocimiento en ventas con sistemas de e-commerce optimizados
-            y estrategias de conversión probadas.
+            Un nuevo modelo de e-commerce: contenido orgánico, comunidad activa
+            y lanzamientos tipo infomercial que sí venden.
           </p>
         </div>
 
@@ -51,7 +51,7 @@ const Monetization = () => {
                   ANMA<br />SOLUCIONES
                 </h3>
                 <p className="mt-4 text-sm italic text-foreground/80">
-                  "Aquí lo encuentras todo."
+                  "No vendemos productos sueltos. Lanzamos eventos que venden."
                 </p>
               </div>
             </div>
@@ -59,16 +59,17 @@ const Monetization = () => {
             {/* Right detail panel */}
             <div className="lg:col-span-3 p-8 lg:p-10">
               <p className="text-muted-foreground leading-relaxed text-lg">
-                Vende productos online con sistemas optimizados, logística integrada
-                y estrategias de conversión orientadas a resultados.
+                Rompemos con el dropshipping tradicional. ANMA opera con
+                contenido orgánico, comunidad y lanzamientos en 5 fases que
+                concentran demanda y disparan ventas.
               </p>
 
               <div className="mt-8 grid sm:grid-cols-2 gap-4">
                 {[
-                  { i: ShoppingBag, t: "Catálogo listo para vender", d: "Productos digitales y físicos seleccionados" },
-                  { i: Truck, t: "Logística integrada", d: "Dropshipping y fulfillment optimizado" },
-                  { i: Target, t: "Estrategias de conversión", d: "Funnels y campañas que convierten" },
-                  { i: Zap, t: "Sistemas automatizados", d: "Ventas que escalan sin tu tiempo" },
+                  { i: Megaphone, t: "Contenido orgánico", d: "Tracción real sin depender de pauta fría" },
+                  { i: Users, t: "Comunidad activa", d: "Audiencia que confía, comenta y compra" },
+                  { i: Rocket, t: "Lanzamientos en 5 fases", d: "Pre-calentamiento, evento, 72h, 7 días, salida" },
+                  { i: Repeat, t: "3 caminos de entrada", d: "Comprador, dropshipper o proveedor" },
                 ].map((b) => (
                   <div key={b.t} className="flex gap-3">
                     <span className="shrink-0 flex h-9 w-9 items-center justify-center rounded-lg bg-[hsl(var(--brand-anma)/0.12)] text-[hsl(var(--brand-anma))] border border-[hsl(var(--brand-anma)/0.3)]">
@@ -84,7 +85,7 @@ const Monetization = () => {
 
               <div className="mt-8 pt-6 border-t border-border/40 flex items-center justify-between flex-wrap gap-4">
                 <p className="text-sm italic text-foreground/80 max-w-md">
-                  "Lanza y escala ventas online con sistemas comprobados."
+                  "Adiós al dropshipping tradicional. Hola al modelo que sí escala."
                 </p>
                 <Button asChild className="bg-[hsl(var(--brand-anma))] hover:bg-[hsl(var(--brand-anma)/0.9)] text-black font-semibold">
                   <Link to="/anma">
