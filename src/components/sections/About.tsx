@@ -5,19 +5,19 @@ const pillars = [
   {
     icon: Sparkles,
     title: "01 · Activar",
-    desc: "Inverfact y NomadHive — educación financiera y sistemas de ingreso digital.",
+    desc: "Inverfact — educación financiera real (generar, multiplicar, proteger) + NomadHive, sistema selectivo de talento remoto por niveles.",
     color: "hsl(var(--brand-inverfact))",
   },
   {
     icon: TrendingUp,
     title: "02 · Generar",
-    desc: "ANMA Soluciones — vende productos online con sistemas de e-commerce optimizados.",
+    desc: "ANMA Soluciones — nuevo modelo de e-commerce: contenido orgánico, comunidad y lanzamientos en 5 fases tipo infomercial.",
     color: "hsl(var(--brand-anma))",
   },
   {
     icon: Building2,
     title: "03 · Escalar",
-    desc: "A&O Ecosystem — consultoría, marketing y estructura para escalar empresas.",
+    desc: "A&O Ecosystem — diagnóstico, posicionamiento y sistemas de marketing y ventas para escalar empresas con estructura.",
     color: "hsl(var(--brand-ao))",
   },
 ];
