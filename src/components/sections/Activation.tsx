@@ -54,15 +54,15 @@ const Activation = () => {
               </div>
 
               <p className="mt-6 text-muted-foreground leading-relaxed">
-                Aprende a manejar tu dinero, invertir inteligentemente y construir
-                estabilidad financiera real.
+                Educación financiera real, sin humo. Aprende a generar,
+                multiplicar y proteger tu dinero con un sistema probado.
               </p>
 
               <ul className="mt-6 space-y-3 text-sm flex-1">
                 {[
-                  { i: GraduationCap, t: "Mentoría de inversión" },
-                  { i: Wallet, t: "Herramientas y dashboards" },
-                  { i: TrendingUp, t: "Comunidad de inversionistas" },
+                  { i: GraduationCap, t: "Mentoría 1:1 con inversionistas activos" },
+                  { i: Wallet, t: "Sistema: generar, multiplicar, proteger" },
+                  { i: TrendingUp, t: "Comunidad privada + herramientas de tracking" },
                 ].map((b) => (
                   <li key={b.t} className="flex items-center gap-3">
                     <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[hsl(var(--brand-inverfact)/0.12)] text-[hsl(var(--brand-inverfact))] border border-[hsl(var(--brand-inverfact)/0.3)]">
@@ -75,7 +75,7 @@ const Activation = () => {
 
               <div className="mt-8 pt-6 border-t border-border/40 flex items-center justify-between">
                 <p className="text-sm italic text-foreground/80 max-w-[60%]">
-                  "Construye sistemas reales de riqueza."
+                  "Si no sabes manejar tu dinero, nunca vas a crecer."
                 </p>
                 <Button asChild className="bg-[hsl(var(--brand-inverfact))] hover:bg-[hsl(var(--brand-inverfact)/0.9)] text-black font-semibold">
                   <Link to="/inverfact">
@@ -120,15 +120,15 @@ const Activation = () => {
               </div>
 
               <p className="mt-6 text-muted-foreground leading-relaxed">
-                Construye ingresos online con sistemas de trabajo remoto y modelos
-                digitales escalables. Estructura, no suerte.
+                Sistema estructurado de talento remoto del ecosistema A&O.
+                Selección, formación y crecimiento por desempeño.
               </p>
 
               <ul className="mt-6 space-y-3 text-sm flex-1">
                 {[
-                  { i: Laptop, t: "Modelos de ingreso remoto" },
-                  { i: Workflow, t: "Sistemas digitales escalables" },
-                  { i: Network, t: "Oportunidades de trabajo online" },
+                  { i: Laptop, t: "Proceso de selección en 6 etapas" },
+                  { i: Workflow, t: "Formación en ventas, cierre y WhatsApp Business" },
+                  { i: Network, t: "Crecimiento por niveles: Junior → Staff Matriz" },
                 ].map((b) => (
                   <li key={b.t} className="flex items-center gap-3">
                     <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[hsl(var(--brand-nomad)/0.12)] text-[hsl(var(--brand-nomad))] border border-[hsl(var(--brand-nomad)/0.3)]">
@@ -141,7 +141,7 @@ const Activation = () => {
 
               <div className="mt-8 pt-6 border-t border-border/40 flex items-center justify-between">
                 <p className="text-sm italic text-foreground/80 max-w-[60%]">
-                  "Ingresos por estructura, no por suerte."
+                  "Ingresos por estructura y desempeño, no por suerte."
                 </p>
                 <Button asChild className="bg-[hsl(var(--brand-nomad))] hover:bg-[hsl(var(--brand-nomad)/0.9)] text-black font-semibold">
                   <Link to="/nomadhive">
