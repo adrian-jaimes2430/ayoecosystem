@@ -2,10 +2,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useRef, lazy, Suspense } from "react";
-import founderAsset from "@/assets/founder-new.jpg.asset.json";
-import logoAOAsset from "@/assets/logo-ao-light.png.asset.json";
-const founder = founderAsset.url;
-const logoAO = logoAOAsset.url;
+const founder = "/founder-new.png";
+const logoAO = "/logo-ao-light.png";
 
 const AuroraScene = lazy(() => import("@/components/three/AuroraScene"));
 

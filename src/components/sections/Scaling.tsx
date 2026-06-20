@@ -3,8 +3,7 @@ import Reveal from "@/components/Reveal";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Briefcase, Target, Cog, BarChart3 } from "lucide-react";
-import aoLogoAsset from "@/assets/logo-ao-light.png.asset.json";
-const aoLogo = aoLogoAsset.url;
+const aoLogo = "/logo-ao-light.png";
 
 const Scaling = () => {
   return (
