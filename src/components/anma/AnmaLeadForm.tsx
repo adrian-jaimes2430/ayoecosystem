@@ -26,7 +26,7 @@ const labels: Record<Profile, string> = {
   proveedor: "Soy proveedor de producto",
 };
 
-const WHATSAPP = "573000000000"; // TODO: reemplazar con número real
+const WHATSAPP = "573058023023";
 
 const AnmaLeadForm = ({ profile }: { profile: Profile }) => {
   const { toast } = useToast();
@@ -54,8 +54,8 @@ const AnmaLeadForm = ({ profile }: { profile: Profile }) => {
       name: `${parsed.data.name} · ${parsed.data.phone}`,
       source: `anma_funnel_${profile}`,
     });
-    setLoading(false);
     if (error) {
+      setLoading(false);
       toast({
         title: "No pudimos registrarte",
         description: "Inténtalo de nuevo en unos segundos.",
@@ -63,6 +63,25 @@ const AnmaLeadForm = ({ profile }: { profile: Profile }) => {
       });
       return;
     }
+    // Notificar al equipo comercial
+    try {
+      await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "anma-application",
+          idempotencyKey: `anma-${profile}-${parsed.data.email}-${Date.now()}`,
+          templateData: {
+            profile,
+            name: parsed.data.name,
+            email: parsed.data.email,
+            phone: parsed.data.phone,
+            submittedAt: new Date().toLocaleString("es-CO"),
+          },
+        },
+      });
+    } catch (e) {
+      console.error("ANMA email notification failed", e);
+    }
+    setLoading(false);
     setSuccess(true);
     const wa = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waMessages[profile])}`;
     window.open(wa, "_blank");
