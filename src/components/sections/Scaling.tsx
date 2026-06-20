@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
+import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Briefcase, Target, Cog, BarChart3 } from "lucide-react";
 import aoLogo from "@/assets/logo-ao.png";
@@ -7,10 +9,12 @@ const Scaling = () => {
   return (
     <section id="escalamiento" className="relative py-32 bg-gradient-dark overflow-hidden">
       {/* Red accent ambient */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-[hsl(var(--brand-ao)/0.12)] blur-3xl" />
+      <ParallaxLayer speed={0.7} className="absolute top-0 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-[hsl(var(--brand-ao)/0.12)] blur-3xl">
+        <span />
+      </ParallaxLayer>
 
       <div className="relative mx-auto max-w-6xl px-6">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+        <Reveal direction="blur" className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
           <div>
             <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em]">
               <span className="text-[hsl(var(--brand-ao))]">Etapa 03</span>
@@ -25,13 +29,13 @@ const Scaling = () => {
             Cuando ya generas ingresos, el siguiente paso es estructurar.
             Marketing, automatización y sistemas para escalar con orden.
           </p>
-        </div>
+        </Reveal>
 
         <motion.article
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, y: 60, filter: "blur(14px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
           className="relative overflow-hidden rounded-3xl border border-[hsl(var(--brand-ao)/0.3)] bg-black/60 backdrop-blur-md"
         >
           {/* Corporate frame */}

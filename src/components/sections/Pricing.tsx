@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { Check, Crown } from "lucide-react";
 
@@ -46,13 +47,7 @@ const Pricing = () => {
   return (
     <section id="mentoria" className="relative py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="max-w-3xl"
-        >
+        <Reveal direction="blur" className="max-w-3xl">
           <span className="text-xs uppercase tracking-[0.3em] text-primary">
             Programas premium
           </span>
@@ -62,16 +57,16 @@ const Pricing = () => {
           <p className="mt-6 text-lg text-muted-foreground">
             Trabajamos contigo para implementar el sistema correcto, en el orden correcto.
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-5">
           {plans.map((p, i) => (
             <motion.div
               key={p.name}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
+              initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.9, delay: i * 0.14, ease: [0.22, 1, 0.36, 1] }}
               className={`relative rounded-3xl p-8 flex flex-col ${
                 p.featured
                   ? "bg-gradient-to-b from-primary/15 to-card border border-primary/40 shadow-gold"

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 import { Sparkles, TrendingUp, Building2 } from "lucide-react";
 
 const pillars = [
@@ -26,13 +27,7 @@ const About = () => {
   return (
     <section id="ecosistema" className="relative py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7 }}
-          className="max-w-3xl"
-        >
+        <Reveal direction="blur" className="max-w-3xl">
           <span className="text-xs uppercase tracking-[0.3em] text-primary">
             El ecosistema
           </span>
@@ -46,16 +41,16 @@ const About = () => {
             primer ingreso, <span className="text-foreground">genera</span> ventas con sistemas y
             <span className="text-foreground"> escala</span> tu empresa con estructura.
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-5">
           {pillars.map((p, i) => (
             <motion.div
               key={p.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
+              initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
               className="group relative glass rounded-3xl p-7 transition-all duration-500 hover:-translate-y-1"
               style={{ borderColor: `${p.color}` }}
             >

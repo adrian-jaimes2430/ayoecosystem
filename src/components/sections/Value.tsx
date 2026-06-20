@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
 import { Check, X } from "lucide-react";
 
 const them = [
@@ -18,13 +19,7 @@ const Value = () => {
   return (
     <section id="valor" className="relative py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="max-w-3xl"
-        >
+        <Reveal direction="blur" className="max-w-3xl">
           <span className="text-xs uppercase tracking-[0.3em] text-primary">
             Propuesta de valor
           </span>
@@ -34,7 +29,7 @@ const Value = () => {
           <p className="mt-6 text-lg text-muted-foreground">
             La diferencia entre sentirte productivo y crecer realmente está en el sistema que ejecutas.
           </p>
-        </motion.div>
+        </Reveal>
 
         <div className="mt-16 grid md:grid-cols-2 gap-5">
           <motion.div

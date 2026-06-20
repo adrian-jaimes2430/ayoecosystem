@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
+import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Megaphone, Users, Rocket, Repeat } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -7,9 +9,11 @@ import anmaLogo from "@/assets/logo-anma.png";
 const Monetization = () => {
   return (
     <section id="monetizacion" className="relative py-32">
-      <div className="absolute inset-0 -z-10 grid-bg opacity-30" />
+      <ParallaxLayer speed={0.4} className="absolute inset-0 -z-10 grid-bg opacity-30">
+        <span />
+      </ParallaxLayer>
       <div className="mx-auto max-w-6xl px-6">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+        <Reveal direction="blur" className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
           <div>
             <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em]">
               <span className="text-[hsl(var(--brand-anma))]">Etapa 02</span>
@@ -24,16 +28,18 @@ const Monetization = () => {
             Un nuevo modelo de e-commerce: contenido orgánico, comunidad activa
             y lanzamientos tipo infomercial que sí venden.
           </p>
-        </div>
+        </Reveal>
 
         <motion.article
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, y: 60, filter: "blur(14px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           className="relative overflow-hidden rounded-3xl border border-[hsl(var(--brand-anma)/0.25)] bg-card/60 backdrop-blur-md hover:border-[hsl(var(--brand-anma)/0.6)] transition-all duration-500"
         >
-          <div className="absolute -top-32 -right-20 h-80 w-80 rounded-full bg-[hsl(var(--brand-anma)/0.18)] blur-3xl" />
+          <ParallaxLayer speed={0.6} className="absolute -top-32 -right-20 h-80 w-80 rounded-full bg-[hsl(var(--brand-anma)/0.18)] blur-3xl">
+            <span />
+          </ParallaxLayer>
           <div className="relative grid lg:grid-cols-5 gap-0">
             {/* Left brand panel */}
             <div className="lg:col-span-2 p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-border/40 flex flex-col justify-between">
