@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import Reveal from "@/components/Reveal";
+import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, GraduationCap, Laptop, TrendingUp, Workflow, Wallet, Network } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -10,7 +12,7 @@ const Activation = () => {
     <section id="activacion" className="relative py-32 bg-gradient-dark">
       <div className="mx-auto max-w-6xl px-6">
         {/* Stage header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+        <Reveal direction="blur" className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
           <div>
             <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em]">
               <span className="text-[hsl(var(--brand-inverfact))]">Etapa 01</span>
@@ -25,18 +27,20 @@ const Activation = () => {
             Activa tu mentalidad, aprende a manejar tu dinero y construye tu primer
             sistema de ingreso digital.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* INVERFACT */}
           <motion.article
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 50, filter: "blur(12px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
             className="group relative overflow-hidden rounded-3xl border border-[hsl(var(--brand-inverfact)/0.25)] bg-card/60 backdrop-blur-md p-8 hover:border-[hsl(var(--brand-inverfact)/0.6)] transition-all duration-500"
           >
-            <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[hsl(var(--brand-inverfact)/0.18)] blur-3xl" />
+            <ParallaxLayer speed={0.5} className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[hsl(var(--brand-inverfact)/0.18)] blur-3xl">
+              <span />
+            </ParallaxLayer>
             <div className="relative flex flex-col h-full">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3">
@@ -88,13 +92,15 @@ const Activation = () => {
 
           {/* NOMADHIVE */}
           <motion.article
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 50, filter: "blur(12px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            transition={{ duration: 0.95, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
             className="group relative overflow-hidden rounded-3xl border border-[hsl(var(--brand-nomad)/0.25)] bg-card/60 backdrop-blur-md p-8 hover:border-[hsl(var(--brand-nomad)/0.6)] transition-all duration-500"
           >
-            <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[hsl(var(--brand-nomad)/0.18)] blur-3xl" />
+            <ParallaxLayer speed={0.5} className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[hsl(var(--brand-nomad)/0.18)] blur-3xl">
+              <span />
+            </ParallaxLayer>
             {/* tech grid accent */}
             <div className="absolute inset-0 opacity-[0.07] pointer-events-none"
               style={{

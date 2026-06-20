@@ -22,6 +22,7 @@ interface RevealProps {
   duration?: number;
   className?: string;
   once?: boolean;
+  as?: "div" | "section" | "article" | "header";
 }
 
 /**
@@ -34,9 +35,11 @@ const Reveal = ({
   duration = 0.9,
   className,
   once = true,
+  as = "div",
 }: RevealProps) => {
+  const Comp = motion[as] as typeof motion.div;
   return (
-    <motion.div
+    <Comp
       className={className}
       initial="hidden"
       whileInView="visible"
@@ -45,7 +48,7 @@ const Reveal = ({
       transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
-    </motion.div>
+    </Comp>
   );
 };
 
