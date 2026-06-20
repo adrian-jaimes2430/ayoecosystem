@@ -1,32 +1,42 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
-import heroImg from "@/assets/hero-ecosystem.jpg";
+import { useRef, lazy, Suspense } from "react";
 import founder from "@/assets/founder.png";
 import logoAO from "@/assets/logo-ao.png";
 
-const Hero = () => {
-  return (
-    <section id="top" className="relative min-h-screen flex items-center overflow-hidden pt-28">
-      {/* Background visual */}
-      <div className="absolute inset-0 -z-10">
-        <img
-          src={heroImg}
-          alt="Ecosistema de crecimiento financiero y empresarial A&O"
-          width={1920}
-          height={1080}
-          className="h-full w-full object-cover opacity-30"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/70 to-background" />
-        <div className="absolute inset-0 bg-radial-gold opacity-60" />
-        <div className="absolute inset-0 grid-bg opacity-40" />
-      </div>
+const AuroraScene = lazy(() => import("@/components/three/AuroraScene"));
 
-      <div className="mx-auto max-w-7xl px-6 w-full grid lg:grid-cols-12 gap-12 items-center">
+const Hero = () => {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
+
+  return (
+    <section
+      ref={ref}
+      id="top"
+      className="relative min-h-[100svh] flex items-center overflow-hidden pt-28 noise-overlay"
+    >
+      {/* 3D ambient background */}
+      <motion.div style={{ opacity, scale }} className="absolute inset-0 -z-10">
+        <Suspense fallback={null}>
+          <AuroraScene />
+        </Suspense>
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background pointer-events-none" />
+        <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
+      </motion.div>
+
+      <motion.div style={{ y }} className="mx-auto max-w-7xl px-6 w-full grid lg:grid-cols-12 gap-12 items-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 30, filter: "blur(12px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
           className="lg:col-span-7 order-2 lg:order-1"
         >
           <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-muted-foreground mb-8">
@@ -34,12 +44,9 @@ const Hero = () => {
             Business ecosystem · A&O
           </div>
 
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.98] tracking-tight">
-            Genera ingresos desde cero
-            <br />
-            <span className="text-gradient-gold text-destructive">Escala tu vida.</span>
-            <br />
-            Con un sistema probado.
+          <h1 className="display-xl">
+            Genera ingresos<br /> desde cero.<br />
+            <span className="text-gradient-gold">Escala tu vida.</span>
           </h1>
 
           <p className="mt-8 max-w-xl text-lg md:text-xl text-muted-foreground leading-relaxed">
@@ -71,9 +78,9 @@ const Hero = () => {
 
         {/* Founder visual */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, scale: 0.94, filter: "blur(16px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          transition={{ duration: 1.3, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           className="lg:col-span-5 relative order-1 lg:order-2 max-w-sm mx-auto w-full"
         >
           <div className="relative aspect-[4/5] rounded-3xl overflow-hidden glass shadow-elegant">
@@ -97,9 +104,9 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-[hsl(var(--brand-ao)/0.15)] blur-3xl" />
+          <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-[hsl(var(--brand-ao)/0.25)] blur-3xl animate-pulse-glow" />
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* scroll cue */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-muted-foreground text-xs">
