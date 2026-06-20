@@ -10,47 +10,47 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* A&O Ecosystem — premium dark theme */
-    --background: 0 0% 4%;
-    --foreground: 40 30% 96%;
+    /* A&O Ecosystem — Apple Dark Premium */
+    --background: 0 0% 0%;            /* #000000 */
+    --foreground: 240 7% 96%;          /* #f5f5f7 */
 
-    --card: 0 0% 7%;
-    --card-foreground: 40 30% 96%;
+    --card: 240 3% 11%;                /* #1c1c1e */
+    --card-foreground: 240 7% 96%;
 
-    --popover: 0 0% 6%;
-    --popover-foreground: 40 30% 96%;
+    --popover: 240 3% 9%;
+    --popover-foreground: 240 7% 96%;
 
-    --primary: 0 85% 52%;
+    --primary: 358 80% 53%;            /* #e8252b A&O red */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 0 95% 65%;
+    --primary-glow: 358 90% 62%;
 
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 40 30% 96%;
+    --secondary: 240 3% 13%;
+    --secondary-foreground: 240 7% 96%;
 
-    --muted: 0 0% 11%;
-    --muted-foreground: 40 8% 65%;
+    --muted: 240 3% 14%;
+    --muted-foreground: 240 5% 64%;
 
-    --accent: 0 85% 52%;
+    --accent: 358 80% 53%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 358 80% 53%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 0 10% 16%;
-    --input: 0 10% 16%;
-    --ring: 0 85% 52%;
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
+    --ring: 358 80% 53%;
 
-    --radius: 1rem;
+    --radius: 1.25rem;
 
     /* Brand gradients & shadows */
-    --gradient-gold: linear-gradient(135deg, hsl(0 90% 50%), hsl(0 95% 65%));
-    --gradient-dark: linear-gradient(180deg, hsl(0 0% 4%) 0%, hsl(0 30% 6%) 100%);
-    --gradient-radial: radial-gradient(ellipse at top, hsl(0 85% 52% / 0.18), transparent 60%);
-    --gradient-text: linear-gradient(135deg, hsl(40 30% 96%) 0%, hsl(0 85% 52%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(358 80% 53%), hsl(358 95% 65%));
+    --gradient-dark: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(240 3% 6%) 100%);
+    --gradient-radial: radial-gradient(ellipse at top, hsl(358 80% 53% / 0.22), transparent 60%);
+    --gradient-text: linear-gradient(135deg, hsl(240 7% 96%) 0%, hsl(358 80% 53%) 100%);
 
-    --shadow-gold: 0 20px 60px -20px hsl(0 85% 52% / 0.5);
-    --shadow-elegant: 0 30px 80px -30px hsl(0 0% 0% / 0.8);
-    --shadow-glow: 0 0 80px hsl(0 85% 52% / 0.4);
+    --shadow-gold: 0 30px 90px -25px hsl(358 80% 53% / 0.55);
+    --shadow-elegant: 0 40px 120px -40px hsl(0 0% 0% / 0.9);
+    --shadow-glow: 0 0 120px hsl(358 80% 53% / 0.35);
 
     /* Per-brand accent tokens */
     --brand-ao: 0 100% 50%;            /* Red — A&O */
@@ -121,10 +121,10 @@ All colors MUST be HSL.
   .shadow-glow { box-shadow: var(--shadow-glow); }
 
   .glass {
-    background: hsl(0 0% 8% / 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid hsl(40 30% 96% / 0.06);
+    background: hsl(240 3% 8% / 0.55);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid hsl(240 7% 96% / 0.08);
   }
 
   .grid-bg {
@@ -154,7 +154,7 @@ All colors MUST be HSL.
     100% { background-position: 200% 0; }
   }
   .animate-shimmer {
-    background: linear-gradient(90deg, transparent, hsl(0 85% 52% / 0.3), transparent);
+    background: linear-gradient(90deg, transparent, hsl(358 80% 53% / 0.3), transparent);
     background-size: 200% 100%;
     animation: shimmer 3s linear infinite;
   }
