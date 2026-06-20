@@ -47,8 +47,8 @@ const NomadLeadForm = () => {
       name: meta,
       source: "nomadhive_application",
     });
-    setLoading(false);
     if (error) {
+      setLoading(false);
       toast({
         title: "No pudimos registrar tu aplicación",
         description: "Inténtalo de nuevo en unos segundos.",
@@ -56,6 +56,27 @@ const NomadLeadForm = () => {
       });
       return;
     }
+
+    // Notificar al equipo de talento por correo
+    try {
+      await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "nomadhive-application",
+          idempotencyKey: `nomadhive-app-${parsed.data.email}-${Date.now()}`,
+          templateData: {
+            name: parsed.data.name,
+            email: parsed.data.email,
+            phone: parsed.data.phone,
+            experience: parsed.data.experience || "",
+            submittedAt: new Date().toLocaleString("es-CO"),
+          },
+        },
+      });
+    } catch (e) {
+      console.error("Email notification failed", e);
+    }
+
+    setLoading(false);
     setSuccess(true);
     const wa = `https://wa.me/${NOMAD_WHATSAPP}?text=${encodeURIComponent(waMessage)}`;
     window.open(wa, "_blank");
