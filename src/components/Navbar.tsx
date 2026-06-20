@@ -31,7 +31,7 @@ const Navbar = () => {
       <div className={`mx-auto max-w-6xl px-4 ${scrolled ? "" : ""}`}>
         <nav
           className={`flex items-center justify-between rounded-full px-5 py-3 transition-all duration-500 ${
-            scrolled ? "glass shadow-elegant" : "bg-transparent"
+            scrolled ? "glass shadow-elegant border border-white/5" : "bg-transparent"
           }`}
         >
           <a href="#top" className="flex items-center gap-2 sm:gap-3 font-display font-bold text-base sm:text-lg tracking-tight shrink-0">
