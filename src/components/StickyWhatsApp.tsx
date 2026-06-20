@@ -1,6 +1,6 @@
 import { MessageCircle } from "lucide-react";
 
-const WHATSAPP_NUMBER = "573000000000"; // TODO: replace with real number
+const WHATSAPP_NUMBER = "573337500184";
 
 const StickyWhatsApp = () => {
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hola A&O Ecosystem, quiero más información")}`;

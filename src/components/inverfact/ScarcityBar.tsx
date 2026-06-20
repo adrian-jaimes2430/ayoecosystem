@@ -1,28 +1,21 @@
 import { useEffect, useState } from "react";
 import { Clock, Flame } from "lucide-react";
 
-const getEndOfDay = () => {
-  const d = new Date();
-  d.setHours(23, 59, 59, 999);
-  return d.getTime();
-};
+// Cierre fijo: 72 horas exactas desde el 26/06/2026 00:00 (hora Colombia, UTC-5)
+// => Termina el 29/06/2026 00:00:00 -05:00
+const TARGET_TS = new Date("2026-06-29T00:00:00-05:00").getTime();
 
 const pad = (n: number) => n.toString().padStart(2, "0");
 
 const ScarcityBar = () => {
-  const [target, setTarget] = useState<number>(getEndOfDay());
   const [now, setNow] = useState<number>(Date.now());
 
   useEffect(() => {
-    const id = setInterval(() => {
-      const t = Date.now();
-      if (t >= target) setTarget(getEndOfDay());
-      setNow(t);
-    }, 1000);
+    const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
-  }, [target]);
+  }, []);
 
-  const diff = Math.max(0, target - now);
+  const diff = Math.max(0, TARGET_TS - now);
   const hours = Math.floor(diff / 3_600_000);
   const minutes = Math.floor((diff % 3_600_000) / 60_000);
   const seconds = Math.floor((diff % 60_000) / 1000);
@@ -56,7 +49,7 @@ const ScarcityBar = () => {
         </div>
       </div>
       <p className="mt-2 text-center text-xs text-muted-foreground">
-        Quedan pocos cupos para esta semana en el Club Inverfact Élite.
+        Quedan pocos cupos para esta semana en el Club Comunidad de Éxito.
       </p>
     </div>
   );

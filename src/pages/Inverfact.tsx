@@ -227,7 +227,7 @@ const Inverfact = () => {
 
             <ul className="mt-4 space-y-5">
               {[
-                { icon: Users, t: "Acceso al Club Inverfact Élite", d: "Comunidad privada con seguimiento, casos reales y networking." },
+                { icon: Users, t: "Acceso al Club Comunidad de Éxito", d: "Comunidad privada con seguimiento, casos reales y networking." },
                 { icon: Target, t: "Mentoría", d: "Acompañamiento directo para aplicar el sistema a tu caso." },
                 { icon: BookOpen, t: "Recursos descargables", d: "Plantillas, guías y herramientas listas para usar." },
               ].map(({ icon: Icon, t, d }) => (
@@ -244,11 +244,17 @@ const Inverfact = () => {
             </ul>
 
             <Button
-              onClick={scrollToOffer}
+              asChild
               size="lg"
               className="mt-8 w-full bg-gradient-primary text-primary-foreground hover:opacity-95 font-bold text-base md:text-lg rounded-full py-6 shadow-glow"
             >
-              Quiero entrar a Inverfact <ArrowRight className="ml-1" />
+              <a
+                href="https://company1779922324.hotmart.host/pagina-de-ventas-a1ab85ff-254b-4917-aa1a-72cbfa3af768"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Quiero ser Master Money <ArrowRight className="ml-1" />
+              </a>
             </Button>
             <p className="text-center text-xs text-muted-foreground mt-4">Acceso inmediato tras la compra</p>
             <ScarcityBar />

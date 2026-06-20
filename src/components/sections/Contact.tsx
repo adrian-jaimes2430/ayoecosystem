@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { ArrowRight, MessageCircle, Mail } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -22,7 +23,8 @@ const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const WHATSAPP_NUMBER = "573204836063"; // TODO: replace with real number
+const WHATSAPP_NUMBER = "573337500184";
+const CLUB_WHATSAPP_URL = "https://chat.whatsapp.com/BeqOPPAERVNErojGRsyPGM";
 
 const EMAILS = [
   { label: "Información general", value: "info@ayoecosystem.com" },
@@ -48,7 +50,7 @@ const schema = z.object({
 const Contact = () => {
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const data = {
@@ -67,14 +69,35 @@ const Contact = () => {
       return;
     }
     setLoading(true);
-    const text = `Hola A&O Ecosystem, soy ${parsed.data.name}.%0AInterés: ${parsed.data.interest}.%0AEmail: ${parsed.data.email}.%0A%0A${parsed.data.message}`;
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text).replace(/%2520/g, "%20")}`;
-    window.open(url, "_blank", "noopener,noreferrer");
-    setTimeout(() => {
+    try {
+      await supabase.from("leads").insert({
+        email: parsed.data.email,
+        name: parsed.data.name,
+        source: `contact_form:${parsed.data.interest}`,
+      });
+      await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "general-contact",
+          idempotencyKey: `contact-${parsed.data.email}-${Date.now()}`,
+          templateData: {
+            name: parsed.data.name,
+            email: parsed.data.email,
+            interest: parsed.data.interest,
+            message: parsed.data.message,
+            submittedAt: new Date().toLocaleString("es-CO"),
+          },
+        },
+      });
+      (e.currentTarget as HTMLFormElement).reset();
+      toast({ title: "Solicitud enviada", description: "Te responderemos al correo en breve." });
+    } catch (err) {
+      toast({ title: "No pudimos enviar", description: "Intenta de nuevo en unos segundos.", variant: "destructive" });
+    } finally {
       setLoading(false);
-      toast({ title: "Solicitud enviada", description: "Continuamos por WhatsApp." });
-    }, 400);
+    }
   };
+
+  const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => { void onSubmit(e); };
 
   return (
     <section id="contacto" className="relative py-32">
@@ -98,12 +121,8 @@ const Contact = () => {
             </p>
 
             <Button asChild variant="whatsapp" size="lg" className="mt-8">
-              <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hola A&O, quiero información del ecosistema")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MessageCircle className="h-5 w-5" /> Accede al club ahora
+              <a href={CLUB_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="h-5 w-5" /> Accede al club gratuito ahora
               </a>
             </Button>
 
@@ -152,7 +171,7 @@ const Contact = () => {
           </motion.div>
 
           <motion.form
-            onSubmit={onSubmit}
+            onSubmit={onSubmitForm}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

@@ -1,5 +1,7 @@
 import type { ComponentType } from 'npm:react@18.3.1'
 import { template as nomadhiveApplication } from './nomadhive-application.tsx'
+import { template as generalContact } from './general-contact.tsx'
+import { template as anmaApplication } from './anma-application.tsx'
 
 export interface TemplateEntry {
   component: ComponentType<any>
@@ -11,4 +13,6 @@ export interface TemplateEntry {
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'nomadhive-application': nomadhiveApplication,
+  'general-contact': generalContact,
+  'anma-application': anmaApplication,
 }
