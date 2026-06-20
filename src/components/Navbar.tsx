@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import logoAO from "@/assets/logo-ao.png";
+import logoAOAsset from "@/assets/logo-ao-light.png.asset.json";
+const logoAO = logoAOAsset.url;
 
 const links = [
   { href: "#ecosistema", label: "Ecosistema" },

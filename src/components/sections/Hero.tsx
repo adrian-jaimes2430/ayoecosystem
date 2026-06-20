@@ -2,8 +2,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useRef, lazy, Suspense } from "react";
-import founder from "@/assets/founder.png";
-import logoAO from "@/assets/logo-ao.png";
+import founderAsset from "@/assets/founder-new.jpg.asset.json";
+import logoAOAsset from "@/assets/logo-ao-light.png.asset.json";
+const founder = founderAsset.url;
+const logoAO = logoAOAsset.url;
 
 const AuroraScene = lazy(() => import("@/components/three/AuroraScene"));
 
@@ -98,7 +100,7 @@ const Hero = () => {
                 <img src={logoAO} alt="A&O" className="h-10 w-10 rounded-full bg-black/60 p-1" />
                 <div>
                   <div className="font-display font-semibold text-sm leading-tight">Adrián Jaimes</div>
-                  <div className="text-[11px] uppercase tracking-[0.2em] text-primary/90 mt-0.5">CEO & Foundier</div>
+                  <div className="text-[11px] uppercase tracking-[0.2em] text-primary/90 mt-0.5">CEO & Founder</div>
                   <div className="text-xs text-muted-foreground">Company A&O Ecosystem S.A.S</div>
                 </div>
               </div>
