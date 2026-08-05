@@ -14,7 +14,7 @@ const schema = z.object({
   experience: z.string().trim().max(500).optional(),
 });
 
-export const NOMAD_WHATSAPP = "573014430199";
+export const NOMAD_WHATSAPP = "573106807521";
 const waMessage = "Hola, quiero aplicar al sistema NomadHive";
 
 const NomadLeadForm = () => {
