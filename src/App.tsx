@@ -9,6 +9,7 @@ import Inverfact from "./pages/Inverfact.tsx";
 import Anma from "./pages/Anma.tsx";
 import Nomadhive from "./pages/Nomadhive.tsx";
 import Unsubscribe from "./pages/Unsubscribe.tsx";
+import History from "./pages/History.tsx";
 
 const queryClient = new QueryClient();
 
@@ -24,7 +25,7 @@ const App = () => (
           <Route path="/anma" element={<Anma />} />
           <Route path="/nomadhive" element={<Nomadhive />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/history" element={<History />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
