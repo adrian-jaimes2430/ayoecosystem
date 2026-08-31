@@ -11,6 +11,7 @@ import Nomadhive from "./pages/Nomadhive.tsx";
 import Unsubscribe from "./pages/Unsubscribe.tsx";
 import History from "./pages/History.tsx";
 import HistoryLab from "./pages/HistoryLab.tsx";
+import ProcessHistory from "./pages/ProcessHistory.tsx";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +27,7 @@ const App = () => (
           <Route path="/anma" element={<Anma />} />
           <Route path="/nomadhive" element={<Nomadhive />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
-          <Route path="/history" element={<History />} />
+          <Route path="/history" element={<ProcessHistory />} />
           <Route path="/history-lab" element={<HistoryLab />} />
           <Route path="/history-cinematic" element={<History />} />
           <Route path="*" element={<NotFound />} />
