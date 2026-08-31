@@ -26,7 +26,8 @@ const App = () => (
           <Route path="/anma" element={<Anma />} />
           <Route path="/nomadhive" element={<Nomadhive />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
-          <Route path="/history" element={<HistoryLab />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/history-lab" element={<HistoryLab />} />
           <Route path="/history-cinematic" element={<History />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
