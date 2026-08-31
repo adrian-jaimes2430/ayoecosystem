@@ -1,212 +1,275 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Float, OrbitControls, Sparkles, Text, Trail } from "@react-three/drei";
+import { Environment, Float, Sparkles, Text, Trail } from "@react-three/drei";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import * as THREE from "three";
 
 const chapters = [
-  { n: "01", eyebrow: "EL ORIGEN", title: "Todo empezó con una pregunta.", text: "¿Cómo convertir esfuerzo en estructura, y estructura en crecimiento? A&O nació de esa búsqueda: construir algo que pudiera evolucionar sin perder el propósito humano que lo puso en marcha.", tag: "ORIGIN", theme: "origin" },
-  { n: "02", eyebrow: "ACTIVAR", title: "Primero, aprender a decidir.", text: "Entendimos que crecer no comienza con una empresa. Comienza cuando una persona aprende a tomar mejores decisiones sobre su tiempo, su conocimiento y sus recursos.", tag: "INVERFACT", theme: "inverfact" },
-  { n: "03", eyebrow: "OPORTUNIDADES", title: "El conocimiento necesitaba una vía de acción.", text: "Creamos espacios para conectar personas, talento y oportunidades. NomadHive representa esa convicción: el talento no tiene que esperar una oportunidad; puede prepararse para crearla.", tag: "NOMADHIVE", theme: "nomadhive" },
-  { n: "04", eyebrow: "GENERAR", title: "Aprendimos a convertir atención en movimiento.", text: "Con ANMA llevamos estrategia, contenido, comunidad y comercio a un mismo sistema: crear demanda, generar conversaciones y convertirlas en resultados medibles.", tag: "ANMA", theme: "anma" },
-  { n: "05", eyebrow: "INTEGRAR", title: "Las piezas empezaron a encontrarse.", text: "Una unidad podía educar. Otra desarrollar talento. Otra activar el mercado. Pero el verdadero valor apareció cuando las piezas comenzaron a trabajar juntas.", tag: "CONNECT", theme: "connect" },
-  { n: "06", eyebrow: "ESCALAR", title: "A&O dejó de ser una idea y se convirtió en infraestructura.", text: "Estrategia, marketing, automatización, ventas y tecnología comenzaron a formar una arquitectura capaz de acompañar el crecimiento de personas, marcas y negocios.", tag: "SCALE", theme: "scale" },
-  { n: "07", eyebrow: "ECOSISTEMA", title: "Hoy construimos sistemas que se conectan.", text: "A&O Ecosystem reúne unidades con propósitos distintos bajo una misma visión: crear estructuras que generen oportunidades, movimiento y crecimiento sostenible.", tag: "ECOSYSTEM", theme: "ecosystem" },
-  { n: "08", eyebrow: "LO QUE SIGUE", title: "El futuro todavía no tiene forma.", text: "Y precisamente por eso construimos un ecosistema capaz de adaptarse. No queremos adivinar el futuro. Queremos estar preparados para construirlo.", tag: "FUTURE", theme: "future" },
+  { n: "01", eyebrow: "EL ORIGEN", title: "Todo empezó con una pregunta.", text: "¿Cómo convertir esfuerzo en estructura, y estructura en crecimiento? A&O nació de esa búsqueda.", tag: "ORIGIN", accent: "#ff3b30" },
+  { n: "02", eyebrow: "ACTIVAR", title: "Primero, aprender a decidir.", text: "Crecer comienza cuando una persona aprende a tomar mejores decisiones sobre su tiempo, conocimiento y recursos.", tag: "INVERFACT", accent: "#ff6b4f" },
+  { n: "03", eyebrow: "OPORTUNIDADES", title: "El conocimiento necesitaba una vía de acción.", text: "El talento no tiene que esperar una oportunidad; puede prepararse para crearla.", tag: "NOMADHIVE", accent: "#f5c8a8" },
+  { n: "04", eyebrow: "GENERAR", title: "Aprendimos a convertir atención en movimiento.", text: "Estrategia, contenido, comunidad y comercio comenzaron a trabajar como un mismo sistema.", tag: "ANMA", accent: "#ff3b30" },
+  { n: "05", eyebrow: "INTEGRAR", title: "Las piezas empezaron a encontrarse.", text: "El verdadero valor apareció cuando las unidades dejaron de ser piezas aisladas y comenzaron a trabajar juntas.", tag: "CONNECT", accent: "#e8ddd2" },
+  { n: "06", eyebrow: "ESCALAR", title: "La idea se convirtió en infraestructura.", text: "Estrategia, marketing, automatización, ventas y tecnología formaron una arquitectura para crecer.", tag: "SCALE", accent: "#ff5144" },
+  { n: "07", eyebrow: "ECOSISTEMA", title: "Hoy construimos sistemas que se conectan.", text: "Un ecosistema de unidades distintas bajo una misma visión: crear movimiento y crecimiento sostenible.", tag: "ECOSYSTEM", accent: "#f4e8dc" },
+  { n: "08", eyebrow: "LO QUE SIGUE", title: "El futuro todavía no tiene forma.", text: "No queremos adivinar el futuro. Queremos estar preparados para construirlo.", tag: "FUTURE", accent: "#ff3b30" },
 ];
 
-const nodeData = [
-  { id: "INVERFACT", position: [-3.15, 1.25, 0.25] as [number, number, number], color: "#ff3b30" },
-  { id: "NOMADHIVE", position: [3.05, 1.15, -0.35] as [number, number, number], color: "#ff6a4a" },
-  { id: "ANMA", position: [-2.55, -1.75, 0.1] as [number, number, number], color: "#ff3b30" },
-  { id: "A&O", position: [2.65, -1.7, 0.2] as [number, number, number], color: "#f3e8da" },
-];
-
-function useScrollProgress() {
+function useProgress() {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
+    let raf = 0;
     const update = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(max > 0 ? THREE.MathUtils.clamp(window.scrollY / max, 0, 1) : 0);
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        setProgress(max > 0 ? THREE.MathUtils.clamp(window.scrollY / max, 0, 1) : 0);
+      });
     };
     update();
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
-    return () => { window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("scroll", update); window.removeEventListener("resize", update); };
   }, []);
   return progress;
 }
 
-function StarField() {
+function smoothStep(x: number) { return x * x * (3 - 2 * x); }
+function damp(current: number, target: number, lambda: number, delta: number) { return THREE.MathUtils.damp(current, target, lambda, delta); }
+
+function useShot(progress: number) {
+  const scaled = progress * chapters.length;
+  const index = Math.min(chapters.length - 1, Math.floor(scaled));
+  const local = scaled - Math.floor(scaled);
+  const entry = smoothStep(THREE.MathUtils.clamp(local / 0.24, 0, 1));
+  const exit = smoothStep(THREE.MathUtils.clamp((1 - local) / 0.24, 0, 1));
+  return { index, local, entry, exit, scaled };
+}
+
+function Dust({ density = 1400 }: { density?: number }) {
   const ref = useRef<THREE.Points>(null);
   const positions = useMemo(() => {
-    const count = 1800;
-    const data = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      const radius = 5 + Math.random() * 9;
-      const angle = Math.random() * Math.PI * 2;
-      data[i * 3] = Math.cos(angle) * radius;
-      data[i * 3 + 1] = (Math.random() - 0.5) * 11;
-      data[i * 3 + 2] = Math.sin(angle) * radius - 2;
+    const a = new Float32Array(density * 3);
+    for (let i = 0; i < density; i++) {
+      const r = 3 + Math.random() * 12;
+      const theta = Math.random() * Math.PI * 2;
+      a[i * 3] = Math.cos(theta) * r;
+      a[i * 3 + 1] = (Math.random() - .5) * 12;
+      a[i * 3 + 2] = Math.sin(theta) * r - 3;
     }
-    return data;
-  }, []);
+    return a;
+  }, [density]);
   useFrame((state) => {
     if (!ref.current) return;
-    ref.current.rotation.y = state.clock.elapsedTime * 0.007;
-    ref.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.03) * 0.035;
+    ref.current.rotation.y = state.clock.elapsedTime * .008;
+    ref.current.rotation.z = Math.sin(state.clock.elapsedTime * .025) * .015;
   });
-  return (
-    <points ref={ref}>
-      <bufferGeometry><bufferAttribute attach="attributes-position" args={[positions, 3]} count={positions.length / 3} /></bufferGeometry>
-      <pointsMaterial size={0.018} color="#fff5e8" transparent opacity={0.62} sizeAttenuation />
-    </points>
-  );
+  return <points ref={ref}><bufferGeometry><bufferAttribute attach="attributes-position" args={[positions, 3]} count={positions.length / 3} /></bufferGeometry><pointsMaterial color="#fff1e6" size={.018} transparent opacity={.48} sizeAttenuation /></points>;
 }
 
-function Core({ progress }: { progress: number }) {
+function CinematicCore({ energy, shot }: { energy: number; shot: number }) {
   const group = useRef<THREE.Group>(null);
-  const shell = useRef<THREE.Mesh>(null);
-  useFrame((state) => {
-    if (!group.current || !shell.current) return;
+  const crystal = useRef<THREE.Mesh>(null);
+  useFrame((state, delta) => {
+    if (!group.current || !crystal.current) return;
     const t = state.clock.elapsedTime;
-    group.current.rotation.y = t * 0.2 + progress * Math.PI * 1.5;
-    group.current.rotation.x = Math.sin(t * 0.3) * 0.13 + progress * 0.38;
-    group.current.position.y = Math.sin(t * 0.7) * 0.07;
-    shell.current.rotation.z = -t * 0.18;
-    shell.current.scale.setScalar(1.1 + Math.sin(t * 1.1) * 0.06 + progress * 0.16);
+    group.current.rotation.y = damp(group.current.rotation.y, t * (.12 + energy * .12) + shot * .42, 2.2, delta);
+    group.current.rotation.x = damp(group.current.rotation.x, Math.sin(t * .22) * .12 + energy * .3, 2.2, delta);
+    group.current.position.y = damp(group.current.position.y, Math.sin(t * .55) * .08, 3, delta);
+    crystal.current.scale.setScalar(1 + energy * .22 + Math.sin(t * 1.4) * .035);
   });
-  return (
-    <group ref={group}>
-      <mesh>
-        <icosahedronGeometry args={[1.12, 4]} />
-        <meshPhysicalMaterial color="#eee8df" metalness={1} roughness={0.12} clearcoat={1} clearcoatRoughness={0.06} emissive="#5a0703" emissiveIntensity={0.35 + progress * 0.3} />
-      </mesh>
-      <mesh ref={shell} scale={1.34}>
-        <icosahedronGeometry args={[1.12, 2]} />
-        <meshBasicMaterial color="#ff3b30" wireframe transparent opacity={0.24} />
-      </mesh>
-      <mesh scale={1.62} rotation={[Math.PI / 4, 0, 0]}>
-        <torusGeometry args={[1.12, 0.012, 12, 160]} />
-        <meshBasicMaterial color="#ff3b30" transparent opacity={0.78} />
-      </mesh>
-      <mesh scale={1.9} rotation={[0, Math.PI / 3, Math.PI / 5]}>
-        <torusGeometry args={[1.12, 0.008, 10, 160]} />
-        <meshBasicMaterial color="#fff1e5" transparent opacity={0.3} />
-      </mesh>
-      <Text position={[0, 0, 1.18]} fontSize={0.3} color="#fff7ee" anchorX="center" anchorY="middle" outlineWidth={0.012} outlineColor="#050505">A&O</Text>
-    </group>
-  );
+  return <group ref={group}>
+    <mesh ref={crystal}><icosahedronGeometry args={[1.05, 4]} /><meshPhysicalMaterial color="#eee7df" metalness={1} roughness={.09} clearcoat={1} clearcoatRoughness={.04} emissive="#5d0905" emissiveIntensity={.24 + energy * .7} /></mesh>
+    <mesh scale={1.22} rotation={[.2, .4, .1]}><icosahedronGeometry args={[1.05, 2]} /><meshBasicMaterial color="#ff3b30" wireframe transparent opacity={.24 + energy * .18} /></mesh>
+    <mesh scale={1.42} rotation={[Math.PI / 3, 0, .2]}><torusGeometry args={[1.05, .014, 10, 180]} /><meshBasicMaterial color="#ff3b30" transparent opacity={.82} /></mesh>
+    <mesh scale={1.8} rotation={[0, Math.PI / 2.7, Math.PI / 6]}><torusGeometry args={[1.05, .007, 8, 180]} /><meshBasicMaterial color="#fff3e7" transparent opacity={.36} /></mesh>
+    <pointLight color="#ff3b30" intensity={energy * 18 + 4} distance={6} />
+  </group>;
 }
 
-function EnergyNode({ label, position, color, index, progress }: { label: string; position: [number, number, number]; color: string; index: number; progress: number }) {
+function OrbitArchitecture({ progress, shot }: { progress: number; shot: number }) {
   const ref = useRef<THREE.Group>(null);
   useFrame((state, delta) => {
     if (!ref.current) return;
-    const target = new THREE.Vector3(...position).multiplyScalar(1 + Math.sin(progress * Math.PI) * 0.18);
-    ref.current.position.lerp(target, Math.min(1, delta * 2.8));
-    ref.current.rotation.y = state.clock.elapsedTime * (0.16 + index * 0.04);
+    const t = state.clock.elapsedTime;
+    ref.current.rotation.y = damp(ref.current.rotation.y, t * .035 + progress * 2.6, 1.8, delta);
+    ref.current.rotation.x = damp(ref.current.rotation.x, Math.sin(t * .18) * .08 + shot * .045, 1.8, delta);
   });
-  return (
-    <group ref={ref} position={position}>
-      <Trail width={1.15} length={5} color={color} attenuation={(v) => v * v}>
-        <Float speed={1 + index * 0.15} rotationIntensity={0.55} floatIntensity={0.45}>
-          <mesh>
-            <sphereGeometry args={[0.18 + index * 0.018, 32, 32]} />
-            <meshPhysicalMaterial color={color} emissive={color} emissiveIntensity={0.72} metalness={0.86} roughness={0.12} />
-          </mesh>
-        </Float>
-      </Trail>
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[0.34, 0.008, 8, 64]} />
-        <meshBasicMaterial color={color} transparent opacity={0.42} />
-      </mesh>
-      <Text position={[0, -0.52, 0]} fontSize={0.145} color="#d8cfc6" anchorX="center" outlineWidth={0.005} outlineColor="#050505">{label}</Text>
-    </group>
-  );
+  return <group ref={ref}>
+    {[2.15, 2.75, 3.4, 4.1].map((r, i) => <mesh key={r} rotation={[i * .37, i * .61, i * .2]}><torusGeometry args={[r, i === 2 ? .018 : .008, 8, 220]} /><meshBasicMaterial color={i === 2 ? "#ff3b30" : "#fff0e2"} transparent opacity={i === 2 ? .34 : .13} /></mesh>)}
+    <mesh rotation={[Math.PI / 2, 0, 0]}><ringGeometry args={[3.5, 3.52, 160]} /><meshBasicMaterial color="#ff3b30" transparent opacity={.16} side={THREE.DoubleSide} /></mesh>
+  </group>;
 }
 
-function Network({ progress }: { progress: number }) {
-  const geometry = useMemo(() => {
-    const center = new THREE.Vector3(0, 0, 0);
-    const curves = nodeData.map((node) => new THREE.CatmullRomCurve3([
-      new THREE.Vector3(...node.position),
-      new THREE.Vector3(node.position[0] * 0.3, node.position[1] * 0.3, 0.28),
-      center,
-    ]));
-    return new THREE.BufferGeometry().setFromPoints(curves.flatMap((curve) => curve.getPoints(34)));
-  }, []);
-  const ref = useRef<THREE.Line>(null);
+function RibbonField({ intensity, shot }: { intensity: number; shot: number }) {
+  const group = useRef<THREE.Group>(null);
+  const curves = useMemo(() => Array.from({ length: 5 }, (_, i) => {
+    const pts: THREE.Vector3[] = [];
+    for (let j = 0; j < 48; j++) {
+      const z = -7 + j * .28;
+      const x = Math.sin(j * .23 + i * 1.15) * (1.15 + i * .25) + (i - 2) * .6;
+      const y = Math.cos(j * .18 + i) * .7 + (i - 2) * .5;
+      pts.push(new THREE.Vector3(x, y, z));
+    }
+    return new THREE.CatmullRomCurve3(pts);
+  }), []);
   useFrame((state) => {
-    if (!ref.current) return;
-    (ref.current.material as THREE.LineBasicMaterial).opacity = 0.1 + progress * 0.2 + Math.sin(state.clock.elapsedTime * 1.2) * 0.035;
+    if (!group.current) return;
+    group.current.rotation.z = Math.sin(state.clock.elapsedTime * .18) * .035;
+    group.current.position.x = Math.sin(state.clock.elapsedTime * .25) * .12;
   });
-  return <line ref={ref} geometry={geometry}><lineBasicMaterial color="#ff3b30" transparent opacity={0.18} /></line>;
+  return <group ref={group} rotation={[.12, shot * .05, 0]}>
+    {curves.map((curve, i) => <mesh key={i} visible={intensity > .05}><tubeGeometry args={[curve, 120, .018 + intensity * .025, 6, false]} /><meshBasicMaterial color={i === 2 ? "#ff3b30" : "#f1dfd0"} transparent opacity={(.08 + intensity * .16) * (i === 2 ? 1.7 : 1)} /></mesh>)}
+  </group>;
 }
 
-function CameraRig({ progress }: { progress: number }) {
+function ParticleRiver({ progress, shot }: { progress: number; shot: number }) {
+  const ref = useRef<THREE.Points>(null);
+  const positions = useMemo(() => {
+    const count = 900;
+    const a = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const z = -8 + Math.random() * 15;
+      const spread = .7 + Math.random() * 2.6;
+      const angle = Math.random() * Math.PI * 2;
+      a[i * 3] = Math.cos(angle) * spread;
+      a[i * 3 + 1] = Math.sin(angle) * spread * .62;
+      a[i * 3 + 2] = z;
+    }
+    return a;
+  }, []);
+  useFrame((state, delta) => {
+    if (!ref.current) return;
+    ref.current.rotation.z = state.clock.elapsedTime * (.025 + shot * .004);
+    ref.current.position.z = Math.sin(progress * Math.PI * 2) * .4;
+    ref.current.position.x = damp(ref.current.position.x, Math.sin(progress * Math.PI * 5) * .25, 2, delta);
+  });
+  return <points ref={ref}><bufferGeometry><bufferAttribute attach="attributes-position" args={[positions, 3]} count={positions.length / 3} /></bufferGeometry><pointsMaterial color="#ff6655" size={.025 + shot * .002} transparent opacity={.3 + shot * .025} sizeAttenuation /></points>;
+}
+
+function Monument({ progress, shot }: { progress: number; shot: number }) {
+  const group = useRef<THREE.Group>(null);
+  useFrame((state, delta) => {
+    if (!group.current) return;
+    group.current.rotation.y = damp(group.current.rotation.y, -progress * Math.PI * 1.3, 1.2, delta);
+    group.current.position.y = damp(group.current.position.y, Math.sin(state.clock.elapsedTime * .25) * .06, 2, delta);
+  });
+  return <group ref={group} scale={1 + shot * .02}>
+    <mesh position={[-2.6, -1.2, -1.5]} rotation={[0, .3, -.12]}><boxGeometry args={[.055, 3.2, .055]} /><meshBasicMaterial color="#fff0e2" transparent opacity={.26} /></mesh>
+    <mesh position={[2.6, -1.2, -1.5]} rotation={[0, -.3, .12]}><boxGeometry args={[.055, 3.2, .055]} /><meshBasicMaterial color="#fff0e2" transparent opacity={.26} /></mesh>
+    <mesh position={[0, .4, -1.2]}><boxGeometry args={[5.3, .035, .035]} /><meshBasicMaterial color="#ff3b30" transparent opacity={.6} /></mesh>
+    <mesh position={[0, -1.65, -1.2]}><boxGeometry args={[5.3, .02, 2.2]} /><meshBasicMaterial color="#130605" transparent opacity={.5} /></mesh>
+  </group>;
+}
+
+function NetworkConstellation({ progress }: { progress: number }) {
+  const group = useRef<THREE.Group>(null);
+  const nodes = useMemo(() => [
+    [-2.9, 1.25, -1], [2.9, 1.1, -.7], [-2.4, -1.35, -.4], [2.4, -1.45, -.2], [0, .1, .2], [0, -2.1, -1]
+  ] as [number, number, number][], []);
+  const lineGeometry = useMemo(() => {
+    const pts: THREE.Vector3[] = [];
+    for (const p of nodes) pts.push(new THREE.Vector3(...p), new THREE.Vector3(0, .1, .2));
+    return new THREE.BufferGeometry().setFromPoints(pts);
+  }, [nodes]);
+  useFrame((state, delta) => { if (group.current) group.current.rotation.y = damp(group.current.rotation.y, progress * Math.PI * .8, 1.5, delta); });
+  return <group ref={group}>
+    <lineSegments geometry={lineGeometry}><lineBasicMaterial color="#ff3b30" transparent opacity={.12 + progress * .18} /></lineSegments>
+    {nodes.map((p, i) => <group key={i} position={p}><Trail width={.8} length={4} color={i === 4 ? "#fff0e2" : "#ff3b30"}><mesh><sphereGeometry args={[i === 4 ? .12 : .075, 16, 16]} /><meshBasicMaterial color={i === 4 ? "#fff0e2" : "#ff3b30"} /></mesh></Trail></group>)}
+  </group>;
+}
+
+function CameraDirector({ progress }: { progress: number }) {
   const { camera } = useThree();
-  useFrame(() => {
-    const phase = progress * (chapters.length + 1);
-    const target = new THREE.Vector3(Math.sin(phase * 0.7) * 0.75, Math.cos(phase * 0.46) * 0.48, 7.15 - Math.sin(phase * 0.34) * 0.62);
-    camera.position.lerp(target, 0.035);
-    camera.lookAt(0, 0, 0);
+  const current = useRef(new THREE.Vector3(0, 0, 7.8));
+  const target = useRef(new THREE.Vector3());
+  useFrame((state, delta) => {
+    const s = progress * (chapters.length - .18);
+    const shot = Math.min(chapters.length - 1, Math.floor(s));
+    const local = s - Math.floor(s);
+    const cinematic = smoothStep(THREE.MathUtils.clamp(local, 0, 1));
+    const shots = [
+      [0, .05, 8.6, 0, 0, 0], [2.2, .7, 6.2, .2, .15, -.1], [-2.1, -.35, 5.8, -.15, -.08, .12], [1.8, 1.1, 6.7, .12, -.12, -.2], [-1.9, -.9, 5.5, -.1, .12, .15], [0, .3, 4.8, .0, .0, 0], [2.8, -.1, 7.2, .18, -.1, -.12], [0, .0, 10.5, 0, 0, 0]
+    ];
+    const a = shots[shot];
+    const b = shots[Math.min(shots.length - 1, shot + 1)];
+    const mix = cinematic * .62;
+    const x = THREE.MathUtils.lerp(a[0], b[0], mix);
+    const y = THREE.MathUtils.lerp(a[1], b[1], mix);
+    const z = THREE.MathUtils.lerp(a[2], b[2], mix);
+    const mouseX = state.pointer.x * .45;
+    const mouseY = state.pointer.y * .25;
+    target.current.set(x + mouseX, y - mouseY, z);
+    current.current.lerp(target.current, 1 - Math.exp(-3.4 * delta));
+    camera.position.copy(current.current);
+    const look = new THREE.Vector3(
+      THREE.MathUtils.lerp(a[3], b[3], mix),
+      THREE.MathUtils.lerp(a[4], b[4], mix),
+      THREE.MathUtils.lerp(a[5], b[5], mix)
+    );
+    camera.lookAt(look.x, look.y, look.z);
+    camera.rotation.z = THREE.MathUtils.damp(camera.rotation.z, Math.sin(progress * Math.PI * 6) * .012, 2.4, delta);
   });
   return null;
 }
 
 function Scene({ progress }: { progress: number }) {
-  return (
-    <>
-      <color attach="background" args={["#020204"]} />
-      <fog attach="fog" args={["#020204", 7, 22]} />
-      <ambientLight intensity={0.22} />
-      <hemisphereLight intensity={0.28} groundColor="#020204" color="#fff7ed" />
-      <pointLight position={[4, 3, 4]} intensity={36} distance={14} color="#ff3b30" />
-      <pointLight position={[-4, -2, 3]} intensity={20} distance={12} color="#fff2e4" />
-      <pointLight position={[0, 0, 6]} intensity={12} distance={10} color="#ff6a4a" />
-      <StarField />
-      <Sparkles count={850} scale={[13, 9, 10]} size={1.25} speed={0.2} color="#fff5ea" />
-      <Network progress={progress} />
-      <Core progress={progress} />
-      {nodeData.map((node, index) => <EnergyNode key={node.id} {...node} index={index} progress={progress} />)}
-      <CameraRig progress={progress} />
-      <OrbitControls enablePan={false} enableZoom={false} enableDamping dampingFactor={0.05} maxPolarAngle={Math.PI * 0.64} minPolarAngle={Math.PI * 0.36} />
-    </>
-  );
+  const { index, local } = useShot(progress);
+  const energy = Math.max(.15, Math.sin(local * Math.PI));
+  return <>
+    <color attach="background" args={["#010102"]} />
+    <fog attach="fog" args={["#010102", 4, 24]} />
+    <ambientLight intensity={.12} />
+    <hemisphereLight intensity={.2} groundColor="#010102" color="#fff5ed" />
+    <spotLight position={[4, 7, 6]} angle={.32} penumbra={1} intensity={32} color="#fff1e3" />
+    <pointLight position={[-4, 2, 4]} intensity={18 + energy * 18} distance={12} color="#ff3b30" />
+    <pointLight position={[3, -4, 1]} intensity={10} distance={9} color="#ff6b4f" />
+    <Environment preset="night" environmentIntensity={.18} />
+    <Dust density={index > 5 ? 2200 : 1500} />
+    <Sparkles count={650 + index * 70} scale={[15, 11, 15]} size={1.4} speed={.12 + energy * .2} color="#fff1e6" />
+    <ParticleRiver progress={progress} shot={index} />
+    <OrbitArchitecture progress={progress} shot={index} />
+    <RibbonField intensity={energy} shot={index} />
+    <Monument progress={progress} shot={index} />
+    <NetworkConstellation progress={progress} />
+    <CinematicCore energy={energy} shot={index} />
+    <CameraDirector progress={progress} />
+  </>;
 }
 
 export default function History() {
-  const progress = useScrollProgress();
-  const activeChapter = Math.min(chapters.length - 1, Math.max(0, Math.floor(progress * chapters.length)));
-  return (
-    <main className="ao-immersive-history">
-      <style>{`
-        :root{--void:#020204;--cream:#ffeddc;--muted:#968b81;--border:rgba(255,237,220,.17);--red:#dc3b30}
-        *{box-sizing:border-box}.ao-immersive-history{min-height:100vh;background:var(--void);color:var(--cream);overflow-x:hidden;font-family:Inter,ui-sans-serif,system-ui,sans-serif}.ao-immersive-history canvas{position:fixed!important;inset:0;z-index:0}.ao-immersive-history:after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 0,rgba(2,2,4,.04) 42%,rgba(0,0,0,.72) 100%)}
-        .ao-ui{position:fixed;inset:0;z-index:8;pointer-events:none}.ao-ui>*{pointer-events:auto}.ao-nav{position:absolute;top:0;left:0;right:0;height:88px;display:flex;align-items:center;justify-content:space-between;padding:0 4.5vw;font-size:10px;letter-spacing:.2em;text-transform:uppercase;mix-blend-mode:difference}.ao-brand{font-weight:800;font-size:15px;letter-spacing:.08em}.ao-brand b{color:var(--red)}.ao-nav-right{display:flex;gap:8px}.ao-ghost{border:1px solid rgba(255,237,220,.25);background:rgba(2,2,4,.18);backdrop-filter:blur(8px);color:var(--cream);padding:7px 11px;border-radius:999px;text-decoration:none;font-size:9px;letter-spacing:.16em}.ao-ghost:hover{border-color:rgba(255,237,220,.62)}
-        .ao-progress{position:absolute;right:4.5vw;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:10px}.ao-progress-line{width:1px;height:180px;background:rgba(255,237,220,.14);position:relative}.ao-progress-fill{position:absolute;left:0;top:0;width:1px;background:var(--red);transition:height .15s ease}.ao-progress-count{font-size:9px;color:#746b63;letter-spacing:.1em}.ao-progress-count b{color:var(--cream)}.ao-scrollhint{position:absolute;left:4.5vw;bottom:30px;font-size:9px;color:#716961;letter-spacing:.18em;text-transform:uppercase}.ao-xr{position:absolute;right:4.5vw;bottom:25px;border:1px solid rgba(255,237,220,.25);background:rgba(2,2,4,.38);backdrop-filter:blur(9px);color:var(--cream);padding:9px 13px;border-radius:999px;font-size:9px;letter-spacing:.14em;cursor:pointer;text-transform:uppercase}
-        .ao-story{position:relative;z-index:3}.ao-hero,.ao-chapter,.ao-epilogue{height:100vh;min-height:680px;position:relative;display:flex;align-items:center;padding:0 10vw}.ao-hero-content{max-width:700px;margin-top:10vh}.ao-kicker{font-size:9px;letter-spacing:.3em;color:#ff7669;text-transform:uppercase;margin-bottom:22px}.ao-hero-title{font-size:clamp(60px,9.3vw,150px);font-weight:500;line-height:.84;letter-spacing:-.065em;margin:0;color:var(--cream)}.ao-hero-title span{color:var(--red)}.ao-hero-copy{font-family:Georgia,serif;font-size:clamp(17px,1.6vw,23px);line-height:1.68;max-width:560px;color:#b9aea4;margin-top:30px}.ao-meta{display:flex;gap:24px;margin-top:38px;color:#6e665f;font-size:9px;letter-spacing:.15em;text-transform:uppercase}.ao-meta strong{color:#d5cabf;font-weight:500}
-        .ao-chapter{justify-content:space-between}.ao-chapter-copy{width:min(52vw,700px)}.ao-index{font-size:10px;letter-spacing:.3em;color:var(--red);margin-bottom:18px}.ao-eyebrow{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#82786f;margin-bottom:18px}.ao-title{font-size:clamp(43px,5.5vw,88px);font-weight:500;line-height:.91;letter-spacing:-.055em;margin:0;color:var(--cream)}.ao-text{font-family:Georgia,serif;font-size:clamp(17px,1.55vw,23px);line-height:1.68;color:#b9aea4;max-width:600px;margin:30px 0 0}.ao-tag{display:inline-flex;margin-top:30px;border:1px solid rgba(255,237,220,.2);padding:7px 12px;border-radius:999px;color:#bdb2a8;font-size:9px;letter-spacing:.18em;background:rgba(255,237,220,.025);backdrop-filter:blur(5px)}.ao-side{position:absolute;right:10vw;top:50%;transform:translateY(-50%);width:190px;text-align:right;color:#6d655e;font-size:9px;line-height:1.8;letter-spacing:.16em;text-transform:uppercase}.ao-side strong{display:block;color:#d8cec3;font-size:11px;font-weight:500;margin-bottom:6px}.ao-dash{position:absolute;left:10vw;right:10vw;bottom:0;border-top:1px dashed rgba(255,237,220,.13)}
-        .ao-epilogue{justify-content:center;text-align:center}.ao-epilogue-inner{max-width:850px}.ao-epilogue-title{font-size:clamp(55px,9vw,138px);line-height:.84;letter-spacing:-.065em;font-weight:500;margin:20px 0}.ao-epilogue-title span{color:var(--red)}.ao-epilogue-copy{font-family:Georgia,serif;color:#b9aea4;font-size:20px;line-height:1.65;max-width:620px;margin:0 auto}.ao-cta{display:inline-flex;margin-top:34px;background:var(--cream);color:#16100c;padding:12px 20px;border-radius:999px;text-decoration:none;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}.ao-footer{height:160px;position:relative;z-index:3;border-top:1px dashed rgba(255,237,220,.12);display:flex;align-items:center;justify-content:center;color:#625b55;font-size:9px;letter-spacing:.22em;text-transform:uppercase}
-        @media(max-width:800px){.ao-hero,.ao-chapter,.ao-epilogue{padding:0 7vw;min-height:700px}.ao-hero-title{font-size:clamp(58px,16vw,94px)}.ao-chapter{align-items:flex-end;padding-bottom:15vh}.ao-chapter-copy{width:100%}.ao-title{font-size:clamp(42px,12vw,68px)}.ao-text{font-size:17px;line-height:1.6}.ao-side{display:none}.ao-progress{right:4vw}.ao-progress-line{height:120px}.ao-nav{padding:0 5vw}.ao-nav-right .ao-ghost:first-child{display:none}.ao-scrollhint{left:5vw}.ao-xr{right:5vw}.ao-dash{left:7vw;right:7vw}}
-        @media(prefers-reduced-motion:reduce){.ao-immersive-history canvas{opacity:.86}.ao-progress-fill{transition:none}}
-      `}</style>
-      <div className="ao-ui">
-        <nav className="ao-nav"><Link className="ao-ghost" to="/">A<span>&</span>O ECOSYSTEM</Link><div className="ao-nav-right"><span className="ao-ghost">ARCHIVE · 2026</span><Link className="ao-ghost" to="/">EXIT</Link></div></nav>
-        <div className="ao-progress"><div className="ao-progress-line"><div className="ao-progress-fill" style={{height:`${progress*100}%`}} /></div><div className="ao-progress-count"><b>{String(activeChapter + 1).padStart(2,"0")}</b> / 08</div></div>
-        <div className="ao-scrollhint">SCROLL TO CONTINUE</div>
-        <button id="ao-xr" className="ao-xr" type="button" onClick={() => { if (!navigator.xr) return; navigator.xr.requestSession("immersive-vr", { optionalFeatures:["local-floor"] }).then(() => {}).catch(() => {}); }}>WEBXR · ENTRAR EN 3D</button>
-      </div>
-      <Canvas camera={{position:[0,0,7.2],fov:42}} dpr={[1,1.75]} gl={{antialias:true,alpha:false,powerPreference:"high-performance"}}>
-        <Scene progress={progress} />
-      </Canvas>
-      <div className="ao-story">
-        <section className="ao-hero"><div className="ao-hero-content"><div className="ao-kicker">A&O ECOSYSTEM · ARCHIVO VIVO · 2026</div><h1 className="ao-hero-title">La historia<br/>de <span>A&O.</span></h1><p className="ao-hero-copy">No es una línea de tiempo. Es la evolución de una idea que aprendió a convertirse en estructura, y de una estructura que aprendió a convertirse en ecosistema.</p><div className="ao-meta"><span>01 <strong>ORIGEN</strong></span><span>∞ <strong>EVOLUCIÓN</strong></span><span>XR <strong>READY</strong></span></div></div></section>
-        {chapters.map((chapter,index) => <section className="ao-chapter" data-chapter={index} key={chapter.n}><div className="ao-chapter-copy" style={{opacity:activeChapter===index?1:.58,transform:`translateY(${activeChapter===index?0:18}px)`,transition:"opacity .7s ease, transform .7s ease"}}><div className="ao-index">{chapter.n} / 08</div><div className="ao-eyebrow">{chapter.eyebrow}</div><h2 className="ao-title">{chapter.title}</h2><p className="ao-text">{chapter.text}</p><span className="ao-tag">{chapter.tag}</span></div><div className="ao-side"><strong>{chapter.tag}</strong>{chapter.theme}<br/>STRUCTURE / MOTION / PEOPLE</div><div className="ao-dash" /></section>)}
-        <section className="ao-epilogue"><div className="ao-epilogue-inner"><div className="ao-kicker">EPÍLOGO · EL FUTURO</div><h2 className="ao-epilogue-title">ex Structura,<br/><span>Prosperitas.</span></h2><p className="ao-epilogue-copy">La prosperidad no aparece por accidente. Se construye. Y esta historia apenas está comenzando.</p><Link className="ao-cta" to="/">Entrar al ecosistema</Link></div></section>
-        <footer className="ao-footer">A&O Ecosystem · People · Systems · Growth · WebGL / WebXR</footer>
-      </div>
-    </main>
-  );
+  const progress = useProgress();
+  const { index, local } = useShot(progress);
+  const chapter = chapters[index];
+  const next = chapters[Math.min(chapters.length - 1, index + 1)];
+  const copyOpacity = Math.min(1, Math.max(.15, 1 - Math.abs(local - .42) * 1.75));
+  return <main className="ao-cinematic-history">
+    <div className="ao-stage"><Canvas dpr={[1, 1.65]} gl={{ antialias: true, powerPreference: "high-performance" }} camera={{ position: [0, 0, 8], fov: 42 }}><Scene progress={progress} /></Canvas></div>
+    <div className="ao-vignette" />
+    <div className="ao-grain" />
+    <header className="ao-cine-nav">
+      <Link to="/" className="ao-cine-logo">A<span>&</span>O</Link>
+      <div className="ao-cine-center">THE ECOSYSTEM / <b>AN IMMERSIVE STORY</b></div>
+      <Link to="/" className="ao-cine-exit">EXIT EXPERIENCE</Link>
+    </header>
+    <div className="ao-shot-index"><span>CHAPTER</span><strong>{chapter.n}</strong><i /> <span>08</span></div>
+    <div className="ao-cine-copy" style={{ opacity: copyOpacity }}>
+      <div className="ao-copy-kicker"><span>{chapter.eyebrow}</span><em>{chapter.tag}</em></div>
+      <h1>{chapter.title}</h1>
+      <p>{chapter.text}</p>
+      <div className="ao-copy-line"><span /> <small>SCROLL TO CONTINUE</small></div>
+    </div>
+    <div className="ao-next-shot" style={{ opacity: Math.max(0, (local - .72) / .28) }}>
+      <span>NEXT</span><b>{next.n}</b><em>{next.eyebrow}</em>
+    </div>
+    <div className="ao-bottom-meta"><span>EX STRUCTURA, PROSPERITAS</span><span>{String(Math.round(progress * 100)).padStart(2, "0")} / 100</span></div>
+    <div className="ao-scroll-rail" aria-hidden="true"><div style={{ transform: `scaleY(${progress})` }} /></div>
+    <div className="ao-story-length" aria-hidden="true">{chapters.map((_, i) => <section key={i} />)}</div>
+    <style>{`
+      :root{--void:#010102;--ink:#f5ece3;--muted:rgba(245,236,227,.5);--red:#ff3b30}
+      *{box-sizing:border-box}.ao-cinematic-history{position:relative;min-height:800vh;background:var(--void);color:var(--ink);overflow-x:hidden;font-family:Inter,ui-sans-serif,system-ui,sans-serif}.ao-stage{position:fixed;inset:0;z-index:0;background:#010102}.ao-stage canvas{position:absolute!important;inset:0}.ao-vignette,.ao-grain{position:fixed;inset:0;pointer-events:none}.ao-vignette{z-index:2;background:radial-gradient(circle at 50% 48%,transparent 20%,rgba(0,0,0,.08) 55%,rgba(0,0,0,.82) 100%)}.ao-grain{z-index:3;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");mix-blend-mode:screen}.ao-cine-nav{position:fixed;z-index:8;top:0;left:0;right:0;height:92px;padding:0 4vw;display:flex;align-items:center;justify-content:space-between;text-transform:uppercase;letter-spacing:.18em;font-size:9px}.ao-cine-logo{color:var(--ink);text-decoration:none;font-size:17px;font-weight:800;letter-spacing:.04em}.ao-cine-logo span{color:var(--red)}.ao-cine-center{position:absolute;left:50%;transform:translateX(-50%);color:rgba(245,236,227,.42)}.ao-cine-center b{color:rgba(245,236,227,.82);font-weight:500}.ao-cine-exit{color:rgba(245,236,227,.62);text-decoration:none;border-bottom:1px solid rgba(245,236,227,.2);padding-bottom:5px}.ao-cine-exit:hover{color:#fff}.ao-shot-index{position:fixed;z-index:8;right:4vw;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:8px;font-size:8px;letter-spacing:.18em;color:rgba(245,236,227,.35);writing-mode:vertical-rl}.ao-shot-index strong{font-size:24px;color:var(--ink);font-weight:400;letter-spacing:.02em}.ao-shot-index i{width:1px;height:55px;background:rgba(245,236,227,.2)}.ao-cine-copy{position:fixed;z-index:7;left:8vw;top:50%;width:min(560px,48vw);transform:translateY(-45%);transition:opacity .12s linear;pointer-events:none}.ao-copy-kicker{display:flex;align-items:center;gap:16px;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:rgba(245,236,227,.5);margin-bottom:20px}.ao-copy-kicker span{color:var(--red)}.ao-copy-kicker em{font-style:normal;padding-left:16px;border-left:1px solid rgba(245,236,227,.2)}.ao-cine-copy h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(42px,5.6vw,88px);line-height:.92;font-weight:400;letter-spacing:-.045em;margin:0 0 26px;max-width:670px;text-wrap:balance}.ao-cine-copy p{font-size:14px;line-height:1.65;color:rgba(245,236,227,.62);max-width:430px;margin:0}.ao-copy-line{display:flex;align-items:center;gap:12px;margin-top:38px;color:rgba(245,236,227,.32);font-size:8px;letter-spacing:.18em}.ao-copy-line span{display:block;width:42px;height:1px;background:var(--red)}.ao-next-shot{position:fixed;z-index:7;right:8vw;bottom:15vh;display:flex;flex-direction:column;gap:5px;text-align:right;text-transform:uppercase;transition:opacity .2s}.ao-next-shot span{font-size:8px;letter-spacing:.22em;color:var(--red)}.ao-next-shot b{font-size:30px;font-weight:300}.ao-next-shot em{font-size:9px;letter-spacing:.18em;color:rgba(245,236,227,.5);font-style:normal}.ao-bottom-meta{position:fixed;z-index:8;bottom:27px;left:4vw;right:4vw;display:flex;justify-content:space-between;color:rgba(245,236,227,.28);font-size:8px;letter-spacing:.2em;text-transform:uppercase}.ao-scroll-rail{position:fixed;z-index:8;left:4vw;top:50%;height:160px;width:1px;background:rgba(245,236,227,.12);transform:translateY(-50%)}.ao-scroll-rail div{position:absolute;left:0;top:0;width:1px;height:100%;background:var(--red);transform-origin:top}.ao-story-length{position:relative;z-index:1;height:800vh;pointer-events:none}.ao-story-length section{height:100vh}.ao-story-length section:last-child{height:100vh}
+      @media(max-width:900px){.ao-cine-center{display:none}.ao-cine-copy{left:7vw;right:12vw;width:auto;top:58%}.ao-cine-copy h1{font-size:clamp(40px,11vw,70px)}.ao-cine-copy p{font-size:13px;max-width:360px}.ao-next-shot{right:9vw;bottom:12vh}.ao-shot-index{right:4vw}.ao-stage canvas{filter:saturate(.92)}.ao-cine-nav{height:72px}.ao-cine-exit{font-size:8px}.ao-scroll-rail{left:4vw;height:120px}}
+      @media(prefers-reduced-motion:reduce){.ao-cinematic-history{min-height:100vh}.ao-story-length{display:none}.ao-stage{position:absolute;height:100vh}.ao-cine-copy{transition:none}.ao-grain{display:none}}
+    `}</style>
+  </main>;
 }
