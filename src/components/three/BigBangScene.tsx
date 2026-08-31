@@ -73,7 +73,8 @@ const Rig = ({
         ? INTRO_CEILING
         : clamp01(elapsed / introDuration) * INTRO_CEILING;
       const tail = clamp01(scrollRef.current) * (1 - INTRO_CEILING);
-      progress.current = clamp01(Math.max(intro, INTRO_CEILING * 0.999 * Math.min(1, intro / (INTRO_CEILING || 1))) + (intro >= INTRO_CEILING - 1e-3 ? tail : 0));
+      progress.current =
+        intro < INTRO_CEILING - 1e-3 ? intro : clamp01(INTRO_CEILING + tail);
       const phase = phaseAt(progress.current);
       if (phase !== lastPhase.current) {
         lastPhase.current = phase;
