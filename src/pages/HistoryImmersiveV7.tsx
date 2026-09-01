@@ -1,48 +1,277 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Sparkles, Environment } from "@react-three/drei";
+import { Sparkles } from "@react-three/drei";
 import { Link } from "react-router-dom";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
 const scenes = [
-  {id:"01",brand:"ORIGEN",kicker:"PRÓLOGO · 01",title:"Antes de existir una empresa, existía una posibilidad.",copy:"Una idea rompe la quietud. La energía aparece, se expande y busca una forma. El viaje comienza antes de que exista un nombre.",kind:"origin",color:"#ff4038",meta:"ENERGÍA · SINGULARIDAD · EXPANSIÓN",next:"A&O"},
-  {id:"02",brand:"A&O",kicker:"ESTRUCTURA · 02",title:"La posibilidad encontró estructura.",copy:"El caos encontró dirección. A&O nace como arquitectura: visión, talento, tecnología, capital y ejecución empiezan a operar bajo una misma lógica.",kind:"ao",color:"#ff4038",meta:"VISIÓN · ESTRUCTURA · DIRECCIÓN",next:"INVERFACT"},
-  {id:"03",brand:"INVERFACT",kicker:"ACTIVAR · 03",title:"La decisión se convierte en acción.",copy:"El conocimiento se encuentra con el capital y la comunidad. INVERFACT activa la dimensión financiera del sistema: aprender, analizar, decidir y participar.",kind:"inverfact",color:"#ffb21a",meta:"CAPITAL · EDUCACIÓN · COMUNIDAD",route:"/inverfact",cta:"ENTRAR EN INVERFACT",next:"NOMADHIVE"},
-  {id:"04",brand:"NOMADHIVE",kicker:"CONECTAR · 04",title:"El talento se convierte en red.",copy:"Una persona se convierte en nodo. Los nodos forman una Hive. La red abre oportunidades y convierte capacidad individual en movimiento colectivo.",kind:"nomadhive",color:"#28e879",meta:"TALENTO · NODOS · RED · OPORTUNIDAD",route:"/nomadhive",cta:"ENTRAR EN NOMADHIVE",next:"ANMA"},
-  {id:"05",brand:"ANMA SOLUCIONES",kicker:"MOVER · 05",title:"La atención se convierte en movimiento.",copy:"Marketing, contenido, producto, comercio y estrategia operan como un mismo flujo. La atención se transforma en interacción y la interacción en negocio.",kind:"anma",color:"#ff8514",meta:"MARKETING · PRODUCTO · COMERCIO · FLUJO",route:"/anma",cta:"ENTRAR EN ANMA",next:"A&O SYSTEM TOOLS"},
-  {id:"06",brand:"A&O SYSTEM TOOLS",kicker:"HABILITAR · 06",title:"La experiencia se convierte en sistema.",copy:"Las herramientas convierten conocimiento, hábitos, datos y decisiones en capacidad operativa. A&O ST será el territorio donde las ideas se vuelven sistemas que ayudan al ecosistema a pensar, trabajar y crecer.",kind:"aost",color:"#b9a7ff",meta:"IA · DATOS · HÁBITOS · SISTEMAS · AUTOMATIZACIÓN",next:"CONVERGENCIA"},
-  {id:"07",brand:"LA CONVERGENCIA",kicker:"INTEGRACIÓN · 07",title:"Las unidades dejan de verse separadas.",copy:"Capital y educación. Talento y red. Marketing y comercio. Sistemas y conocimiento. Cada unidad aporta una capacidad distinta; juntas forman una arquitectura mayor.",kind:"convergence",color:"#f5efe7",meta:"CAPITAL · TALENTO · COMERCIO · SISTEMAS",next:"A&O ECOSYSTEM"},
-  {id:"08",brand:"A&O ECOSYSTEM",kicker:"EPÍLOGO · 08",title:"Lo que construimos hoy es el comienzo de lo que sigue.",copy:"Las piezas vuelven al centro. Personas, marcas, tecnología, conocimiento, comercio, inversión y comunidad funcionan como una sola arquitectura viva.",kind:"future",color:"#fff",meta:"TALENTO · TECNOLOGÍA · CONOCIMIENTO · COMERCIO · CAPITAL · COMUNIDAD",next:"INICIO"}
+  { id:"01", brand:"ORIGEN", kicker:"PRÓLOGO · 01", title:"Antes de existir una empresa, existía una posibilidad.", copy:"Una idea rompe la quietud. La energía aparece, se expande y busca una forma. El viaje comienza antes de que exista un nombre.", kind:"origin", color:"#ff4038", meta:"ENERGÍA · SINGULARIDAD · EXPANSIÓN", next:"A&O" },
+  { id:"02", brand:"A&O", kicker:"ESTRUCTURA · 02", title:"La posibilidad encontró estructura.", copy:"El caos encontró dirección. A&O nace como arquitectura: visión, talento, tecnología, capital y ejecución empiezan a operar bajo una misma lógica.", kind:"ao", color:"#ff4038", meta:"VISIÓN · ESTRUCTURA · DIRECCIÓN", next:"INVERFACT" },
+  { id:"03", brand:"INVERFACT", kicker:"ACTIVAR · 03", title:"La decisión se convierte en acción.", copy:"El conocimiento se encuentra con el capital y la comunidad. INVERFACT activa la dimensión financiera del sistema: aprender, analizar, decidir y participar.", kind:"inverfact", color:"#ffb21a", meta:"CAPITAL · EDUCACIÓN · COMUNIDAD", route:"/inverfact", cta:"ENTRAR EN INVERFACT", next:"NOMADHIVE" },
+  { id:"04", brand:"NOMADHIVE", kicker:"CONECTAR · 04", title:"El talento se convierte en red.", copy:"Una persona se convierte en nodo. Los nodos forman una Hive. La red abre oportunidades y convierte capacidad individual en movimiento colectivo.", kind:"nomadhive", color:"#28e879", meta:"TALENTO · NODOS · RED · OPORTUNIDAD", route:"/nomadhive", cta:"ENTRAR EN NOMADHIVE", next:"ANMA" },
+  { id:"05", brand:"ANMA SOLUCIONES", kicker:"MOVER · 05", title:"La atención se convierte en movimiento.", copy:"Marketing, contenido, producto, comercio y estrategia operan como un mismo flujo. La atención se transforma en interacción y la interacción en negocio.", kind:"anma", color:"#ff8514", meta:"MARKETING · PRODUCTO · COMERCIO · FLUJO", route:"/anma", cta:"ENTRAR EN ANMA", next:"A&O SYSTEM TOOLS" },
+  { id:"06", brand:"A&O SYSTEM TOOLS", kicker:"HABILITAR · 06", title:"La experiencia se convierte en sistema.", copy:"Las herramientas convierten conocimiento, hábitos, datos y decisiones en capacidad operativa. A&O ST será el territorio donde las ideas se vuelven sistemas que ayudan al ecosistema a pensar, trabajar y crecer.", kind:"aost", color:"#b9a7ff", meta:"IA · DATOS · HÁBITOS · SISTEMAS · AUTOMATIZACIÓN", next:"CONVERGENCIA" },
+  { id:"07", brand:"LA CONVERGENCIA", kicker:"INTEGRACIÓN · 07", title:"Las unidades dejan de verse separadas.", copy:"Capital y educación. Talento y red. Marketing y comercio. Sistemas y conocimiento. Cada unidad aporta una capacidad distinta; juntas forman una arquitectura mayor.", kind:"convergence", color:"#f5efe7", meta:"CAPITAL · TALENTO · COMERCIO · SISTEMAS", next:"A&O ECOSYSTEM" },
+  { id:"08", brand:"A&O ECOSYSTEM", kicker:"EPÍLOGO · 08", title:"Lo que construimos hoy es el comienzo de lo que sigue.", copy:"Las piezas vuelven al centro. Personas, marcas, tecnología, conocimiento, comercio, inversión y comunidad funcionan como una sola arquitectura viva.", kind:"future", color:"#ffffff", meta:"TALENTO · TECNOLOGÍA · CONOCIMIENTO · COMERCIO · CAPITAL · COMUNIDAD", next:"INICIO" }
 ] as const;
 
-const logoSrc:Record<string,string>={INVERFACT:"/brands/inverfact.svg",NOMADHIVE:"/brands/nomadhive.svg","ANMA SOLUCIONES":"/brands/anma.svg"};
+const logoSrc: Record<string,string> = {
+  INVERFACT:"/brands/inverfact.svg",
+  NOMADHIVE:"/brands/nomadhive.svg",
+  "ANMA SOLUCIONES":"/brands/anma.svg"
+};
+
 const clamp=(x:number,a=0,b=1)=>Math.max(a,Math.min(b,x));
 const ease=(x:number)=>{x=clamp(x);return x*x*(3-2*x)};
-function useProgress(){const [v,setV]=useState(0);useEffect(()=>{let r=0;const u=()=>{cancelAnimationFrame(r);r=requestAnimationFrame(()=>setV(clamp(scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight))));};u();addEventListener("scroll",u,{passive:true});addEventListener("resize",u);return()=>{cancelAnimationFrame(r);removeEventListener("scroll",u);removeEventListener("resize",u)}},[]);return v}
-function useSmooth(v:number,lambda=2.1){const [s,setS]=useState(v);useEffect(()=>{let r=0;const t=()=>{setS(p=>{const n=THREE.MathUtils.damp(p,v,lambda,1/60);return Math.abs(n-v)<.00015?v:n});r=requestAnimationFrame(t)};r=requestAnimationFrame(t);return()=>cancelAnimationFrame(r)},[v,lambda]);return s}
-function idxAt(p:number){const s=clamp(p)*(scenes.length-1);const i=Math.min(scenes.length-1,Math.floor(s));return {i,local:s-i}}
 
-function Dust({color}:{color:string}){const pts=useRef<THREE.Points>(null);const pos=useMemo(()=>{const a=new Float32Array(3200*3);for(let i=0;i<3200;i++){const r=6+Math.random()*17,t=Math.random()*Math.PI*2;a[i*3]=Math.cos(t)*r;a[i*3+1]=(Math.random()-.5)*12;a[i*3+2]=Math.sin(t)*r}return a},[]);useFrame((s,d)=>{if(pts.current){pts.current.rotation.y+=d*.005;pts.current.rotation.x=Math.sin(s.clock.elapsedTime*.07)*.012}});return <points ref={pts}><bufferGeometry><bufferAttribute attach="attributes-position" args={[pos,3]} count={pos.length/3}/></bufferGeometry><pointsMaterial color={color} size={.014} transparent opacity={.3} depthWrite={false} blending={THREE.AdditiveBlending}/></points>}
-function Singular({phase}:{phase:number}){const pts=useRef<THREE.Points>(null);const pos=useMemo(()=>{const a=new Float32Array(9000*3);for(let i=0;i<9000;i++){const r=Math.pow(Math.random(),.48)*4.7,t=Math.random()*Math.PI*2,p=Math.acos(2*Math.random()-1);a[i*3]=r*Math.sin(p)*Math.cos(t);a[i*3+1]=r*Math.cos(p);a[i*3+2]=r*Math.sin(p)*Math.sin(t)}return a},[]);useFrame(s=>{if(pts.current){const k=ease(phase/.82);pts.current.scale.setScalar(.01+k*2.3);pts.current.rotation.y=s.clock.elapsedTime*.05}});return <><points ref={pts}><bufferGeometry><bufferAttribute attach="attributes-position" args={[pos,3]} count={pos.length/3}/></bufferGeometry><pointsMaterial color="#fff6ef" size={.017} transparent opacity={.04+ease(phase/.72)*.9} depthWrite={false} blending={THREE.AdditiveBlending}/></points><pointLight color="#ff4038" intensity={5+phase*34} distance={15}/></>}
+function useProgress(){
+  const [value,setValue]=useState(0);
+  useEffect(()=>{
+    let raf=0;
+    const update=()=>{
+      cancelAnimationFrame(raf);
+      raf=requestAnimationFrame(()=>{
+        const max=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);
+        setValue(clamp(window.scrollY/max));
+      });
+    };
+    update();
+    window.addEventListener("scroll",update,{passive:true});
+    window.addEventListener("resize",update);
+    return()=>{cancelAnimationFrame(raf);window.removeEventListener("scroll",update);window.removeEventListener("resize",update)};
+  },[]);
+  return value;
+}
 
-function OrbitalUniverse({kind,phase,color}:{kind:string;phase:number;color:string}){const g=useRef<THREE.Group>(null);useFrame((s,d)=>{if(g.current){g.current.rotation.y+=d*(.045+phase*.03);g.current.rotation.x=Math.sin(s.clock.elapsedTime*.23)*.04;g.current.scale.setScalar(.86+ease(phase)*.22)}});if(kind==="ao")return <group ref={g}><mesh><icosahedronGeometry args={[1.15,5]}/><meshPhysicalMaterial color="#f7eee9" metalness={1} roughness={.08} clearcoat={1} emissive="#81100b" emissiveIntensity={.7}/></mesh>{[1.5,2,2.5].map((r,i)=><mesh key={r} rotation={[i*.7,i*.5,i*.2]}><torusGeometry args={[r,.014,10,220]}/><meshBasicMaterial color={i===1?"#ff4038":"#d8d0ca"} transparent opacity={i===1?.7:.2}/></mesh>)}<pointLight color="#ff4038" intensity={12+phase*18} distance={12}/></group>;
-if(kind==="inverfact")return <group ref={g}><mesh><sphereGeometry args={[1.5,48,32]}/><meshPhysicalMaterial color="#734a10" metalness={.8} roughness={.18} clearcoat={1}/></mesh><mesh><sphereGeometry args={[1.54,48,32]}/><meshBasicMaterial color="#ffb21a" wireframe transparent opacity={.42+phase*.14}/></mesh>{Array.from({length:28},(_,i)=>{const a=i/28*Math.PI*2,r=1.8+(i%4)*.18;return <mesh key={i} position={[Math.cos(a)*r,Math.sin(i*1.6)*.75,Math.sin(a)*r]}><sphereGeometry args={[.06,12,12]}/><meshBasicMaterial color={color}/></mesh>})}<pointLight color={color} intensity={13+phase*18} distance={12}/></group>;
-if(kind==="nomadhive")return <group ref={g}>{Array.from({length:34},(_,i)=>{const a=i/34*Math.PI*2,r=1.2+(i%6)*.32;return <mesh key={i} position={[Math.cos(a)*r,Math.sin(a)*r*.62,(i%5-2)*.16]} rotation={[0,0,Math.PI/6]}><cylinderGeometry args={[.22,.22,.12,6]}/><meshPhysicalMaterial color={color} metalness={.75} roughness={.18} emissive={color} emissiveIntensity={.16}/></mesh>})}<mesh><sphereGeometry args={[.34,28,22]}/><meshPhysicalMaterial color="#effff5" metalness={.2} roughness={.12}/></mesh><pointLight color={color} intensity={12+phase*18} distance={12}/></group>;
-if(kind==="anma")return <group ref={g}>{Array.from({length:38},(_,i)=>{const a=i/38*Math.PI*2,r=1.1+(i%7)*.3;return <mesh key={i} position={[Math.cos(a)*r,Math.sin(i*1.65)*.68,Math.sin(a)*r]} rotation={[i*.15,i*.2,i*.08]}><boxGeometry args={[.17,.17,.17]}/><meshPhysicalMaterial color={color} metalness={.82} roughness={.16} emissive="#762803" emissiveIntensity={.3}/></mesh>})}<mesh><octahedronGeometry args={[.78,2]}/><meshPhysicalMaterial color="#fff0e6" metalness={.9} roughness={.08} emissive="#7b2c03" emissiveIntensity={.55}/></mesh><pointLight color={color} intensity={12+phase*18} distance={12}/></group>;
-if(kind==="aost")return <group ref={g}>{Array.from({length:10},(_,i)=>{const a=i/10*Math.PI*2,r=1.65;return <mesh key={i} position={[Math.cos(a)*r,Math.sin(i*1.25)*.72,Math.sin(a)*r]} rotation={[i*.2,i*.15,i*.08]}><octahedronGeometry args={[.28,1]}/><meshPhysicalMaterial color="#eeeaff" metalness={.9} roughness={.1} emissive="#6046d2" emissiveIntensity={.65}/></mesh>})}<mesh><icosahedronGeometry args={[.92,3]}/><meshPhysicalMaterial color="#faf7ff" metalness={.95} roughness={.07} clearcoat={1} emissive="#5e45cf" emissiveIntensity={.8}/></mesh><pointLight color={color} intensity={14+phase*18} distance={13}/></group>;
-return <group/>}
-function Convergence({phase}:{phase:number}){const g=useRef<THREE.Group>(null);const colors=["#ffb21a","#28e879","#ff8514","#b9a7ff"];useFrame((s,d)=>{if(g.current){g.current.rotation.y+=d*.035;g.current.rotation.x=Math.sin(s.clock.elapsedTime*.18)*.035}});return <group ref={g}>{colors.map((c,i)=>{const a=i/4*Math.PI*2;const r=3.5*(1-ease(phase)*.78);return <group key={c}><mesh position={[Math.cos(a)*r,Math.sin(i*1.25)*.7,Math.sin(a)*r]}><sphereGeometry args={[.15,18,18]}/><meshBasicMaterial color={c}/></mesh><mesh position={[Math.cos(a)*r,Math.sin(i*1.25)*.7,Math.sin(a)*r]} scale={1+ease(phase)*.8}><torusGeometry args={[.22,.012,8,48]}/><meshBasicMaterial color={c} transparent opacity={.5}/></mesh></group>})}<mesh scale={.7+ease(phase)*1.35}><icosahedronGeometry args={[1,4]}/><meshPhysicalMaterial color="#f8efe8" metalness={1} roughness={.07} clearcoat={1} emissive="#8e100b" emissiveIntensity={.75}/></mesh><pointLight color="#fff" intensity={8+phase*22} distance={14}/></group>}
-function Future({phase}:{phase:number}){return <group><OrbitalUniverse kind="ao" phase={phase} color="#fff"/><Convergence phase={.95}/></group>}
-function Camera({progress}:{progress:number}){const {camera}=useThree();useFrame((s,d)=>{const {i,local}=idxAt(progress);const t:[[number,number,number],[number,number,number]]=[[-.7,.12,8.8],[1.0,.08,7]];if(i===1)t=[1.8,.15,6.6];if(i===2)t=[-1.7,.18,6.5];if(i===3)t=[1.65,.02,6.7];if(i===4)t=[-1.55,.12,6.3];if(i===5)t=[1.5,.15,6.8];if(i>=6)t=[0,.1,7.6];const edge=local<.2?ease(local/.2):local>.8?ease((1-local)/.2):1;camera.position.x=THREE.MathUtils.damp(camera.position.x,t[0]+s.pointer.x*.22*edge,2.3,d);camera.position.y=THREE.MathUtils.damp(camera.position.y,t[1]-s.pointer.y*.13,2.3,d);camera.position.z=THREE.MathUtils.damp(camera.position.z,t[2],2.3,d);camera.lookAt(0,0,0)});return null}
-function Scene({progress}:{progress:number}){const {i,local}=idxAt(progress);const c=scenes[i];return <><color attach="background" args={["#010101"]}/><fog attach="fog" args={["#010101",7,26]}/><ambientLight intensity={.08}/><directionalLight position={[4,6,7]} intensity={1.25}/><Environment preset="night"/><Dust color={c.color}/><Sparkles count={820} scale={[21,12,21]} size={1.1} speed={.08+local*.28} color={c.color}/><Camera progress={progress}/>{i===0&&<Singular phase={local}/>} {i>=1&&i<=5&&<OrbitalUniverse kind={c.kind} phase={local} color={c.color}/>} {i===6&&<Convergence phase={local}/>} {i===7&&<Future phase={local}/>}</>}
+function useSmooth(value:number){
+  const [smooth,setSmooth]=useState(value);
+  useEffect(()=>{
+    let raf=0;
+    const tick=()=>{
+      setSmooth(prev=>{
+        const next=THREE.MathUtils.damp(prev,value,2.8,1/60);
+        return Math.abs(next-value)<.0001?value:next;
+      });
+      raf=requestAnimationFrame(tick);
+    };
+    raf=requestAnimationFrame(tick);
+    return()=>cancelAnimationFrame(raf);
+  },[value]);
+  return smooth;
+}
 
-function Audio(){const [playing,setPlaying]=useState(false);const ref=useRef<HTMLAudioElement|null>(null);const unlocked=useRef(false);const src="/audio/track%201%20A%26O%20story%20telling.mp3";const play=()=>{const a=ref.current;if(!a)return;a.volume=.42;a.muted=false;const p=a.play();p?.then(()=>{unlocked.current=true;setPlaying(true)}).catch(()=>setPlaying(false))};useEffect(()=>{const a=new Audio(src);a.preload="auto";a.loop=true;ref.current=a;const gesture=()=>{if(!unlocked.current)play()};addEventListener("pointerdown",gesture,{once:true});addEventListener("touchstart",gesture,{once:true});return()=>{a.pause();a.src="";removeEventListener("pointerdown",gesture);removeEventListener("touchstart",gesture)}},[]);useEffect(()=>{const s=()=>{if(scrollY>2&&!unlocked.current)play()};addEventListener("scroll",s,{passive:true});return()=>removeEventListener("scroll",s)},[]);return <button className={`audio ${playing?"on":""}`} onClick={()=>playing?ref.current?.pause():play()} aria-label="Controlar sonido"><span><i/><i/><i/></span>{playing?"SOUND ON":"SOUND"}</button>}
+function sceneAt(progress:number){
+  const scaled=clamp(progress)*(scenes.length-1);
+  const index=Math.min(scenes.length-1,Math.floor(scaled));
+  return { index, local:scaled-index };
+}
 
-function Portal({scene}:{scene:typeof scenes[number]}){const [hover,setHover]=useState(false);if(!scene.route)return null;return <Link to={scene.route} className={`portal portal-${scene.kind} ${hover?"hover":""}`} style={{"--brand":scene.color} as React.CSSProperties} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}><div className="portal-object" aria-hidden="true">{scene.kind==="inverfact"&&<><i className="orbit"/><b/></>}{scene.kind==="nomadhive"&&<><i/><i/><i/><i/><i/></>}{scene.kind==="anma"&&Array.from({length:9},(_,i)=><i key={i}/>)}</div><div className="portal-copy"><span>{scene.brand}</span><strong>{scene.cta}</strong><b>↗</b></div></Link>}
-function Brand({scene}:{scene:typeof scenes[number]}){const src=logoSrc[scene.brand];if(src)return <div className="brand-art"><img src={src} alt={scene.brand}/></div>;if(scene.brand==="A&O"||scene.brand==="A&O ECOSYSTEM")return <div className="brand-art ao-brand"><img src="/logo-ao-light.png" alt={scene.brand}/></div>;return <div className={`brand-word brand-${scene.kind}`}>{scene.brand}</div>}
+function ParticleField({color}:{color:string}){
+  const ref=useRef<THREE.Points>(null);
+  const positions=useMemo(()=>{
+    const data=new Float32Array(2600*3);
+    for(let i=0;i<2600;i++){
+      const radius=7+Math.random()*18;
+      const angle=Math.random()*Math.PI*2;
+      data[i*3]=Math.cos(angle)*radius;
+      data[i*3+1]=(Math.random()-.5)*13;
+      data[i*3+2]=Math.sin(angle)*radius;
+    }
+    return data;
+  },[]);
+  useFrame((state,delta)=>{
+    if(!ref.current)return;
+    ref.current.rotation.y+=delta*.006;
+    ref.current.rotation.x=Math.sin(state.clock.elapsedTime*.08)*.012;
+  });
+  return <points ref={ref}>
+    <bufferGeometry><bufferAttribute attach="attributes-position" args={[positions,3]} count={positions.length/3}/></bufferGeometry>
+    <pointsMaterial color={color} size={.016} transparent opacity={.3} depthWrite={false} blending={THREE.AdditiveBlending}/>
+  </points>;
+}
 
-export default function HistoryImmersiveV7(){const raw=useProgress();const progress=useSmooth(raw);const {i}=idxAt(progress);const current=scenes[i];const go=(to:number)=>scrollTo({top:Math.max(1,document.documentElement.scrollHeight-innerHeight)*(to/(scenes.length-1)),behavior:"smooth"});return <div className="history-v7"><style>{css}</style><div className="stage"><Canvas dpr={[1,1.7]} camera={{position:[0,0,8],fov:43}} gl={{antialias:true,powerPreference:"high-performance"}}><Scene progress={progress}/></Canvas></div><header className="hud"><Link to="/" className="ao-mini">A<span>&</span>O</Link><div className="hud-title"><span>A&O HISTORY</span><em>{current.kicker}</em></div><Audio/></header><aside className="rail">{scenes.map((s,n)=><button key={s.id} className={n===i?"active":""} onClick={()=>go(n)}><span>{s.id}</span><i style={{background:s.color}}/><b>{s.brand}</b></button>)}</aside><main className="story">{scenes.map((s,n)=><section className="scene" key={s.id}><div className="copy"><div className="kicker"><i style={{background:s.color}}/>{s.kicker}</div><Brand scene={s}/><h1>{s.title}</h1><p>{s.copy}</p><div className="meta">{s.meta}</div><div className="reveal-lines">{n===0&&<span>LA PRIMERA SEÑAL · UNA VISIÓN · EL PUNTO DE PARTIDA</span>}{n===1&&<span>ARQUITECTURA · TECNOLOGÍA · DIRECCIÓN</span>}{n===2&&<span>EDUCACIÓN · COMUNIDAD · CAPITAL</span>}{n===3&&<span>TALENTO · NODOS · OPORTUNIDAD</span>}{n===4&&<span>ATENCIÓN · PRODUCTO · CONVERSIÓN</span>}{n===5&&<span>IA · DATOS · SISTEMAS · FUTURO</span>}{n===6&&<span>INVERFACT · NOMADHIVE · ANMA · A&O ST</span>}{n===7&&<span>UNA ARQUITECTURA VIVA · UN SISTEMA QUE SIGUE CRECIENDO</span>}</div><Portal scene={s}/><button className="next" onClick={()=>go(Math.min(7,n+1))}><span>SUCEDE DESPUÉS</span><strong style={{color:s.color}}>{s.next}</strong><b>↘</b></button></div></section>)}</main><div className="left-progress"><span style={{transform:`scaleY(${progress})`}}/></div><div className="counter">{String(i+1).padStart(2,"0")} <em>/</em> 08</div><footer><span>ex Structura, Prosperitas</span><span>A&O ECOSYSTEM · LIVING HISTORY</span></footer></div>}
+function OriginCore({phase}:{phase:number}){
+  const ref=useRef<THREE.Points>(null);
+  const positions=useMemo(()=>{
+    const data=new Float32Array(6500*3);
+    for(let i=0;i<6500;i++){
+      const r=Math.pow(Math.random(),.48)*4.6;
+      const t=Math.random()*Math.PI*2;
+      const p=Math.acos(2*Math.random()-1);
+      data[i*3]=r*Math.sin(p)*Math.cos(t);
+      data[i*3+1]=r*Math.cos(p);
+      data[i*3+2]=r*Math.sin(p)*Math.sin(t);
+    }
+    return data;
+  },[]);
+  useFrame((state)=>{
+    if(!ref.current)return;
+    ref.current.rotation.y=state.clock.elapsedTime*.045;
+    ref.current.scale.setScalar(.02+ease(phase/.8)*2.35);
+  });
+  return <>
+    <points ref={ref}><bufferGeometry><bufferAttribute attach="attributes-position" args={[positions,3]} count={positions.length/3}/></bufferGeometry><pointsMaterial color="#fff4eb" size={.019} transparent opacity={.06+ease(phase/.72)*.9} depthWrite={false} blending={THREE.AdditiveBlending}/></points>
+    <pointLight color="#ff4038" intensity={4+phase*30} distance={15}/>
+  </>;
+}
+
+function Orbital({kind,phase,color}:{kind:string;phase:number;color:string}){
+  const group=useRef<THREE.Group>(null);
+  useFrame((state,delta)=>{
+    if(!group.current)return;
+    group.current.rotation.y+=delta*(.045+phase*.035);
+    group.current.rotation.x=Math.sin(state.clock.elapsedTime*.23)*.04;
+    group.current.scale.setScalar(.82+ease(phase)*.25);
+  });
+
+  if(kind==="ao") return <group ref={group}>
+    <mesh><icosahedronGeometry args={[1.15,4]}/><meshPhysicalMaterial color="#f7eee8" metalness={1} roughness={.08} clearcoat={1} emissive="#81100b" emissiveIntensity={.8}/></mesh>
+    {[1.5,2,2.5].map((radius,index)=><mesh key={radius} rotation={[index*.7,index*.5,index*.2]}><torusGeometry args={[radius,.014,10,180]}/><meshBasicMaterial color={index===1?"#ff4038":"#d8d0ca"} transparent opacity={index===1?.72:.18}/></mesh>)}
+    <pointLight color="#ff4038" intensity={10+phase*18} distance={12}/>
+  </group>;
+
+  if(kind==="inverfact") return <group ref={group}>
+    <mesh><sphereGeometry args={[1.5,40,28]}/><meshPhysicalMaterial color="#70470c" metalness={.78} roughness={.2} clearcoat={1}/></mesh>
+    <mesh><sphereGeometry args={[1.54,40,28]}/><meshBasicMaterial color="#ffb21a" wireframe transparent opacity={.38+phase*.18}/></mesh>
+    {Array.from({length:24},(_,i)=>{const a=i/24*Math.PI*2;const r=1.8+(i%4)*.2;return <mesh key={i} position={[Math.cos(a)*r,Math.sin(i*1.7)*.7,Math.sin(a)*r]}><sphereGeometry args={[.06,10,10]}/><meshBasicMaterial color={color}/></mesh>})}
+    <pointLight color={color} intensity={12+phase*18} distance={12}/>
+  </group>;
+
+  if(kind==="nomadhive") return <group ref={group}>
+    {Array.from({length:30},(_,i)=>{const a=i/30*Math.PI*2;const r=1.25+(i%6)*.32;return <mesh key={i} position={[Math.cos(a)*r,Math.sin(a)*r*.62,(i%5-2)*.16]} rotation={[0,0,Math.PI/6]}><cylinderGeometry args={[.22,.22,.12,6]}/><meshPhysicalMaterial color={color} metalness={.72} roughness={.2} emissive={color} emissiveIntensity={.14}/></mesh>})}
+    <mesh><sphereGeometry args={[.35,24,18]}/><meshPhysicalMaterial color="#effff5" metalness={.2} roughness={.12}/></mesh>
+    <pointLight color={color} intensity={12+phase*18} distance={12}/>
+  </group>;
+
+  if(kind==="anma") return <group ref={group}>
+    {Array.from({length:34},(_,i)=>{const a=i/34*Math.PI*2;const r=1.1+(i%7)*.3;return <mesh key={i} position={[Math.cos(a)*r,Math.sin(i*1.7)*.68,Math.sin(a)*r]} rotation={[i*.15,i*.2,i*.08]}><boxGeometry args={[.18,.18,.18]}/><meshPhysicalMaterial color={color} metalness={.8} roughness={.17} emissive="#762803" emissiveIntensity={.28}/></mesh>})}
+    <mesh><octahedronGeometry args={[.78,2]}/><meshPhysicalMaterial color="#fff0e6" metalness={.9} roughness={.08} emissive="#7b2c03" emissiveIntensity={.55}/></mesh>
+    <pointLight color={color} intensity={12+phase*18} distance={12}/>
+  </group>;
+
+  if(kind==="aost") return <group ref={group}>
+    {Array.from({length:9},(_,i)=>{const a=i/9*Math.PI*2;const r=1.65;return <mesh key={i} position={[Math.cos(a)*r,Math.sin(i*1.3)*.72,Math.sin(a)*r]} rotation={[i*.2,i*.15,i*.08]}><octahedronGeometry args={[.29,1]}/><meshPhysicalMaterial color="#eeeaff" metalness={.9} roughness={.1} emissive="#6046d2" emissiveIntensity={.6}/></mesh>})}
+    <mesh><icosahedronGeometry args={[.92,3]}/><meshPhysicalMaterial color="#faf7ff" metalness={.95} roughness={.07} clearcoat={1} emissive="#5e45cf" emissiveIntensity={.8}/></mesh>
+    <pointLight color={color} intensity={13+phase*18} distance={13}/>
+  </group>;
+
+  return <group ref={group}/>;
+}
+
+function Convergence({phase}:{phase:number}){
+  const group=useRef<THREE.Group>(null);
+  const colors=["#ffb21a","#28e879","#ff8514","#b9a7ff"];
+  useFrame((state,delta)=>{
+    if(!group.current)return;
+    group.current.rotation.y+=delta*.035;
+    group.current.rotation.x=Math.sin(state.clock.elapsedTime*.18)*.035;
+  });
+  return <group ref={group}>
+    {colors.map((color,index)=>{const angle=index/4*Math.PI*2;const radius=3.5*(1-ease(phase)*.78);const p:[number,number,number]=[Math.cos(angle)*radius,Math.sin(index*1.25)*.7,Math.sin(angle)*radius];return <group key={color}><mesh position={p}><sphereGeometry args={[.16,18,18]}/><meshBasicMaterial color={color}/></mesh><mesh position={p}><torusGeometry args={[.23,.012,8,48]}/><meshBasicMaterial color={color} transparent opacity={.5}/></mesh></group>})}
+    <mesh scale={.7+ease(phase)*1.3}><icosahedronGeometry args={[1,4]}/><meshPhysicalMaterial color="#f8efe8" metalness={1} roughness={.07} clearcoat={1} emissive="#8e100b" emissiveIntensity={.8}/></mesh>
+    <pointLight color="#fff" intensity={8+phase*20} distance={14}/>
+  </group>;
+}
+
+function CameraRig({progress}:{progress:number}){
+  const {camera}=useThree();
+  useFrame((state,delta)=>{
+    const {index,local}=sceneAt(progress);
+    const targets:[[number,number,number],[number,number,number]]=[[-.6,.1,8.6],[1,.1,7]];
+    if(index===1)targets[0]=[1.8,.15,6.7];
+    if(index===2)targets[0]=[-1.7,.15,6.5];
+    if(index===3)targets[0]=[1.65,.05,6.7];
+    if(index===4)targets[0]=[-1.55,.12,6.3];
+    if(index===5)targets[0]=[1.5,.15,6.8];
+    if(index>=6)targets[0]=[0,.1,7.6];
+    const target=targets[0];
+    const edge=local<.2?ease(local/.2):local>.8?ease((1-local)/.2):1;
+    camera.position.x=THREE.MathUtils.damp(camera.position.x,target[0]+state.pointer.x*.22*edge,2.4,delta);
+    camera.position.y=THREE.MathUtils.damp(camera.position.y,target[1]-state.pointer.y*.13,2.4,delta);
+    camera.position.z=THREE.MathUtils.damp(camera.position.z,target[2],2.4,delta);
+    camera.lookAt(0,0,0);
+  });
+  return null;
+}
+
+function World({progress}:{progress:number}){
+  const {index,local}=sceneAt(progress);
+  const scene=scenes[index];
+  return <>
+    <color attach="background" args={["#010101"]}/>
+    <fog attach="fog" args={["#010101",7,27]}/>
+    <ambientLight intensity={.09}/>
+    <directionalLight position={[4,6,7]} intensity={1.2}/>
+    <ParticleField color={scene.color}/>
+    <Sparkles count={650} scale={[20,12,20]} size={1} speed={.08+local*.3} color={scene.color}/>
+    <CameraRig progress={progress}/>
+    {index===0&&<OriginCore phase={local}/>} 
+    {index>=1&&index<=5&&<Orbital kind={scene.kind} phase={local} color={scene.color}/>} 
+    {index===6&&<Convergence phase={local}/>} 
+    {index===7&&<><Orbital kind="ao" phase={1} color="#fff"/><Convergence phase={.98}/></>}
+  </>;
+}
+
+function AudioControl(){
+  const [playing,setPlaying]=useState(false);
+  const audio=useRef<HTMLAudioElement|null>(null);
+  useEffect(()=>{
+    const element=new Audio("/audio/track%201%20A%26O%20story%20telling.mp3");
+    element.loop=true;element.preload="auto";element.volume=.38;element.addEventListener("play",()=>setPlaying(true));element.addEventListener("pause",()=>setPlaying(false));audio.current=element;
+    return()=>{element.pause();element.src=""};
+  },[]);
+  const toggle=()=>{
+    const element=audio.current;if(!element)return;
+    if(element.paused)element.play().catch(()=>setPlaying(false));else element.pause();
+  };
+  return <button className={`audio ${playing?"on":""}`} onClick={toggle} aria-label="Controlar sonido"><span><i/><i/><i/></span>{playing?"SOUND ON":"SOUND"}</button>;
+}
+
+function Portal({scene}:{scene:typeof scenes[number]}){
+  if(!scene.route)return null;
+  return <Link to={scene.route} className={`portal portal-${scene.kind}`} style={{"--brand":scene.color} as React.CSSProperties}>
+    <div className="portal-object" aria-hidden="true">
+      {scene.kind==="inverfact"&&<><i className="orbit"/><b/></>}
+      {scene.kind==="nomadhive"&&[1,2,3,4,5].map(n=><i key={n}/>) }
+      {scene.kind==="anma"&&<div className="portal-grid">{Array.from({length:9},(_,n)=><i key={n}/>)}</div>}
+    </div>
+    <span>{scene.brand}</span><strong>{scene.cta}</strong><b>↗</b>
+  </Link>;
+}
+
+function Brand({scene}:{scene:typeof scenes[number]}){
+  const src=logoSrc[scene.brand];
+  if(src)return <div className="brand-art"><img src={src} alt={scene.brand}/></div>;
+  if(scene.brand==="A&O"||scene.brand==="A&O ECOSYSTEM")return <div className="brand-art ao-brand"><img src="/logo-ao-light.png" alt={scene.brand}/></div>;
+  return <div className={`brand-word brand-${scene.kind}`}>{scene.brand}</div>;
+}
+
+function WebGLFallback(){return <div className="webgl-fallback"><span>EXPERIENCE INITIALIZING</span></div>}
+
+export default function HistoryImmersiveV7(){
+  const raw=useProgress();
+  const progress=useSmooth(raw);
+  const {index}=sceneAt(progress);
+  const current=scenes[index];
+  const go=(index:number)=>{
+    const max=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);
+    window.scrollTo({top:max*(index/(scenes.length-1)),behavior:"smooth"});
+  };
+  useEffect(()=>{document.title="A&O Ecosystem — Immersive History";return()=>{document.title="A&O Ecosystem"}},[]);
+  return <div className="history-v7">
+    <style>{css}</style>
+    <div className="stage">
+      <Canvas dpr={[1,1.5]} camera={{position:[0,0,8],fov:43}} gl={{antialias:true,powerPreference:"high-performance"}} fallback={<WebGLFallback/>}>
+        <Suspense fallback={null}><World progress={progress}/></Suspense>
+      </Canvas>
+    </div>
+    <header className="hud"><Link to="/" className="ao-mini">A<span>&</span>O</Link><div className="hud-title"><span>A&O HISTORY</span><em>{current.kicker}</em></div><AudioControl/></header>
+    <aside className="rail">{scenes.map((scene,n)=><button key={scene.id} className={n===index?"active":""} onClick={()=>go(n)}><span>{scene.id}</span><i style={{background:scene.color}}/><b>{scene.brand}</b></button>)}</aside>
+    <main className="story">{scenes.map((scene,n)=><section className="scene" key={scene.id}><div className="copy"><div className="kicker"><i style={{background:scene.color}}/>{scene.kicker}</div><Brand scene={scene}/><h1>{scene.title}</h1><p>{scene.copy}</p><div className="meta">{scene.meta}</div><div className="reveal">{n===0&&"LA PRIMERA SEÑAL · UNA VISIÓN · EL PUNTO DE PARTIDA"}{n===1&&"ARQUITECTURA · TECNOLOGÍA · DIRECCIÓN"}{n===2&&"EDUCACIÓN · COMUNIDAD · CAPITAL"}{n===3&&"TALENTO · NODOS · OPORTUNIDAD"}{n===4&&"ATENCIÓN · PRODUCTO · CONVERSIÓN"}{n===5&&"IA · DATOS · SISTEMAS · FUTURO"}{n===6&&"INVERFACT · NOMADHIVE · ANMA · A&O ST"}{n===7&&"UNA ARQUITECTURA VIVA · UN SISTEMA QUE SIGUE CRECIENDO"}</div><Portal scene={scene}/><button className="next" onClick={()=>go(Math.min(7,n+1))}><span>SUCEDE DESPUÉS</span><strong style={{color:scene.color}}>{scene.next}</strong><b>↘</b></button></div></section>)}</main>
+    <div className="left-progress"><span style={{transform:`scaleY(${progress})`}}/></div><div className="counter">{String(index+1).padStart(2,"0")} <em>/</em> 08</div><footer><span>ex Structura, Prosperitas</span><span>A&O ECOSYSTEM · LIVING HISTORY</span></footer>
+  </div>;
+}
 
 const css=`
-.history-v7{min-height:800vh;background:#010101;color:#f2ece7;overflow-x:hidden;font-family:Inter,ui-sans-serif,system-ui,sans-serif}.stage{position:fixed;inset:0;z-index:0}.stage canvas{width:100%!important;height:100%!important}.story{position:relative;z-index:2}.scene{height:100vh;min-height:720px;display:flex;align-items:center;padding:9vh 8vw;pointer-events:none}.copy{width:min(620px,49vw);pointer-events:auto;transform:translateY(3vh)}.kicker{display:flex;align-items:center;gap:12px;color:#756e69;font-size:9px;letter-spacing:.3em}.kicker i{width:42px;height:1px}.brand-art{width:min(460px,36vw);height:92px;margin:22px 0 20px;display:flex;align-items:center;opacity:.98}.brand-art img{max-width:100%;max-height:92px;object-fit:contain;object-position:left center;filter:drop-shadow(0 0 22px rgba(255,255,255,.06))}.ao-brand img{max-width:230px}.brand-word{font-size:clamp(34px,4vw,58px);letter-spacing:-.05em;font-weight:500;margin:23px 0 21px}.brand-inverfact{color:#ffb21a}.brand-nomadhive{color:#28e879}.brand-anma{color:#ff8514}.story h1{font-size:clamp(40px,5.3vw,78px);line-height:.97;letter-spacing:-.055em;font-weight:400;margin:0 0 21px;max-width:730px;text-wrap:balance}.story p{font-size:15px;line-height:1.73;color:#aaa09a;max-width:585px}.meta{margin-top:22px;border-top:1px solid #fff2;padding-top:13px;font-size:8px;letter-spacing:.26em;color:#5e5853}.reveal-lines{margin-top:13px;min-height:21px;color:#716964;font-size:8px;letter-spacing:.18em;line-height:2}.reveal-lines span{display:inline-block;animation:reveal .8s both}.portal{position:relative;display:grid;grid-template-columns:130px 1fr 28px;align-items:center;width:min(600px,47vw);min-height:94px;margin-top:26px;padding:0 16px;border-top:1px solid #fff2;border-bottom:1px solid #fff2;color:inherit;text-decoration:none;overflow:hidden;background:linear-gradient(90deg,transparent,rgba(255,255,255,.016),transparent);transition:transform .6s,border-color .5s,background .5s}.portal.hover{transform:translateX(12px);border-top-color:var(--brand);background:rgba(255,255,255,.025)}.portal-copy{display:contents}.portal-copy span{font-size:8px;letter-spacing:.2em;color:var(--brand);z-index:2}.portal-copy strong{font-size:10px;letter-spacing:.2em;font-weight:500;color:#d8d0ca;z-index:2}.portal-copy b{font-size:22px;color:var(--brand);font-weight:300;z-index:2}.portal-object{position:absolute;left:31px;top:15px;width:76px;height:64px;z-index:1;opacity:.65;transition:opacity .5s,transform .6s}.portal.hover .portal-object{opacity:1;transform:scale(1.12)}.portal-inverfact .orbit{position:absolute;width:54px;height:54px;border:1px solid var(--brand);border-radius:50%;left:10px;top:5px;animation:spin 7s linear infinite}.portal-inverfact .orbit:after{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:var(--brand);left:50%;top:-4px;box-shadow:0 0 18px var(--brand)}.portal-inverfact b{position:absolute;width:9px;height:9px;border-radius:50%;background:#fff3;left:34px;top:28px}.portal-nomadhive i{position:absolute;width:22px;height:19px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--brand)}.portal-nomadhive i:nth-child(1){left:27px;top:3px}.portal-nomadhive i:nth-child(2){left:6px;top:19px}.portal-nomadhive i:nth-child(3){left:48px;top:19px}.portal-nomadhive i:nth-child(4){left:27px;top:35px;opacity:.55}.portal-nomadhive i:nth-child(5){left:69px;top:35px;opacity:.75}.portal-anma{perspective:300px}.portal-grid{position:absolute;left:8px;top:7px;width:72px;height:51px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;transform:rotateX(58deg) rotateZ(-3deg);transform-style:preserve-3d}.portal-grid i{border:1px solid var(--brand);box-shadow:inset 0 0 12px rgba(255,133,20,.12);transition:transform .4s}.portal.hover .portal-grid i:nth-child(odd){transform:translateZ(10px)}.next{display:flex;align-items:center;gap:11px;margin-top:19px;border:0;background:none;color:#605a55;font-size:8px;letter-spacing:.18em;cursor:pointer;padding:6px 0}.next strong{font-size:9px;letter-spacing:.16em}.next b{font-size:18px;font-weight:300;margin-left:auto}.hud{position:fixed;z-index:10;left:0;right:0;top:0;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 27px;border-bottom:1px solid #fff1;background:linear-gradient(180deg,rgba(0,0,0,.65),transparent);backdrop-filter:blur(9px)}.ao-mini{font-weight:800;font-size:22px;letter-spacing:-.17em;text-decoration:none;color:#eee9e4}.ao-mini span{color:#ff4038}.hud-title{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:28px;font-size:8px;letter-spacing:.23em;color:#68615c}.hud-title em{font-style:normal;color:#a29a93}.audio{background:none;border:0;color:#756e68;cursor:pointer;font-size:8px;letter-spacing:.2em;display:flex;align-items:center;gap:10px}.audio span{display:flex;align-items:flex-end;gap:2px;height:11px}.audio i{width:2px;height:4px;background:#6e6761;transition:.2s}.audio.on{color:#eee}.audio.on i:nth-child(1){height:7px}.audio.on i:nth-child(2){height:10px}.audio.on i:nth-child(3){height:6px}.rail{position:fixed;z-index:9;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:4px}.rail button{display:grid;grid-template-columns:21px 3px 1fr;align-items:center;gap:8px;width:185px;padding:7px 0;border:0;background:none;color:#504b47;text-align:left;cursor:pointer}.rail button span{font-size:8px;letter-spacing:.18em}.rail button i{width:3px;height:3px;border-radius:50%;opacity:.35;transition:.35s}.rail button b{font-size:8px;font-weight:500;letter-spacing:.12em;opacity:.45;white-space:nowrap;transition:.35s}.rail button.active i{height:18px;opacity:1}.rail button.active b{color:#eee7e0;opacity:1}.left-progress{position:fixed;z-index:8;left:17px;top:90px;bottom:56px;width:1px;background:#fff1}.left-progress span{display:block;height:100%;width:1px;transform-origin:top;background:#eee7df}.counter{position:fixed;z-index:9;left:27px;bottom:43px;font-size:9px;letter-spacing:.2em;color:#aaa19a}.counter em{font-style:normal;color:#4f4944;margin:0 7px}footer{position:fixed;z-index:9;bottom:0;left:0;right:0;height:28px;padding:0 27px;display:flex;align-items:center;justify-content:space-between;font-size:7px;letter-spacing:.23em;color:#48423f;pointer-events:none}@keyframes spin{to{transform:rotate(360deg)}}@keyframes reveal{from{opacity:0;transform:translateY(8px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}@media(max-width:900px){.hud-title{display:none}.scene{padding:17vh 8vw 16vh}.copy{width:73vw}.portal{width:74vw}.rail{right:10px}.rail button{width:105px}.rail button b{font-size:7px}.brand-art{width:58vw}}@media(max-width:600px){.hud{height:62px;padding:0 16px}.ao-mini{font-size:18px}.audio{font-size:7px}.scene{height:100svh;min-height:680px;padding:16vh 7vw 19vh}.copy{width:86vw}.story h1{font-size:clamp(32px,10vw,50px)}.story p{font-size:13px;line-height:1.65}.brand-art{width:76vw;height:70px}.brand-art img{max-height:70px}.portal{width:86vw;min-height:76px;grid-template-columns:88px 1fr 22px;padding:0 10px}.portal-object{left:17px;transform:scale(.82)}.portal.hover .portal-object{transform:scale(.92)}.portal-copy strong{font-size:8px}.rail{top:auto;bottom:46px;left:16px;right:16px;transform:none;flex-direction:row;justify-content:space-between}.rail button{width:auto;display:block}.rail button b{display:none}.rail button i{display:block;width:18px;height:1px!important;margin-top:4px}.left-progress{display:none}.counter{left:auto;right:16px;bottom:14px}footer{display:none}.reveal-lines{font-size:7px}}
+*{box-sizing:border-box}.history-v7{min-height:800vh;background:#010101;color:#f2ece7;overflow-x:hidden;font-family:Inter,ui-sans-serif,system-ui,sans-serif}.stage{position:fixed;inset:0;z-index:0;background:#010101}.stage canvas{width:100%!important;height:100%!important;display:block}.story{position:relative;z-index:2}.scene{height:100vh;min-height:720px;display:flex;align-items:center;padding:9vh 8vw;pointer-events:none}.copy{width:min(620px,49vw);pointer-events:auto;transform:translateY(3vh)}.kicker{display:flex;align-items:center;gap:12px;color:#756e69;font-size:9px;letter-spacing:.3em}.kicker i{width:42px;height:1px}.brand-art{width:min(460px,36vw);height:92px;margin:22px 0 20px;display:flex;align-items:center}.brand-art img{max-width:100%;max-height:92px;object-fit:contain;object-position:left center;filter:drop-shadow(0 0 22px rgba(255,255,255,.08))}.ao-brand img{max-width:230px}.brand-word{font-size:clamp(34px,4vw,58px);letter-spacing:-.05em;font-weight:500;margin:23px 0 21px}.brand-inverfact{color:#ffb21a}.brand-nomadhive{color:#28e879}.brand-anma{color:#ff8514}.story h1{font-size:clamp(40px,5.3vw,78px);line-height:.97;letter-spacing:-.055em;font-weight:400;margin:0 0 21px;max-width:730px;text-wrap:balance}.story p{font-size:15px;line-height:1.73;color:#aaa09a;max-width:585px}.meta{margin-top:22px;border-top:1px solid #fff2;padding-top:13px;font-size:8px;letter-spacing:.26em;color:#5e5853}.reveal{margin-top:13px;min-height:21px;color:#716964;font-size:8px;letter-spacing:.18em;line-height:2}.portal{position:relative;display:grid;grid-template-columns:130px 1fr 28px;align-items:center;width:min(600px,47vw);min-height:94px;margin-top:26px;padding:0 16px;border-top:1px solid #fff2;border-bottom:1px solid #fff2;color:inherit;text-decoration:none;overflow:hidden;background:linear-gradient(90deg,transparent,rgba(255,255,255,.016),transparent);transition:transform .6s,border-color .5s}.portal:hover{transform:translateX(12px);border-top-color:var(--brand)}.portal>span{font-size:8px;letter-spacing:.2em;color:var(--brand);z-index:2}.portal>strong{font-size:10px;letter-spacing:.2em;font-weight:500;color:#d8d0ca;z-index:2}.portal>b{font-size:22px;color:var(--brand);font-weight:300;z-index:2}.portal-object{position:absolute;left:31px;top:15px;width:76px;height:64px;z-index:1;opacity:.6}.portal-inverfact .orbit{position:absolute;width:54px;height:54px;border:1px solid var(--brand);border-radius:50%;left:10px;top:5px;animation:spin 7s linear infinite}.portal-inverfact .orbit:after{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:var(--brand);left:50%;top:-4px}.portal-inverfact .portal-object>b{position:absolute;width:9px;height:9px;border-radius:50%;background:#fff4;left:34px;top:28px}.portal-nomadhive i{position:absolute;width:22px;height:19px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--brand)}.portal-nomadhive i:nth-child(1){left:27px;top:3px}.portal-nomadhive i:nth-child(2){left:6px;top:19px}.portal-nomadhive i:nth-child(3){left:48px;top:19px}.portal-nomadhive i:nth-child(4){left:27px;top:35px;opacity:.55}.portal-nomadhive i:nth-child(5){left:69px;top:35px;opacity:.75}.portal-grid{position:absolute;left:8px;top:7px;width:72px;height:51px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;transform:perspective(220px) rotateX(58deg) rotateZ(-3deg)}.portal-grid i{border:1px solid var(--brand);box-shadow:inset 0 0 12px rgba(255,133,20,.12)}.next{display:flex;align-items:center;gap:11px;margin-top:19px;border:0;background:none;color:#605a55;font-size:8px;letter-spacing:.18em;cursor:pointer;padding:6px 0}.next strong{font-size:9px;letter-spacing:.16em}.next b{font-size:18px;font-weight:300;margin-left:auto}.hud{position:fixed;z-index:10;left:0;right:0;top:0;height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 27px;border-bottom:1px solid #fff1;background:linear-gradient(180deg,rgba(0,0,0,.7),transparent);backdrop-filter:blur(9px)}.ao-mini{font-weight:800;font-size:22px;letter-spacing:-.17em;text-decoration:none;color:#eee9e4}.ao-mini span{color:#ff4038}.hud-title{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:28px;font-size:8px;letter-spacing:.23em;color:#68615c}.hud-title em{font-style:normal;color:#a29a93}.audio{background:none;border:0;color:#756e68;cursor:pointer;font-size:8px;letter-spacing:.2em;display:flex;align-items:center;gap:10px}.audio span{display:flex;align-items:flex-end;gap:2px;height:11px}.audio i{width:2px;height:4px;background:#6e6761}.audio.on{color:#eee}.audio.on i:nth-child(1){height:7px}.audio.on i:nth-child(2){height:10px}.audio.on i:nth-child(3){height:6px}.rail{position:fixed;z-index:9;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:4px}.rail button{display:grid;grid-template-columns:21px 3px 1fr;align-items:center;gap:8px;width:185px;padding:7px 0;border:0;background:none;color:#504b47;text-align:left;cursor:pointer}.rail button span{font-size:8px;letter-spacing:.18em}.rail button i{width:3px;height:3px;border-radius:50%;opacity:.35;transition:.35s}.rail button b{font-size:8px;font-weight:500;letter-spacing:.12em;opacity:.45;white-space:nowrap}.rail button.active i{height:18px;opacity:1}.rail button.active b{color:#eee7e0;opacity:1}.left-progress{position:fixed;z-index:8;left:17px;top:90px;bottom:56px;width:1px;background:#fff1}.left-progress span{display:block;height:100%;width:1px;transform-origin:top;background:#eee7df}.counter{position:fixed;z-index:9;left:27px;bottom:43px;font-size:9px;letter-spacing:.2em;color:#aaa19a}.counter em{font-style:normal;color:#4f4944;margin:0 7px}footer{position:fixed;z-index:9;bottom:0;left:0;right:0;height:28px;padding:0 27px;display:flex;align-items:center;justify-content:space-between;font-size:7px;letter-spacing:.23em;color:#48423f;pointer-events:none}.webgl-fallback{position:absolute;inset:0;display:grid;place-items:center;color:#6b645f;font-size:8px;letter-spacing:.3em}@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:900px){.hud-title{display:none}.scene{padding:17vh 8vw 16vh}.copy{width:73vw}.portal{width:74vw}.rail{right:10px}.rail button{width:105px}.rail button b{font-size:7px}.brand-art{width:58vw}}@media(max-width:600px){.hud{height:62px;padding:0 16px}.ao-mini{font-size:18px}.audio{font-size:7px}.scene{height:100svh;min-height:680px;padding:16vh 7vw 19vh}.copy{width:86vw}.story h1{font-size:clamp(32px,10vw,50px)}.story p{font-size:13px;line-height:1.65}.brand-art{width:76vw;height:70px}.brand-art img{max-height:70px}.portal{width:86vw;min-height:76px;grid-template-columns:88px 1fr 22px;padding:0 10px}.portal-object{left:17px;transform:scale(.82)}.portal>strong{font-size:8px}.rail{top:auto;bottom:46px;left:16px;right:16px;transform:none;flex-direction:row;justify-content:space-between}.rail button{width:auto;display:block}.rail button b{display:none}.rail button i{display:block;width:18px;height:1px!important;margin-top:4px}.left-progress{display:none}.counter{left:auto;right:16px;bottom:14px}footer{display:none}}
 `;
