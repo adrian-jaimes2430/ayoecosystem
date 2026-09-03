@@ -59,17 +59,12 @@ const NomadLeadForm = () => {
 
     // Notificar al equipo de talento por correo
     try {
-      await supabase.functions.invoke("send-transactional-email", {
+      await supabase.functions.invoke("send-nomadhive-application", {
         body: {
-          templateName: "nomadhive-application",
-          idempotencyKey: `nomadhive-app-${parsed.data.email}-${Date.now()}`,
-          templateData: {
-            name: parsed.data.name,
-            email: parsed.data.email,
-            phone: parsed.data.phone,
-            experience: parsed.data.experience || "",
-            submittedAt: new Date().toLocaleString("es-CO"),
-          },
+          name: parsed.data.name,
+          email: parsed.data.email,
+          phone: parsed.data.phone,
+          experience: parsed.data.experience || "",
         },
       });
     } catch (e) {
