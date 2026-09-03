@@ -65,17 +65,12 @@ const AnmaLeadForm = ({ profile }: { profile: Profile }) => {
     }
     // Notificar al equipo comercial
     try {
-      await supabase.functions.invoke("send-transactional-email", {
+      await supabase.functions.invoke("send-anma-application", {
         body: {
-          templateName: "anma-application",
-          idempotencyKey: `anma-${profile}-${parsed.data.email}-${Date.now()}`,
-          templateData: {
-            profile,
-            name: parsed.data.name,
-            email: parsed.data.email,
-            phone: parsed.data.phone,
-            submittedAt: new Date().toLocaleString("es-CO"),
-          },
+          profile,
+          name: parsed.data.name,
+          email: parsed.data.email,
+          phone: parsed.data.phone,
         },
       });
     } catch (e) {

@@ -75,17 +75,12 @@ const Contact = () => {
         name: parsed.data.name,
         source: `contact_form:${parsed.data.interest}`,
       });
-      await supabase.functions.invoke("send-transactional-email", {
+      await supabase.functions.invoke("send-contact-notification", {
         body: {
-          templateName: "general-contact",
-          idempotencyKey: `contact-${parsed.data.email}-${Date.now()}`,
-          templateData: {
-            name: parsed.data.name,
-            email: parsed.data.email,
-            interest: parsed.data.interest,
-            message: parsed.data.message,
-            submittedAt: new Date().toLocaleString("es-CO"),
-          },
+          name: parsed.data.name,
+          email: parsed.data.email,
+          interest: parsed.data.interest,
+          message: parsed.data.message,
         },
       });
       (e.currentTarget as HTMLFormElement).reset();
