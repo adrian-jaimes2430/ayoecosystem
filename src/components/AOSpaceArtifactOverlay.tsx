@@ -24,11 +24,7 @@ function ProceduralHalo({progress}:{progress:number}){
   useEffect(()=>{const move=(e:PointerEvent)=>{pointer.current.x=e.clientX/innerWidth*2-1;pointer.current.y=e.clientY/innerHeight*2-1};addEventListener("pointermove",move,{passive:true});return()=>removeEventListener("pointermove",move)},[]);
   useFrame(({clock})=>{if(!root.current)return;root.current.rotation.y+=(.0015+Math.abs(pointer.current.x)*.001);root.current.rotation.x+=(pointer.current.y*.1-root.current.rotation.x)*.03;root.current.rotation.z+=(pointer.current.x*.05-root.current.rotation.z)*.03;root.current.scale.setScalar(.95+Math.sin(clock.elapsedTime*1.3)*.015)});
   const alpha=ease(clamp((progress-.06)/.18))*(progress>.88?1-ease((progress-.94)/.06):1);
-  return <group ref={root}>
-    <mesh rotation={[Math.PI/2,0,0]}><torusGeometry args={[1.92,.022,12,180]}/><meshBasicMaterial color="#ffffff" transparent opacity={alpha*.3} blending={THREE.AdditiveBlending}/></mesh>
-    <mesh rotation={[Math.PI/2,.42,0]}><torusGeometry args={[2.08,.012,10,180]}/><meshBasicMaterial color="#ff3f46" transparent opacity={alpha*.5} blending={THREE.AdditiveBlending}/></mesh>
-    <points><bufferGeometry><bufferAttribute attach="attributes-position" args={[particles,3]} count={particles.length/3}/></bufferGeometry><pointsMaterial color="#f5f3ef" size={.018} transparent opacity={alpha*.5} depthWrite={false} blending={THREE.AdditiveBlending}/></points>
-  </group>;
+  return <group ref={root}><mesh rotation={[Math.PI/2,0,0]}><torusGeometry args={[1.92,.022,12,180]}/><meshBasicMaterial color="#ffffff" transparent opacity={alpha*.3} blending={THREE.AdditiveBlending}/></mesh><mesh rotation={[Math.PI/2,.42,0]}><torusGeometry args={[2.08,.012,10,180]}/><meshBasicMaterial color="#ff3f46" transparent opacity={alpha*.5} blending={THREE.AdditiveBlending}/></mesh><points><bufferGeometry><bufferAttribute attach="attributes-position" args={[particles,3]} count={particles.length/3}/></bufferGeometry><pointsMaterial color="#f5f3ef" size={.018} transparent opacity={alpha*.5} depthWrite={false} blending={THREE.AdditiveBlending}/></points></group>;
 }
 
 function AOModel({progress}:{progress:number}){
@@ -46,15 +42,5 @@ function AOModel({progress}:{progress:number}){
 export default function AOSpaceArtifactOverlay(){
   const progress=useChapterProgress();
   if(progress<=0 || progress>=1)return null;
-  return <div className="ao-artifact-overlay" aria-hidden="true">
-    <Canvas dpr={[1,1.5]} camera={{position:[0,0,7],fov:38}} gl={{alpha:true,antialias:true,powerPreference:"high-performance"}}>
-      <ambientLight intensity={.22}/><directionalLight position={[3,4,6]} intensity={3.5}/><pointLight position={[-2,1,3]} color="#ff2430" intensity={5} distance={9}/>
-      <ProceduralHalo progress={progress}/>
-      <Suspense fallback={null}><AOModel progress={progress}/></Suspense>
-    </Canvas>
-    <div className="ao-artifact-mask"/>
-    <style>{`.ao-artifact-overlay{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden}.ao-artifact-overlay canvas{position:absolute;inset:0;width:100%!important;height:100%!important}.ao-artifact-mask{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(2,2,4,.68) 0%,rgba(2,2,4,.28) 24%,transparent 46%);mix-blend-mode:multiply;pointer-events:none}`}</style>
-  </div>;
+  return <div className="ao-artifact-overlay" aria-hidden="true"><Canvas dpr={[1,1.5]} camera={{position:[0,0,7],fov:38}} gl={{alpha:true,antialias:true,powerPreference:"high-performance"}}><ambientLight intensity={.22}/><directionalLight position={[3,4,6]} intensity={3.5}/><pointLight position={[-2,1,3]} color="#ff2430" intensity={5} distance={9}/><ProceduralHalo progress={progress}/><Suspense fallback={null}><AOModel progress={progress}/></Suspense></Canvas><div className="ao-artifact-mask"/><style>{`.ao-artifact-overlay{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden}.ao-artifact-overlay canvas{position:absolute;inset:0;width:100%!important;height:100%!important}.ao-artifact-mask{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(2,2,4,.68) 0%,rgba(2,2,4,.28) 24%,transparent 46%);mix-blend-mode:multiply;pointer-events:none}`}</style></div>;
 }
-
-useGLTF.preload("/api/ao-model");
