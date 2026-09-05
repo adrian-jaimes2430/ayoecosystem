@@ -1,4 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
+import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -19,6 +20,15 @@ function useChapterProgress(){
     return()=>cancelAnimationFrame(raf);
   },[]);
   return p;
+}
+
+function ArtifactLogo({alpha}:{alpha:number}){
+  const texture=useTexture("/logo-ao-light.png");
+  useEffect(()=>{texture.colorSpace=THREE.SRGBColorSpace;texture.needsUpdate=true},[texture]);
+  return <mesh position={[0,0,.58]} rotation={[0,0,0]}>
+    <planeGeometry args={[.86,.42]}/>
+    <meshBasicMaterial map={texture} transparent opacity={alpha*.95} depthWrite={false} blending={THREE.AdditiveBlending}/>
+  </mesh>;
 }
 
 function Artifact({progress}:{progress:number}){
@@ -62,6 +72,7 @@ function Artifact({progress}:{progress:number}){
     <mesh position={[0,0,.37]} scale={[.68,.68,.12]}><cylinderGeometry args={[1,1,1,96]}/><meshPhysicalMaterial color="#0b0d11" metalness={.98} roughness={.1} clearcoat={1} transparent opacity={alpha}/></mesh>
     <mesh position={[0,0,.49]}><torusGeometry args={[.48,.055,20,96]}/><meshPhysicalMaterial color="#b51e25" emissive="#ff2430" emissiveIntensity={2.2} metalness={.82} roughness={.16} transparent opacity={alpha}/></mesh>
     <mesh position={[0,0,.52]}><torusGeometry args={[.25,.018,12,96]}/><meshBasicMaterial color="#ff6a70" transparent opacity={alpha*.9} blending={THREE.AdditiveBlending}/></mesh>
+    <ArtifactLogo alpha={alpha}/>
     <points><bufferGeometry><bufferAttribute attach="attributes-position" args={[particles,3]} count={particles.length/3}/></bufferGeometry><pointsMaterial color="#f5f3ef" size={.018} transparent opacity={alpha*.55} depthWrite={false} blending={THREE.AdditiveBlending}/></points>
     {[0,1,2].map(i=><mesh key={i} rotation={[Math.PI/2+i*.42,i*.7,0]}><torusGeometry args={[1.9+i*.18,.012,10,180]}/><meshBasicMaterial color={i===1?"#ff3f46":"#ffffff"} transparent opacity={alpha*(i===1?.58:.28)} blending={THREE.AdditiveBlending}/></mesh>)}
   </group>;
