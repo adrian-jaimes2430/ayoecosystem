@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import HistoryImmersiveV8 from "./HistoryImmersiveV8";
 import { ArtifactVideoBridge, CinematicGate } from "../components/HistoryCinematicGate";
+import "../styles/history-particle-intro.css";
 
 /** Master asset registry. Drive remains the source library; production assets are consumed from the repo/CDN. */
 export const HISTORY_DRIVE_ASSETS = {
