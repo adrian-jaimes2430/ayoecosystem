@@ -18,5 +18,5 @@ export default function ArtifactVideoBridgeV2(){
  const fadeIn=clamp((progress-(start-.03))/.12);
  const fadeOut=1-clamp((progress-(start+.82*(end-start)))/(.18*(end-start)));
  const opacity=fadeIn*fadeOut;
- return <div className="artifact-video-bridge-v2" style={{opacity}} aria-hidden="true"><video ref={video} muted playsInline preload="auto" src={VIDEO}/><div className="artifact-video-veil-v2"/></div>;
+ return <div className="artifact-video-bridge-v2" style={{opacity}} aria-hidden="true"><video ref={video} muted playsInline preload="auto" src={VIDEO}/><div className="artifact-video-veil-v2"/><style>{`.artifact-video-bridge-v2{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;background:#020204}.artifact-video-bridge-v2 video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}.artifact-video-veil-v2{position:absolute;inset:0;background:radial-gradient(circle at 50% 48%,transparent 20%,rgba(0,0,0,.08) 58%,rgba(0,0,0,.68) 100%),linear-gradient(180deg,rgba(0,0,0,.18),transparent 34%,rgba(0,0,0,.38));pointer-events:none}`}</style></div>;
 }
