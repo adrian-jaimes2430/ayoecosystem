@@ -39,10 +39,10 @@ function preloadAsset(asset: Asset, onProgress: (value: number) => void) {
       return;
     }
 
-    const media = document.createElement(asset.type);
+    const media = document.createElement(asset.type === "video" ? "video" : "audio");
     media.preload = "auto";
     media.muted = true;
-    media.playsInline = true;
+    if (media instanceof HTMLVideoElement) media.playsInline = true;
     const update = () => {
       if (media.duration && Number.isFinite(media.duration) && media.buffered.length) {
         onProgress(clamp(media.buffered.end(media.buffered.length - 1) / media.duration));
@@ -58,7 +58,7 @@ function preloadAsset(asset: Asset, onProgress: (value: number) => void) {
   });
 }
 
-function LoaderOrb({ interactive, onHoverChange }: { interactive: boolean; onHoverChange: (v: boolean) => void }) {
+function LoaderOrb({ interactive }: { interactive: boolean }) {
   const group = useRef<THREE.Group>(null);
   const core = useRef<THREE.Mesh>(null);
   const pointer = useRef({ x: 0, y: 0 });
@@ -89,12 +89,7 @@ function LoaderOrb({ interactive, onHoverChange }: { interactive: boolean; onHov
   });
 
   return (
-    <group
-      ref={group}
-      onPointerOver={(e) => { e.stopPropagation(); onHoverChange(true); document.body.style.cursor = "none"; }}
-      onPointerOut={() => onHoverChange(false)}
-      onClick={(e) => e.stopPropagation()}
-    >
+    <group ref={group} onClick={(e) => e.stopPropagation()}>
       <mesh ref={core}>
         <icosahedronGeometry args={[.9, 5]} />
         <meshPhysicalMaterial color="#071018" metalness={.85} roughness={.16} clearcoat={1} clearcoatRoughness={.08} emissive="#071018" emissiveIntensity={.25} />
@@ -308,10 +303,10 @@ export function CinematicGate({ onEnter }: { onEnter: () => void }) {
     <video className="history-loader__video" muted playsInline autoPlay loop preload="auto" src={LOADER_VIDEO} />
     <div className="history-loader__veil" />
     <div className="history-loader__header"><span>A&O ECOSYSTEM</span><span>HISTORY / 01—08</span></div>
-    <div className={`history-loader__orb ${showOrb ? "is-visible" : ""}`}>
+    <div className={`history-loader__orb ${showOrb ? "is-visible" : ""}`} onPointerEnter={() => { if (ready) { setHover(true); document.body.style.cursor = "none"; } }} onPointerLeave={() => setHover(false)}>
       <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 5.8], fov: 42 }} gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}>
         <ambientLight intensity={.15} />
-        <LoaderOrb interactive={ready && hover} onHoverChange={setHover} />
+        <LoaderOrb interactive={ready && hover} />
       </Canvas>
       {ready && hover && <button type="button" className="history-loader__press" onClick={enter}>PRESS ON</button>}
     </div>
