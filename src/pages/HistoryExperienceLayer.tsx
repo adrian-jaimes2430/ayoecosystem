@@ -1,6 +1,8 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import HistoryImmersiveV8 from "./HistoryImmersiveV8";
-import { ArtifactVideoBridge, CinematicGate } from "../components/HistoryCinematicGate";
+import { CinematicGate } from "../components/HistoryCinematicGate";
+import ArtifactVideoBridgeV2 from "../components/ArtifactVideoBridgeV2";
+import AOSpaceArtifactOverlay from "../components/AOSpaceArtifactOverlay";
 import "../styles/history-particle-intro.css";
 
 /** Master asset registry. Drive remains the source library; production assets are consumed from the repo/CDN. */
@@ -40,7 +42,8 @@ export default function HistoryExperienceLayer() {
 
   return (
     <div className="history-experience-layer">
-      {entered && <ArtifactVideoBridge />}
+      {entered && <ArtifactVideoBridgeV2 />}
+      {entered && <AOSpaceArtifactOverlay />}
       {entered && <HistoryBoundary><HistoryImmersiveV8 /></HistoryBoundary>}
       {!entered && <CinematicGate onEnter={() => setEntered(true)} />}
       <style>{`.history-experience-layer{position:relative;min-height:800vh;background:#020202;overflow-x:hidden}.history-experience-layer canvas{display:block}`}</style>
