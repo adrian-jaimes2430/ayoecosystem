@@ -1,11 +1,9 @@
 import { motion } from "framer-motion";
-import type { ElementType } from "react";
 
 interface TextRevealProps {
   text: string;
   className?: string;
   delay?: number;
-  as?: ElementType;
   /** Stagger between words, seconds. */
   stagger?: number;
 }
@@ -18,14 +16,12 @@ const TextReveal = ({
   text,
   className,
   delay = 0,
-  as = "span",
   stagger = 0.045,
 }: TextRevealProps) => {
-  const Comp = motion(as as ElementType);
   const words = text.split(" ");
 
   return (
-    <Comp
+    <motion.span
       className={className}
       initial="hidden"
       whileInView="visible"
@@ -48,7 +44,7 @@ const TextReveal = ({
           </motion.span>
         </span>
       ))}
-    </Comp>
+    </motion.span>
   );
 };
 

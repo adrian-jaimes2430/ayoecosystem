@@ -58,15 +58,14 @@ const About = () => {
       <div className="mx-auto max-w-6xl px-6">
         <Reveal direction="blur" className="max-w-3xl">
           <TextReveal
-            as="span"
             text="El ecosistema"
             className="block text-xs uppercase tracking-[0.3em] text-primary"
           />
           <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight">
-            <TextReveal as="span" text="No vendemos cursos." className="block" delay={0.05} />
+            <TextReveal text="No vendemos cursos." className="block" delay={0.05} />
             <span className="block">
-              <TextReveal as="span" text="Construimos sistemas" className="text-primary" delay={0.15} />
-              <TextReveal as="span" text=" que generan resultados." delay={0.25} />
+              <TextReveal text="Construimos sistemas" className="text-primary" delay={0.15} />
+              <TextReveal text=" que generan resultados." delay={0.25} />
             </span>
           </h2>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
