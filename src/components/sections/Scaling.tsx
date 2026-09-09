@@ -4,7 +4,6 @@ import ChapterHeading from "@/components/ChapterHeading";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Briefcase, Target, Cog, BarChart3 } from "lucide-react";
-import TextReveal from "@/components/TextReveal";
 const aoLogo = "/logo-ao-light.png";
 
 const UnitObject = lazy(() => import("@/components/three/UnitObject"));

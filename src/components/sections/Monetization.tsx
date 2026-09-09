@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Megaphone, Users, Rocket, Repeat } from "lucide-react";
 import { Link } from "react-router-dom";
 import anmaLogo from "@/assets/logo-anma.png";
-import TextReveal from "@/components/TextReveal";
 
 const UnitObject = lazy(() => import("@/components/three/UnitObject"));
 

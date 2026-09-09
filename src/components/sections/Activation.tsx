@@ -7,7 +7,6 @@ import { ArrowUpRight, GraduationCap, Laptop, TrendingUp, Workflow, Wallet, Netw
 import { Link } from "react-router-dom";
 import inverfactLogo from "@/assets/logo-inverfact.png";
 import nomadhiveLogo from "@/assets/logo-nomadhive.png";
-import TextReveal from "@/components/TextReveal";
 
 const UnitObject = lazy(() => import("@/components/three/UnitObject"));
 

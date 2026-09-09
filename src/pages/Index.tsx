@@ -5,6 +5,7 @@ import Activation from "@/components/sections/Activation";
 import Monetization from "@/components/sections/Monetization";
 import Scaling from "@/components/sections/Scaling";
 import Value from "@/components/sections/Value";
+import Convergence from "@/components/sections/Convergence";
 import Pricing from "@/components/sections/Pricing";
 import Authority from "@/components/sections/Authority";
 import Contact from "@/components/sections/Contact";
@@ -14,10 +15,12 @@ import SectionNav from "@/components/SectionNav";
 import ScrollVideoBackdrop from "@/components/ScrollVideoBackdrop";
 import SectionStage from "@/components/SectionStage";
 import AmbientAudio from "@/components/AmbientAudio";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const Index = () => {
   return (
     <main className="relative min-h-screen text-foreground overflow-x-hidden">
+      <SmoothScroll />
       <ScrollVideoBackdrop />
       <AmbientAudio />
       <Navbar />
@@ -30,6 +33,7 @@ const Index = () => {
       <SectionStage><Monetization /></SectionStage>
       <SectionStage><Scaling /></SectionStage>
       <SectionStage><Value /></SectionStage>
+      <SectionStage><Convergence /></SectionStage>
       <SectionStage><Pricing /></SectionStage>
       <SectionStage><Authority /></SectionStage>
       <SectionStage><Contact /></SectionStage>
