@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { useRef } from "react";
 import ChapterHeading from "@/components/ChapterHeading";
 import inverfactLogo from "@/assets/logo-inverfact.png";
@@ -12,6 +12,24 @@ const marks = [
   { src: nomadhiveLogo, alt: "NomadHive", from: { x: 160, y: -80 }, bg: "bg-black" },
   { src: anmaLogo, alt: "ANMA Soluciones", from: { x: -150, y: 90 }, bg: "bg-white" },
 ];
+
+type MarkDef = (typeof marks)[number];
+
+/** One converging brand mark; isolated so motion hooks stay at top level. */
+const Mark = ({ mark, pull }: { mark: MarkDef; pull: MotionValue<number> }) => {
+  const x = useTransform(pull, (v) => v * mark.from.x);
+  const y = useTransform(pull, (v) => v * mark.from.y);
+  const opacity = useTransform(pull, [1, 0.15], [0.35, 1]);
+  const scale = useTransform(pull, [1, 0], [0.8, 0.62]);
+  return (
+    <motion.div
+      style={{ x, y, opacity, scale }}
+      className={`absolute left-1/2 top-1/2 -ml-8 -mt-8 h-16 w-16 rounded-2xl p-2 ${mark.bg} border border-border/40`}
+    >
+      <img src={mark.src} alt={mark.alt} className="h-full w-full object-contain" loading="lazy" />
+    </motion.div>
+  );
+};
 
 /**
  * CHAPTERS 07 & 08 — the existing brand marks converge into A&O and the
@@ -43,18 +61,7 @@ const Convergence = () => {
             className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[hsl(var(--brand-ao)/0.5)] blur-3xl"
           />
           {marks.map((m) => (
-            <motion.div
-              key={m.alt}
-              style={{
-                x: useTransform(pull, (v) => v * m.from.x),
-                y: useTransform(pull, (v) => v * m.from.y),
-                opacity: useTransform(pull, [1, 0.15], [0.35, 1]),
-                scale: useTransform(pull, [1, 0], [0.8, 0.62]),
-              }}
-              className={`absolute left-1/2 top-1/2 -ml-8 -mt-8 h-16 w-16 rounded-2xl p-2 ${m.bg} border border-border/40`}
-            >
-              <img src={m.src} alt={m.alt} className="h-full w-full object-contain" loading="lazy" />
-            </motion.div>
+            <Mark key={m.alt} mark={m} pull={pull} />
           ))}
           <motion.div
             style={{ scale: coreScale }}
