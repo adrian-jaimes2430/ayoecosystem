@@ -4,6 +4,8 @@ import { Environment, Lightformer } from "@react-three/drei";
 import * as THREE from "three";
 import ParticleGenesis from "./ParticleGenesis";
 import AOFormedLogo from "./AOFormedLogo";
+import AOLogoModel from "./AOLogoModel";
+
 import CinematicCamera from "./CinematicCamera";
 import { clamp01, phaseAt, type PhaseName } from "./phases";
 
@@ -125,6 +127,11 @@ const Rig = ({
       <Suspense fallback={null}>
         <AOFormedLogo progress={progress} logoSrc={logoSrc} accent={accent} />
       </Suspense>
+
+      <Suspense fallback={null}>
+        <AOLogoModel progress={progress} accent={accent} />
+      </Suspense>
+
     </>
   );
 };
