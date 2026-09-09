@@ -1,16 +1,27 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
-import track from "@/assets/ao-storytelling.mp3.asset.json";
 
+const TRACK = "/ao-storytelling.mp3";
 const TARGET_VOLUME = 0.35;
 
+/** Single shared element so remounts never stack a second track. */
+let sharedAudio: HTMLAudioElement | null = null;
+const getAudio = () => {
+  if (!sharedAudio) {
+    sharedAudio = new Audio(TRACK);
+    sharedAudio.loop = true;
+    sharedAudio.preload = "auto";
+    sharedAudio.volume = 0;
+  }
+  return sharedAudio;
+};
+
 /**
- * Cinematic background score. Tries to start immediately and, when the browser
- * blocks autoplay, starts on the visitor's first gesture (scroll, tap, key).
- * The control is always visible so playback can be forced manually.
+ * Narrative score for the storytelling. Autoplay is never forced: playback
+ * starts on the visitor's first real gesture and can always be toggled.
+ * Position is preserved across section changes and remounts.
  */
 const AmbientAudio = () => {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const fadeRef = useRef(0);
   const [playing, setPlaying] = useState(false);
 
@@ -27,20 +38,17 @@ const AmbientAudio = () => {
   }, []);
 
   useEffect(() => {
-    const audio = new Audio(track.url);
-    audio.loop = true;
-    audio.preload = "auto";
-    audio.crossOrigin = "anonymous";
-    audio.volume = 0;
-    audioRef.current = audio;
+    const audio = getAudio();
+    setPlaying(!audio.paused);
 
-    const remove = () => {
-      window.removeEventListener("scroll", start);
-      window.removeEventListener("pointerdown", start);
-      window.removeEventListener("click", start);
-      window.removeEventListener("touchstart", start);
-      window.removeEventListener("keydown", start);
-    };
+    const events: Array<keyof WindowEventMap> = [
+      "scroll",
+      "pointerdown",
+      "click",
+      "touchstart",
+      "keydown",
+    ];
+    const remove = () => events.forEach((e) => window.removeEventListener(e, start));
 
     function start() {
       if (!audio.paused) return;
@@ -52,40 +60,33 @@ const AmbientAudio = () => {
           remove();
         })
         .catch(() => {
-          /* autoplay still blocked — wait for the next gesture */
+          /* still blocked — wait for the next gesture */
         });
     }
 
-    start();
-    window.addEventListener("scroll", start, { passive: true });
-    window.addEventListener("pointerdown", start);
-    window.addEventListener("click", start);
-    window.addEventListener("touchstart", start, { passive: true });
-    window.addEventListener("keydown", start);
+    events.forEach((e) => window.addEventListener(e, start, { passive: true }));
+    const onPause = () => setPlaying(false);
+    const onPlay = () => setPlaying(true);
+    audio.addEventListener("pause", onPause);
+    audio.addEventListener("play", onPlay);
 
     return () => {
       remove();
+      audio.removeEventListener("pause", onPause);
+      audio.removeEventListener("play", onPlay);
       window.clearInterval(fadeRef.current);
-      audio.pause();
-      audio.src = "";
-      audioRef.current = null;
     };
   }, [fadeIn]);
 
   const toggle = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
+    const audio = getAudio();
     if (audio.paused) {
       audio.volume = 0;
-      void audio.play().then(() => {
-        setPlaying(true);
-        fadeIn(audio);
-      });
+      void audio.play().then(() => fadeIn(audio)).catch(() => undefined);
       return;
     }
     window.clearInterval(fadeRef.current);
     audio.pause();
-    setPlaying(false);
   };
 
   return (
