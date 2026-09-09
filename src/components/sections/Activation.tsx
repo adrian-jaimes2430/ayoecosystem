@@ -49,6 +49,15 @@ const Activation = () => {
             <ParallaxLayer speed={0.5} className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[hsl(var(--brand-inverfact)/0.18)] blur-3xl">
               <span />
             </ParallaxLayer>
+            <Suspense fallback={null}>
+              <UnitObject
+                shape="icosahedron"
+                color="#ff8a00"
+                active={inView}
+                className="pointer-events-auto absolute -top-6 right-2 h-40 w-40 md:h-52 md:w-52"
+              />
+            </Suspense>
+
             <div className="relative flex flex-col h-full">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3">
