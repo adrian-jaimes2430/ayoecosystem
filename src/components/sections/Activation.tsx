@@ -118,6 +118,15 @@ const Activation = () => {
             <ParallaxLayer speed={0.5} className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[hsl(var(--brand-nomad)/0.18)] blur-3xl">
               <span />
             </ParallaxLayer>
+            <Suspense fallback={null}>
+              <UnitObject
+                shape="torus"
+                color="#00e08a"
+                active={inView}
+                className="pointer-events-auto absolute -top-6 right-2 h-40 w-40 md:h-52 md:w-52"
+              />
+            </Suspense>
+
             {/* tech grid accent */}
             <div className="absolute inset-0 opacity-[0.07] pointer-events-none"
               style={{
