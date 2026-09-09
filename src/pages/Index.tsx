@@ -13,14 +13,17 @@ import StickyWhatsApp from "@/components/StickyWhatsApp";
 import SectionNav from "@/components/SectionNav";
 import ScrollVideoBackdrop from "@/components/ScrollVideoBackdrop";
 import SectionStage from "@/components/SectionStage";
+import AmbientAudio from "@/components/AmbientAudio";
 
 const Index = () => {
   return (
     <main className="relative min-h-screen text-foreground overflow-x-hidden">
       <ScrollVideoBackdrop />
+      <AmbientAudio />
       <Navbar />
       <SectionNav />
       <Hero />
+
 
       <SectionStage><About /></SectionStage>
       <SectionStage><Activation /></SectionStage>

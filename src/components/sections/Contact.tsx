@@ -96,110 +96,102 @@ const Contact = () => {
   const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => { void onSubmit(e); };
 
   return (
-    <section id="contacto" className="relative py-32">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <span className="text-xs uppercase tracking-[0.3em] text-primary">
-              Acceso al ecosistema
-            </span>
-            <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight">
-              <TextReveal text="Da el siguiente" /> <span className="text-gradient-gold">movimiento</span>.
-            </h2>
-            <p className="mt-6 text-muted-foreground text-lg max-w-md">
-              Solicita acceso a mentoría, consultoría o únete a la comunidad. Te respondemos
-              de forma directa, sin intermediarios.
-            </p>
+    <section id="contacto" className="relative py-16 md:py-20">
+      <div className="mx-auto max-w-5xl px-6">
+        <div className="glass rounded-3xl p-6 md:p-8 shadow-elegant">
+          <div className="grid lg:grid-cols-2 gap-8 items-start">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="text-[10px] uppercase tracking-[0.3em] text-primary">
+                Acceso al ecosistema
+              </span>
+              <h2 className="mt-3 font-display text-3xl md:text-4xl font-bold leading-tight">
+                <TextReveal text="Da el siguiente" /> <span className="text-gradient-gold">movimiento</span>.
+              </h2>
+              <p className="mt-3 text-muted-foreground text-sm max-w-md">
+                Solicita acceso a mentoría, consultoría o únete a la comunidad. Te respondemos
+                de forma directa, sin intermediarios.
+              </p>
 
-            <Button asChild variant="whatsapp" size="lg" className="mt-8">
-              <a href={CLUB_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="h-5 w-5" /> Accede al club gratuito ahora
-              </a>
-            </Button>
+              <Button asChild variant="whatsapp" className="mt-5">
+                <a href={CLUB_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="h-4 w-4" /> Accede al club gratuito ahora
+                </a>
+              </Button>
 
-            <div className="mt-10 space-y-6">
-              <div>
-                <h3 className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">
-                  Correos directos
-                </h3>
-                <ul className="space-y-2">
-                  {EMAILS.map((e) => (
-                    <li key={e.value} className="flex items-center gap-3 text-sm">
-                      <Mail className="h-4 w-4 text-primary shrink-0" />
-                      <a
-                        href={`mailto:${e.value}`}
-                        className="text-foreground hover:text-primary transition-colors"
-                      >
-                        {e.value}
-                      </a>
-                      <span className="text-muted-foreground hidden sm:inline">— {e.label}</span>
-                    </li>
-                  ))}
-                </ul>
+              <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
+                {EMAILS.map((e) => (
+                  <li key={e.value} className="flex items-center gap-2 text-xs">
+                    <Mail className="h-3.5 w-3.5 text-primary shrink-0" />
+                    <a
+                      href={`mailto:${e.value}`}
+                      className="text-foreground hover:text-primary transition-colors"
+                    >
+                      {e.value}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {SOCIALS.map((s, i) => (
+                  <li key={i}>
+                    <a
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/40 px-2.5 py-1 text-[11px] text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
+                    >
+                      <s.icon className="h-3 w-3" />
+                      {s.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            <motion.form
+              onSubmit={onSubmitForm}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="space-y-3"
+            >
+              <div className="grid sm:grid-cols-2 gap-3">
+                <div>
+                  <Label htmlFor="name" className="text-xs">Nombre</Label>
+                  <Input id="name" name="name" placeholder="Tu nombre" maxLength={80} required className="mt-1.5 bg-background/40 border-border h-10 rounded-xl" />
+                </div>
+                <div>
+                  <Label htmlFor="email" className="text-xs">Email</Label>
+                  <Input id="email" name="email" type="email" placeholder="tucorreo@dominio.com" maxLength={160} required className="mt-1.5 bg-background/40 border-border h-10 rounded-xl" />
+                </div>
               </div>
-
               <div>
-                <h3 className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">
-                  Síguenos
-                </h3>
-                <ul className="flex flex-wrap gap-2">
-                  {SOCIALS.map((s, i) => (
-                    <li key={i}>
-                      <a
-                        href={s.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-border bg-background/40 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
-                      >
-                        <s.icon className="h-3.5 w-3.5" />
-                        {s.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                <Label htmlFor="interest" className="text-xs">Te interesa</Label>
+                <Input id="interest" name="interest" placeholder="Mentoría, consultoría, comunidad…" maxLength={80} required className="mt-1.5 bg-background/40 border-border h-10 rounded-xl" />
               </div>
-            </div>
-          </motion.div>
-
-          <motion.form
-            onSubmit={onSubmitForm}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="glass rounded-3xl p-8 shadow-elegant space-y-5"
-          >
-            <div>
-              <Label htmlFor="name">Nombre</Label>
-              <Input id="name" name="name" placeholder="Tu nombre" maxLength={80} required className="mt-2 bg-background/40 border-border h-12 rounded-xl" />
-            </div>
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" placeholder="tucorreo@dominio.com" maxLength={160} required className="mt-2 bg-background/40 border-border h-12 rounded-xl" />
-            </div>
-            <div>
-              <Label htmlFor="interest">Te interesa</Label>
-              <Input id="interest" name="interest" placeholder="Mentoría, consultoría, comunidad…" maxLength={80} required className="mt-2 bg-background/40 border-border h-12 rounded-xl" />
-            </div>
-            <div>
-              <Label htmlFor="message">Tu objetivo</Label>
-              <Textarea id="message" name="message" placeholder="Cuéntanos en qué punto estás y a dónde quieres llegar." rows={4} maxLength={800} required className="mt-2 bg-background/40 border-border rounded-xl" />
-            </div>
-            <Button type="submit" variant="hero" size="lg" className="w-full" disabled={loading}>
-              {loading ? "Enviando…" : (<>Solicitar acceso <ArrowRight className="h-4 w-4" /></>)}
-            </Button>
-            <p className="text-xs text-muted-foreground text-center">
-              Al enviar aceptas ser contactado por el equipo A&O Ecosystem.
-            </p>
-          </motion.form>
+              <div>
+                <Label htmlFor="message" className="text-xs">Tu objetivo</Label>
+                <Textarea id="message" name="message" placeholder="Cuéntanos en qué punto estás y a dónde quieres llegar." rows={3} maxLength={800} required className="mt-1.5 bg-background/40 border-border rounded-xl" />
+              </div>
+              <Button type="submit" variant="hero" className="w-full" disabled={loading}>
+                {loading ? "Enviando…" : (<>Solicitar acceso <ArrowRight className="h-4 w-4" /></>)}
+              </Button>
+              <p className="text-[11px] text-muted-foreground text-center">
+                Al enviar aceptas ser contactado por el equipo A&O Ecosystem.
+              </p>
+            </motion.form>
+          </div>
         </div>
       </div>
     </section>
+
   );
 };
 
