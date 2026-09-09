@@ -7,6 +7,7 @@ const SECTIONS = [
   { id: "monetizacion", label: "Generar" },
   { id: "escalamiento", label: "Escalar" },
   { id: "valor", label: "Valor" },
+  { id: "convergencia", label: "Convergencia" },
   { id: "mentoria", label: "Mentoría" },
   { id: "contacto", label: "Contacto" },
 ];

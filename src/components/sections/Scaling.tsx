@@ -1,10 +1,9 @@
 import { motion, useInView } from "framer-motion";
 import { lazy, Suspense, useRef } from "react";
-import Reveal from "@/components/Reveal";
+import ChapterHeading from "@/components/ChapterHeading";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Briefcase, Target, Cog, BarChart3 } from "lucide-react";
-import TextReveal from "@/components/TextReveal";
 const aoLogo = "/logo-ao-light.png";
 
 const UnitObject = lazy(() => import("@/components/three/UnitObject"));
@@ -21,22 +20,13 @@ const Scaling = () => {
       </ParallaxLayer>
 
       <div className="relative mx-auto max-w-6xl px-6">
-        <Reveal direction="blur" className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
-          <div>
-            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em]">
-              <span className="text-[hsl(var(--brand-ao))]">Etapa 03</span>
-              <span className="h-px w-10 bg-[hsl(var(--brand-ao)/0.6)]" />
-              <span className="text-muted-foreground">Escalamiento</span>
-            </div>
-            <h2 className="mt-5 font-display text-4xl md:text-6xl font-bold leading-tight">
-              <TextReveal text="Escala tu" /> <span className="text-[hsl(var(--brand-ao))]">empresa</span>.
-            </h2>
-          </div>
-          <p className="text-muted-foreground max-w-sm">
-            Cuando ya generas ingresos, el siguiente paso es estructurar.
-            Marketing, automatización y sistemas para escalar con orden.
-          </p>
-        </Reveal>
+        <ChapterHeading
+          eyebrow="06 — Sistemas"
+          title="Y entonces construimos las herramientas."
+          text="A&O System Tools reúne las soluciones que permiten organizar, automatizar, medir y multiplicar lo que ocurre dentro del ecosistema."
+          accent="hsl(var(--brand-ao))"
+          className="mb-14"
+        />
 
         <motion.article
           initial={{ opacity: 0, y: 60, filter: "blur(14px)" }}

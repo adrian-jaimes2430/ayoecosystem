@@ -1,13 +1,12 @@
 import { motion, useInView } from "framer-motion";
 import { lazy, Suspense, useRef } from "react";
-import Reveal from "@/components/Reveal";
+import ChapterHeading from "@/components/ChapterHeading";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, GraduationCap, Laptop, TrendingUp, Workflow, Wallet, Network } from "lucide-react";
 import { Link } from "react-router-dom";
 import inverfactLogo from "@/assets/logo-inverfact.png";
 import nomadhiveLogo from "@/assets/logo-nomadhive.png";
-import TextReveal from "@/components/TextReveal";
 
 const UnitObject = lazy(() => import("@/components/three/UnitObject"));
 
@@ -20,22 +19,13 @@ const Activation = () => {
 
       <div className="mx-auto max-w-6xl px-6">
         {/* Stage header */}
-        <Reveal direction="blur" className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
-          <div>
-            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em]">
-              <span className="text-[hsl(var(--brand-inverfact))]">Etapa 01</span>
-              <span className="h-px w-10 bg-[hsl(var(--brand-inverfact)/0.6)]" />
-              <span className="text-muted-foreground">Activación</span>
-            </div>
-            <h2 className="mt-5 font-display text-4xl md:text-6xl font-bold leading-tight">
-              <TextReveal text="Empieza" /> <span className="text-[hsl(var(--brand-inverfact))]">desde cero</span>.
-            </h2>
-          </div>
-          <p className="text-muted-foreground max-w-sm">
-            Activa tu mentalidad, aprende a manejar tu dinero y construye tu primer
-            sistema de ingreso digital.
-          </p>
-        </Reveal>
+        <ChapterHeading
+          eyebrow="03 — Capital"
+          title="Aprender a mover el capital cambia el juego."
+          text="INVERFACT nace como la puerta de entrada al conocimiento financiero, la educación y una nueva relación con las decisiones sobre capital."
+          accent="hsl(var(--brand-inverfact))"
+          className="mb-14"
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* INVERFACT */}
@@ -67,7 +57,7 @@ const Activation = () => {
                   <div>
                     <h3 className="font-display text-2xl font-bold tracking-tight">INVERFACT</h3>
                     <span className="text-[10px] uppercase tracking-[0.25em] text-[hsl(var(--brand-inverfact))]">
-                      Educación financiera
+                      03 — Capital · Educación financiera
                     </span>
                   </div>
                 </div>
@@ -75,8 +65,8 @@ const Activation = () => {
               </div>
 
               <p className="mt-6 text-muted-foreground leading-relaxed">
-                Educación financiera real, sin humo. Aprende a generar,
-                multiplicar y proteger tu dinero con un sistema probado.
+Educación financiera real, sin humo: generar, multiplicar y
+                proteger el capital con un sistema probado.
               </p>
 
               <ul className="mt-6 space-y-3 text-sm flex-1">
@@ -100,7 +90,7 @@ const Activation = () => {
                 </p>
                 <Button asChild className="bg-[hsl(var(--brand-inverfact))] hover:bg-[hsl(var(--brand-inverfact)/0.9)] text-black font-semibold">
                   <Link to="/inverfact">
-                    Más información <ArrowUpRight className="h-4 w-4" />
+                    Explorar INVERFACT <ArrowUpRight className="h-4 w-4" />
                   </Link>
                 </Button>
               </div>
@@ -145,7 +135,7 @@ const Activation = () => {
                   <div>
                     <h3 className="font-display text-2xl font-bold tracking-tight">NOMADHIVE</h3>
                     <span className="text-[10px] uppercase tracking-[0.25em] text-[hsl(var(--brand-nomad))]">
-                      Trabajo remoto · Ingresos digitales
+                      04 — Personas · Trabajo remoto
                     </span>
                   </div>
                 </div>
@@ -153,8 +143,9 @@ const Activation = () => {
               </div>
 
               <p className="mt-6 text-muted-foreground leading-relaxed">
-                Sistema estructurado de talento remoto del ecosistema A&O.
-                Selección, formación y crecimiento por desempeño.
+El crecimiento nunca fue individual. NOMADHIVE conecta talento,
+                movimiento, colaboración y oportunidades para construir una red
+                que puede crecer más allá de un solo lugar.
               </p>
 
               <ul className="mt-6 space-y-3 text-sm flex-1">
@@ -178,7 +169,7 @@ const Activation = () => {
                 </p>
                 <Button asChild className="bg-[hsl(var(--brand-nomad))] hover:bg-[hsl(var(--brand-nomad)/0.9)] text-black font-semibold">
                   <Link to="/nomadhive">
-                    Explorar oportunidades <ArrowUpRight className="h-4 w-4" />
+                    Explorar NOMADHIVE <ArrowUpRight className="h-4 w-4" />
                   </Link>
                 </Button>
               </div>

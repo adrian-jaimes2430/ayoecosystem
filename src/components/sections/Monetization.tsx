@@ -1,12 +1,11 @@
 import { motion, useInView } from "framer-motion";
 import { lazy, Suspense, useRef } from "react";
-import Reveal from "@/components/Reveal";
+import ChapterHeading from "@/components/ChapterHeading";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Megaphone, Users, Rocket, Repeat } from "lucide-react";
 import { Link } from "react-router-dom";
 import anmaLogo from "@/assets/logo-anma.png";
-import TextReveal from "@/components/TextReveal";
 
 const UnitObject = lazy(() => import("@/components/three/UnitObject"));
 
@@ -20,22 +19,13 @@ const Monetization = () => {
         <span />
       </ParallaxLayer>
       <div className="mx-auto max-w-6xl px-6">
-        <Reveal direction="blur" className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
-          <div>
-            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em]">
-              <span className="text-[hsl(var(--brand-anma))]">Etapa 02</span>
-              <span className="h-px w-10 bg-[hsl(var(--brand-anma)/0.6)]" />
-              <span className="text-muted-foreground">Monetización</span>
-            </div>
-            <h2 className="mt-5 font-display text-4xl md:text-6xl font-bold leading-tight">
-              <TextReveal text="Genera" /> <span className="text-[hsl(var(--brand-anma))]">ingresos reales</span>.
-            </h2>
-          </div>
-          <p className="text-muted-foreground max-w-sm">
-            Un nuevo modelo de e-commerce: contenido orgánico, comunidad activa
-            y lanzamientos tipo infomercial que sí venden.
-          </p>
-        </Reveal>
+        <ChapterHeading
+          eyebrow="05 — Comercio"
+          title="Las ideas necesitan un motor para llegar al mercado."
+          text="ANMA convierte productos, marketing, ventas y tecnología en sistemas de comercio preparados para escalar."
+          accent="hsl(var(--brand-anma))"
+          className="mb-14"
+        />
 
         <motion.article
           initial={{ opacity: 0, y: 60, filter: "blur(14px)" }}
@@ -106,7 +96,7 @@ const Monetization = () => {
                 </p>
                 <Button asChild className="bg-[hsl(var(--brand-anma))] hover:bg-[hsl(var(--brand-anma)/0.9)] text-black font-semibold">
                   <Link to="/anma">
-                    Más información <ArrowUpRight className="h-4 w-4" />
+                    Explorar ANMA <ArrowUpRight className="h-4 w-4" />
                   </Link>
                 </Button>
               </div>
