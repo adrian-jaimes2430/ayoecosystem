@@ -72,6 +72,13 @@ const HeroScene = ({
   scrollRef: React.MutableRefObject<number>;
   active?: boolean;
 }) => {
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const offset = useMemo<[number, number, number]>(
+    () => (isMobile ? [0, 0.9, 0] : [1.9, 0.55, 0]),
+    [isMobile],
+  );
+  const size = isMobile ? 2.6 : 3.2;
+
   const dpr = useMemo<[number, number]>(
     () => (typeof window !== "undefined" && window.innerWidth < 640 ? [1, 1.5] : [1, 2]),
     [],
@@ -117,7 +124,10 @@ const HeroScene = ({
       <Dust />
 
       <Suspense fallback={null}>
-        <GlbModel url={AO_MODEL} size={3.6} accent="#ff3b30" />
+        {/* offset to the right on desktop so the headline keeps the stage */}
+        <group position={offset}>
+          <GlbModel url={AO_MODEL} size={size} accent="#ff3b30" />
+        </group>
       </Suspense>
     </Canvas>
   );
