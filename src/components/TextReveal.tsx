@@ -34,7 +34,7 @@ const TextReveal = ({
       aria-label={text}
     >
       {words.map((w, i) => (
-        <span key={`${w}-${i}`} className="inline-block overflow-hidden align-bottom">
+        <span key={`${w}-${i}`} className="inline-block overflow-hidden align-bottom pb-[0.14em] -mb-[0.14em]">
           <motion.span
             className="inline-block will-change-transform"
             variants={{

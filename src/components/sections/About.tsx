@@ -65,7 +65,7 @@ const About = () => {
           <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight">
             <TextReveal as="span" text="No vendemos cursos." className="block" delay={0.05} />
             <span className="block">
-              <TextReveal as="span" text="Construimos sistemas" className="text-gradient-gold" delay={0.15} />
+              <TextReveal as="span" text="Construimos sistemas" className="text-primary" delay={0.15} />
               <TextReveal as="span" text=" que generan resultados." delay={0.25} />
             </span>
           </h2>

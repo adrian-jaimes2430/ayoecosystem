@@ -87,14 +87,14 @@ const Orb = ({
       >
         {geometry}
         <meshPhysicalMaterial
-          color="#18181b"
-          metalness={0.92}
-          roughness={0.24}
+          color="#2b2b31"
+          metalness={0.9}
+          roughness={0.2}
           clearcoat={0.7}
           clearcoatRoughness={0.18}
           emissive={new THREE.Color(unit.color)}
-          emissiveIntensity={hovered ? 0.55 : 0.16}
-          envMapIntensity={1.2}
+          emissiveIntensity={hovered ? 0.7 : 0.28}
+          envMapIntensity={1.5}
         />
       </mesh>
 
