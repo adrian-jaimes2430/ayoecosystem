@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { lazy, Suspense } from "react";
 import Reveal from "@/components/Reveal";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
@@ -6,6 +7,9 @@ import { ArrowUpRight, Megaphone, Users, Rocket, Repeat } from "lucide-react";
 import { Link } from "react-router-dom";
 import anmaLogo from "@/assets/logo-anma.png";
 import TextReveal from "@/components/TextReveal";
+
+const UnitObject = lazy(() => import("@/components/three/UnitObject"));
+
 
 const Monetization = () => {
   return (
@@ -41,6 +45,7 @@ const Monetization = () => {
           <ParallaxLayer speed={0.6} className="absolute -top-32 -right-20 h-80 w-80 rounded-full bg-[hsl(var(--brand-anma)/0.18)] blur-3xl">
             <span />
           </ParallaxLayer>
+
           <div className="relative grid lg:grid-cols-5 gap-0">
             {/* Left brand panel */}
             <div className="lg:col-span-2 p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-border/40 flex flex-col justify-between">
@@ -50,6 +55,9 @@ const Monetization = () => {
                 </div>
                 <span className="font-display text-xs text-muted-foreground">02 / A</span>
               </div>
+              <Suspense fallback={null}>
+                <UnitObject shape="octahedron" color="#ff6a00" className="mt-6 h-40 w-full md:h-52" />
+              </Suspense>
               <div className="mt-8">
                 <span className="text-[10px] uppercase tracking-[0.25em] text-[hsl(var(--brand-anma))]">
                   E-commerce · Ventas digitales

@@ -11,23 +11,25 @@ import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import StickyWhatsApp from "@/components/StickyWhatsApp";
 import SectionNav from "@/components/SectionNav";
-
+import ScrollVideoBackdrop from "@/components/ScrollVideoBackdrop";
+import SectionStage from "@/components/SectionStage";
 
 const Index = () => {
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <main className="relative min-h-screen text-foreground overflow-x-hidden">
+      <ScrollVideoBackdrop />
       <Navbar />
       <SectionNav />
       <Hero />
 
-      <About />
-      <Activation />
-      <Monetization />
-      <Scaling />
-      <Value />
-      <Pricing />
-      <Authority />
-      <Contact />
+      <SectionStage><About /></SectionStage>
+      <SectionStage><Activation /></SectionStage>
+      <SectionStage><Monetization /></SectionStage>
+      <SectionStage><Scaling /></SectionStage>
+      <SectionStage><Value /></SectionStage>
+      <SectionStage><Pricing /></SectionStage>
+      <SectionStage><Authority /></SectionStage>
+      <SectionStage><Contact /></SectionStage>
       <Footer />
       <StickyWhatsApp />
     </main>

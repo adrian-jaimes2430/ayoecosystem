@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { lazy, Suspense, useRef } from "react";
 import Reveal from "@/components/Reveal";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
@@ -8,9 +9,15 @@ import inverfactLogo from "@/assets/logo-inverfact.png";
 import nomadhiveLogo from "@/assets/logo-nomadhive.png";
 import TextReveal from "@/components/TextReveal";
 
+const UnitObject = lazy(() => import("@/components/three/UnitObject"));
+
 const Activation = () => {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { amount: 0.1 });
+
   return (
-    <section id="activacion" className="relative py-32 bg-gradient-dark">
+    <section id="activacion" ref={ref} className="relative py-32">
+
       <div className="mx-auto max-w-6xl px-6">
         {/* Stage header */}
         <Reveal direction="blur" className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
@@ -43,6 +50,14 @@ const Activation = () => {
               <span />
             </ParallaxLayer>
             <div className="relative flex flex-col h-full">
+              <Suspense fallback={null}>
+                <UnitObject
+                  shape="icosahedron"
+                  color="#ff8a00"
+                  active={inView}
+                  className="mb-4 h-36 w-full md:h-44"
+                />
+              </Suspense>
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <div className="h-14 w-14 rounded-2xl bg-white p-1.5 flex items-center justify-center">
@@ -102,6 +117,7 @@ const Activation = () => {
             <ParallaxLayer speed={0.5} className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[hsl(var(--brand-nomad)/0.18)] blur-3xl">
               <span />
             </ParallaxLayer>
+
             {/* tech grid accent */}
             <div className="absolute inset-0 opacity-[0.07] pointer-events-none"
               style={{
@@ -111,6 +127,14 @@ const Activation = () => {
               }}
             />
             <div className="relative flex flex-col h-full">
+              <Suspense fallback={null}>
+                <UnitObject
+                  shape="torus"
+                  color="#00e08a"
+                  active={inView}
+                  className="mb-4 h-36 w-full md:h-44"
+                />
+              </Suspense>
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <div className="h-14 w-14 rounded-2xl bg-black p-1.5 flex items-center justify-center border border-[hsl(var(--brand-nomad)/0.3)]">
