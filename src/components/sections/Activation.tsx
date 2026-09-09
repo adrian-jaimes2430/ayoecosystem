@@ -52,6 +52,7 @@ const Activation = () => {
             <div className="relative flex flex-col h-full">
               <Suspense fallback={null}>
                 <UnitObject
+                  modelUrl="/unit-inverfact.glb"
                   shape="icosahedron"
                   color="#ff8a00"
                   active={inView}
@@ -129,6 +130,7 @@ const Activation = () => {
             <div className="relative flex flex-col h-full">
               <Suspense fallback={null}>
                 <UnitObject
+                  modelUrl="/unit-nomadhive.glb"
                   shape="torus"
                   color="#00e08a"
                   active={inView}

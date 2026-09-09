@@ -2,6 +2,7 @@ import { Suspense, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Lightformer } from "@react-three/drei";
 import * as THREE from "three";
+import GlbModel from "./GlbModel";
 
 export type UnitShape = "icosahedron" | "torus" | "octahedron" | "box";
 
@@ -81,9 +82,12 @@ const UnitObject = ({
   color,
   active = true,
   className,
+  modelUrl,
 }: {
   shape: UnitShape;
   color: string;
+  /** Real brand mark in 3D (GLB). Falls back to the primitive when absent. */
+  modelUrl?: string;
   /** When false the canvas stops rendering (off-screen power saving). */
   active?: boolean;
   className?: string;
@@ -118,7 +122,11 @@ const UnitObject = ({
               color={color}
             />
           </Environment>
-          <Solid shape={shape} color={color} reduced={reduced} />
+          {modelUrl ? (
+            <GlbModel url={modelUrl} accent={color} size={2.1} spin={reduced ? 0.05 : 0.22} />
+          ) : (
+            <Solid shape={shape} color={color} reduced={reduced} />
+          )}
         </Suspense>
       </Canvas>
     </div>

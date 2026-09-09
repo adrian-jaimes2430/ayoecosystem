@@ -61,6 +61,7 @@ const Scaling = () => {
               </div>
               <Suspense fallback={null}>
                 <UnitObject
+                  modelUrl="/ao-logo-3d.glb"
                   shape="box"
                   color="#e8252b"
                   active={inView}
