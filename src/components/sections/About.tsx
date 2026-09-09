@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import Reveal from "@/components/Reveal";
-import TextReveal from "@/components/TextReveal";
+import ChapterHeading from "@/components/ChapterHeading";
 import { Sparkles, TrendingUp, Building2 } from "lucide-react";
 
 const pillars = [
@@ -30,28 +29,11 @@ const About = () => {
   return (
     <section id="ecosistema" className="relative py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <Reveal direction="blur" className="max-w-3xl">
-          <TextReveal
-            text="El ecosistema"
-            className="block text-xs uppercase tracking-[0.3em] text-primary"
-          />
-          <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight">
-            <TextReveal text="No vendemos cursos." className="block" delay={0.05} />
-            <span className="block">
-              <TextReveal text="Construimos sistemas" className="text-primary" delay={0.15} />
-              <TextReveal text=" que generan resultados." delay={0.25} />
-            </span>
-          </h2>
-          <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
-            Un camino claro en tres etapas: <span className="text-foreground">activa</span> tu mentalidad y
-            primer ingreso, <span className="text-foreground">genera</span> ventas con sistemas y
-            <span className="text-foreground"> escala</span> tu empresa con estructura.
-          </p>
-        </Reveal>
-
-
-
-
+        <ChapterHeading
+          eyebrow="02 — La forma"
+          title="La visión tomó forma."
+          text="La identidad dejó de ser un símbolo para convertirse en una estructura: una arquitectura preparada para conectar negocios, personas y sistemas."
+        />
 
         <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-5">
           {pillars.map((p, i) => (

@@ -53,13 +53,18 @@ const Hero = () => {
             className="max-w-xl"
           >
             <div className="text-[10px] uppercase tracking-[0.45em] text-muted-foreground">
-              01 — A&amp;O nace
+              01 — El origen
             </div>
             <h1 className="mt-5 font-display text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight leading-[0.92]">
               A&amp;O ECOSYSTEM
             </h1>
-            <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed">
-              El ecosistema nace de la conexión.
+            <p className="mt-5 font-display text-xl md:text-2xl leading-snug">
+              Todo comenzó con una visión.
+            </p>
+            <p className="mt-4 max-w-lg text-sm md:text-base text-muted-foreground leading-relaxed">
+              Antes de existir como ecosistema, A&amp;O fue una idea: conectar personas,
+              capital, conocimiento, tecnología y oportunidades dentro de una misma
+              estructura.
             </p>
 
             <div className="mt-9 flex flex-col sm:flex-row gap-3">
