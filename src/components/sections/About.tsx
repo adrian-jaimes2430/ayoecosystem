@@ -1,20 +1,7 @@
-import { motion, useInView } from "framer-motion";
-import { lazy, Suspense, useCallback, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import TextReveal from "@/components/TextReveal";
-import type { OrbUnit } from "@/components/three/EcosystemOrbs";
 import { Sparkles, TrendingUp, Building2 } from "lucide-react";
-
-const EcosystemOrbs = lazy(() => import("@/components/three/EcosystemOrbs"));
-
-const orbUnits: OrbUnit[] = [
-  { id: "inverfact", label: "Inverfact", color: "#ff8a00", href: "/inverfact", shape: "icosahedron" },
-  { id: "nomadhive", label: "NomadHive", color: "#00e08a", href: "/nomadhive", shape: "torus" },
-  { id: "anma", label: "ANMA", color: "#ff6a00", href: "/anma", shape: "octahedron" },
-  { id: "ao", label: "A&O", color: "#e8252b", href: "#escalamiento", shape: "box" },
-];
-
 
 const pillars = [
   {
@@ -38,20 +25,7 @@ const pillars = [
 ];
 
 const About = () => {
-  const navigate = useNavigate();
-  const orbsRef = useRef<HTMLDivElement>(null);
-  const orbsInView = useInView(orbsRef, { amount: 0.15 });
 
-  const handleSelect = useCallback(
-    (u: OrbUnit) => {
-      if (u.href.startsWith("#")) {
-        document.querySelector(u.href)?.scrollIntoView({ behavior: "smooth" });
-      } else {
-        navigate(u.href);
-      }
-    },
-    [navigate],
-  );
 
   return (
     <section id="ecosistema" className="relative py-32">
