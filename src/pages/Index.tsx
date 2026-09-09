@@ -10,12 +10,16 @@ import Authority from "@/components/sections/Authority";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import StickyWhatsApp from "@/components/StickyWhatsApp";
+import SectionNav from "@/components/SectionNav";
+
 
 const Index = () => {
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
+      <SectionNav />
       <Hero />
+
       <About />
       <Activation />
       <Monetization />
