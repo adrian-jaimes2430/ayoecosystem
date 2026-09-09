@@ -45,13 +45,6 @@ const Monetization = () => {
           <ParallaxLayer speed={0.6} className="absolute -top-32 -right-20 h-80 w-80 rounded-full bg-[hsl(var(--brand-anma)/0.18)] blur-3xl">
             <span />
           </ParallaxLayer>
-          <Suspense fallback={null}>
-            <UnitObject
-              shape="octahedron"
-              color="#ff6a00"
-              className="pointer-events-auto absolute top-2 right-3 h-40 w-40 md:h-56 md:w-56 z-10"
-            />
-          </Suspense>
 
           <div className="relative grid lg:grid-cols-5 gap-0">
             {/* Left brand panel */}
@@ -62,6 +55,9 @@ const Monetization = () => {
                 </div>
                 <span className="font-display text-xs text-muted-foreground">02 / A</span>
               </div>
+              <Suspense fallback={null}>
+                <UnitObject shape="octahedron" color="#ff6a00" className="mt-6 h-40 w-full md:h-52" />
+              </Suspense>
               <div className="mt-8">
                 <span className="text-[10px] uppercase tracking-[0.25em] text-[hsl(var(--brand-anma))]">
                   E-commerce · Ventas digitales

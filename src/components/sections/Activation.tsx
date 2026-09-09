@@ -49,16 +49,15 @@ const Activation = () => {
             <ParallaxLayer speed={0.5} className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[hsl(var(--brand-inverfact)/0.18)] blur-3xl">
               <span />
             </ParallaxLayer>
-            <Suspense fallback={null}>
-              <UnitObject
-                shape="icosahedron"
-                color="#ff8a00"
-                active={inView}
-                className="pointer-events-auto absolute -top-6 right-2 h-40 w-40 md:h-52 md:w-52"
-              />
-            </Suspense>
-
             <div className="relative flex flex-col h-full">
+              <Suspense fallback={null}>
+                <UnitObject
+                  shape="icosahedron"
+                  color="#ff8a00"
+                  active={inView}
+                  className="mb-4 h-36 w-full md:h-44"
+                />
+              </Suspense>
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <div className="h-14 w-14 rounded-2xl bg-white p-1.5 flex items-center justify-center">
@@ -118,14 +117,6 @@ const Activation = () => {
             <ParallaxLayer speed={0.5} className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[hsl(var(--brand-nomad)/0.18)] blur-3xl">
               <span />
             </ParallaxLayer>
-            <Suspense fallback={null}>
-              <UnitObject
-                shape="torus"
-                color="#00e08a"
-                active={inView}
-                className="pointer-events-auto absolute -top-6 right-2 h-40 w-40 md:h-52 md:w-52"
-              />
-            </Suspense>
 
             {/* tech grid accent */}
             <div className="absolute inset-0 opacity-[0.07] pointer-events-none"
@@ -136,6 +127,14 @@ const Activation = () => {
               }}
             />
             <div className="relative flex flex-col h-full">
+              <Suspense fallback={null}>
+                <UnitObject
+                  shape="torus"
+                  color="#00e08a"
+                  active={inView}
+                  className="mb-4 h-36 w-full md:h-44"
+                />
+              </Suspense>
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <div className="h-14 w-14 rounded-2xl bg-black p-1.5 flex items-center justify-center border border-[hsl(var(--brand-nomad)/0.3)]">
