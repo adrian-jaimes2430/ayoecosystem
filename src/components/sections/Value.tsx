@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { Check, X } from "lucide-react";
+import TextReveal from "@/components/TextReveal";
 
 const them = [
   "Promesas de riqueza fácil",
@@ -24,7 +25,7 @@ const Value = () => {
             Propuesta de valor
           </span>
           <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight">
-            Resultados, no <span className="line-through text-muted-foreground/60">motivación</span>.
+            <TextReveal text="Resultados, no" /> <span className="line-through text-muted-foreground/60">motivación</span>.
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
             La diferencia entre sentirte productivo y crecer realmente está en el sistema que ejecutas.

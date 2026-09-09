@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Megaphone, Users, Rocket, Repeat } from "lucide-react";
 import { Link } from "react-router-dom";
 import anmaLogo from "@/assets/logo-anma.png";
+import TextReveal from "@/components/TextReveal";
 
 const Monetization = () => {
   return (
@@ -21,7 +22,7 @@ const Monetization = () => {
               <span className="text-muted-foreground">Monetización</span>
             </div>
             <h2 className="mt-5 font-display text-4xl md:text-6xl font-bold leading-tight">
-              Genera <span className="text-[hsl(var(--brand-anma))]">ingresos reales</span>.
+              <TextReveal text="Genera" /> <span className="text-[hsl(var(--brand-anma))]">ingresos reales</span>.
             </h2>
           </div>
           <p className="text-muted-foreground max-w-sm">

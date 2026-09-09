@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { Check, Crown } from "lucide-react";
+import TextReveal from "@/components/TextReveal";
 
 const plans = [
   {
@@ -52,7 +53,7 @@ const Pricing = () => {
             Programas premium
           </span>
           <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight">
-            Transformación con <span className="text-gradient-gold">claridad</span>.
+            <TextReveal text="Transformación con" /> <span className="text-gradient-gold">claridad</span>.
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
             Trabajamos contigo para implementar el sistema correcto, en el orden correcto.
