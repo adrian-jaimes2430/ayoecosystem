@@ -87,9 +87,10 @@ const ScrollVideoBackdrop = () => {
         />
       )}
       {/* Legibility + brand grade over the film */}
-      <div className="absolute inset-0 bg-background/70" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,transparent_10%,hsl(var(--background)/0.85)_85%)]" />
+      <div className="absolute inset-0 bg-background/55" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,transparent_20%,hsl(var(--background)/0.8)_90%)]" />
       <div className="absolute inset-0 mix-blend-overlay bg-[linear-gradient(160deg,hsl(var(--primary)/0.18),transparent_55%)]" />
+
     </div>
   );
 };
