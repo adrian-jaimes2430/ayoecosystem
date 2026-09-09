@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import desktopVideo from "@/assets/eco-transition-desktop.mp4.asset.json";
-import mobileVideo from "@/assets/eco-transition-mobile.mp4.asset.json";
-import poster from "@/assets/eco-transition-poster.jpg.asset.json";
+
+const DESKTOP_VIDEO = "/eco-transition-desktop.mp4";
+const MOBILE_VIDEO = "/eco-transition-mobile.mp4";
+const POSTER = "/eco-transition-poster.jpg";
+
 
 /**
  * Full-page cinematic backdrop.
