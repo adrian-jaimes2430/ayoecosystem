@@ -12,19 +12,22 @@ const SectionStage = ({ children }: { children: ReactNode }) => {
     offset: ["start end", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.18, 0.82, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.94, 1, 1, 0.96]);
-  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [70, 0, 0, -50]);
+  const opacity = useTransform(scrollYProgress, [0, 0.16, 0.84, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 0.97]);
+  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [80, 0, 0, -60]);
+  const blur = useTransform(scrollYProgress, [0, 0.18, 0.82, 1], [8, 0, 0, 6]);
+  const filter = useTransform(blur, (b: number) => `blur(${b}px)`);
 
   return (
     <motion.div
       ref={ref}
-      style={{ opacity, scale, y, willChange: "transform, opacity" }}
+      style={{ opacity, scale, y, filter, willChange: "transform, opacity, filter" }}
       className="relative"
     >
       {children}
     </motion.div>
   );
 };
+
 
 export default SectionStage;
