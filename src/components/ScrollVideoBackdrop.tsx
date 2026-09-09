@@ -75,12 +75,12 @@ const ScrollVideoBackdrop = () => {
   return (
     <div className="fixed inset-0 -z-30 overflow-hidden bg-background" aria-hidden="true">
       {reduced ? (
-        <img src={poster.url} alt="" className="h-full w-full object-cover opacity-40" />
+        <img src={POSTER} alt="" className="h-full w-full object-cover opacity-40" />
       ) : (
         <video
           ref={videoRef}
-          src={isMobile ? mobileVideo.url : desktopVideo.url}
-          poster={poster.url}
+          src={isMobile ? MOBILE_VIDEO : DESKTOP_VIDEO}
+          poster={POSTER}
           muted
           playsInline
           preload="auto"
