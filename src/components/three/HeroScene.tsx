@@ -1,6 +1,6 @@
 import { Suspense, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Lightformer } from "@react-three/drei";
+import { Environment, Lightformer, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import GlbModel from "./GlbModel";
 
@@ -132,5 +132,7 @@ const HeroScene = ({
     </Canvas>
   );
 };
+
+useGLTF.preload(AO_MODEL);
 
 export default HeroScene;

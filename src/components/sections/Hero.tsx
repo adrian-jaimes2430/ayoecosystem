@@ -36,7 +36,9 @@ const Hero = () => {
         <Suspense fallback={null}>
           <HeroScene scrollRef={scrollRef} active={inView} />
         </Suspense>
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_40%,transparent_45%,hsl(0_0%_0%/0.55)_100%)]" />
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_60%_40%,transparent_45%,hsl(0_0%_0%/0.5)_100%)]" />
+        {/* keeps the headline readable over the film without hiding it */}
+        <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(100deg,hsl(0_0%_0%/0.72)_0%,hsl(0_0%_0%/0.25)_45%,transparent_70%)]" />
       </div>
 
       <motion.div
