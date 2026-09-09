@@ -49,12 +49,8 @@ const About = () => {
           </p>
         </Reveal>
 
-        {/* Interactive 3D objects — one per business unit */}
-        <div ref={orbsRef} className="mt-14 h-[300px] sm:h-[360px] -mx-6 sm:mx-0">
-          <Suspense fallback={null}>
-            <EcosystemOrbs units={orbUnits} onSelect={handleSelect} active={orbsInView} />
-          </Suspense>
-        </div>
+
+
 
 
         <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-5">
