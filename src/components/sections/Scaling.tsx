@@ -57,6 +57,14 @@ const Scaling = () => {
                 </div>
                 <span className="font-display text-xs text-muted-foreground">03 / A</span>
               </div>
+              <Suspense fallback={null}>
+                <UnitObject
+                  shape="box"
+                  color="#e8252b"
+                  className="pointer-events-auto mt-6 h-44 w-full md:h-56"
+                />
+              </Suspense>
+
               <div className="mt-10">
                 <span className="text-[10px] uppercase tracking-[0.3em] text-[hsl(var(--brand-ao))]">
                   Consultoría empresarial
