@@ -20,6 +20,16 @@ const AOLogoModel = ({ progress, accent = "#ff3b30", appearAt = 0.62 }: AOLogoMo
   const { scene } = useGLTF(model.url);
   const group = useRef<THREE.Group>(null);
   const drag = useRef(0);
+  const pointer = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const onMove = (e: PointerEvent) => {
+      pointer.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      pointer.current.y = (e.clientY / window.innerHeight) * 2 - 1;
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onMove);
+  }, []);
 
   const object = useMemo(() => {
     const clone = scene.clone(true);
@@ -81,8 +91,8 @@ const AOLogoModel = ({ progress, accent = "#ff3b30", appearAt = 0.62 }: AOLogoMo
     const t = state.clock.getElapsedTime();
     drag.current += dt * 0.22;
 
-    const targetY = state.pointer.x * 0.55 + drag.current + (1 - appear) * 0.8;
-    const targetX = -state.pointer.y * 0.32 + Math.sin(t * 0.4) * 0.05;
+    const targetY = pointer.current.x * 0.55 + drag.current + (1 - appear) * 0.8;
+    const targetX = --pointer.current.y * 0.32 + Math.sin(t * 0.4) * 0.05;
     g.rotation.y += (targetY - g.rotation.y) * (1 - Math.exp(-4 * dt));
     g.rotation.x += (targetX - g.rotation.x) * (1 - Math.exp(-4 * dt));
     g.position.y = Math.sin(t * 0.55) * 0.12;
