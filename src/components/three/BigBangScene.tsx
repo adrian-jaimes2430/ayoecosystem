@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { Environment, Lightformer } from "@react-three/drei";
 import * as THREE from "three";
 import ParticleGenesis from "./ParticleGenesis";
-import AOLogoModel from "./AOLogoModel";
+import AOFormedLogo from "./AOFormedLogo";
 
 import CinematicCamera from "./CinematicCamera";
 import { clamp01, phaseAt, type PhaseName } from "./phases";
@@ -124,7 +124,7 @@ const Rig = ({
       />
 
       <Suspense fallback={null}>
-        <AOLogoModel progress={progress} accent={accent} />
+        <AOFormedLogo progress={progress} logoSrc={logoSrc} accent={accent} />
       </Suspense>
 
     </>

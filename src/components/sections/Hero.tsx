@@ -1,28 +1,17 @@
 import { motion, useInView, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { useRef, lazy, Suspense, useState } from "react";
-import type { PhaseName } from "@/components/three/phases";
+import { useRef, lazy, Suspense } from "react";
 
-const BigBangScene = lazy(() => import("@/components/three/BigBangScene"));
-
-const CHAPTER_LABEL: Record<PhaseName, string> = {
-  VOID: "01 — El vacío",
-  SINGULARITY: "01 — Singularidad",
-  EXPLOSION: "01 — Big Bang",
-  REASSEMBLY: "01 — Conexión",
-  MATERIALIZATION: "01 — A&O nace",
-  DISSOLVE: "02 — Continúa",
-};
+const HeroScene = lazy(() => import("@/components/three/HeroScene"));
 
 /**
- * CHAPTER 01 hero — the 3D genesis of the mark is the protagonist.
- * HTML copy is deliberately minimal and secondary, editorial and quiet.
+ * CHAPTER 01 — the 3D A&O mark is the protagonist; copy stays minimal,
+ * editorial and secondary, sitting over the shared cinematic film.
  */
 const Hero = () => {
   const ref = useRef<HTMLElement>(null);
   const scrollRef = useRef(0);
-  const [phase, setPhase] = useState<PhaseName>("VOID");
   const inView = useInView(ref, { amount: 0.05 });
 
   const { scrollYProgress } = useScroll({
@@ -34,20 +23,22 @@ const Hero = () => {
   });
 
   const textY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
 
   return (
     <section
       ref={ref}
       id="top"
-      className="relative min-h-[100svh] flex items-end overflow-hidden bg-black noise-overlay"
+      className="relative min-h-[100svh] flex items-end overflow-hidden noise-overlay"
     >
-      {/* 3D genesis */}
+      {/* Interactive 3D genesis of the mark */}
       <div className="absolute inset-0 -z-10">
         <Suspense fallback={null}>
-          <BigBangScene scrollRef={scrollRef} onPhase={setPhase} active={inView} />
+          <HeroScene scrollRef={scrollRef} active={inView} />
         </Suspense>
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_45%,transparent_35%,hsl(0_0%_0%/0.75)_100%)]" />
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_60%_40%,transparent_45%,hsl(0_0%_0%/0.5)_100%)]" />
+        {/* keeps the headline readable over the film without hiding it */}
+        <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(100deg,hsl(0_0%_0%/0.72)_0%,hsl(0_0%_0%/0.25)_45%,transparent_70%)]" />
       </div>
 
       <motion.div
@@ -58,13 +49,13 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, y: 24, filter: "blur(14px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 1.4, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-xl"
           >
             <div className="text-[10px] uppercase tracking-[0.45em] text-muted-foreground">
-              {CHAPTER_LABEL[phase]}
+              01 — A&amp;O nace
             </div>
-            <h1 className="mt-5 font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[0.95]">
+            <h1 className="mt-5 font-display text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight leading-[0.92]">
               A&amp;O ECOSYSTEM
             </h1>
             <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed">
@@ -92,7 +83,7 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.6, delay: 1.4 }}
+            transition={{ duration: 1.4, delay: 0.9 }}
             className="flex items-center gap-5 text-[10px] uppercase tracking-[0.3em] text-muted-foreground"
           >
             <span className="text-[hsl(var(--brand-inverfact))]">01 Activar</span>

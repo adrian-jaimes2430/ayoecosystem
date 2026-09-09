@@ -58,7 +58,7 @@ const Monetization = () => {
                 <span className="font-display text-xs text-muted-foreground">02 / A</span>
               </div>
               <Suspense fallback={null}>
-                <UnitObject shape="octahedron" color="#ff6a00" active={inView} className="mt-6 h-40 w-full md:h-52" />
+                <UnitObject shape="octahedron" modelUrl="/unit-anma.glb" color="#ff6a00" active={inView} className="mt-6 h-40 w-full md:h-52" />
               </Suspense>
               <div className="mt-8">
                 <span className="text-[10px] uppercase tracking-[0.25em] text-[hsl(var(--brand-anma))]">
