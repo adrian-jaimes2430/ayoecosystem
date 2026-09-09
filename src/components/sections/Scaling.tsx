@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { lazy, Suspense } from "react";
 import Reveal from "@/components/Reveal";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
@@ -6,9 +7,12 @@ import { ArrowUpRight, Briefcase, Target, Cog, BarChart3 } from "lucide-react";
 import TextReveal from "@/components/TextReveal";
 const aoLogo = "/logo-ao-light.png";
 
+const UnitObject = lazy(() => import("@/components/three/UnitObject"));
+
 const Scaling = () => {
   return (
-    <section id="escalamiento" className="relative py-32 bg-gradient-dark overflow-hidden">
+    <section id="escalamiento" className="relative py-32 overflow-hidden">
+
       {/* Red accent ambient */}
       <ParallaxLayer speed={0.7} className="absolute top-0 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-[hsl(var(--brand-ao)/0.12)] blur-3xl">
         <span />
