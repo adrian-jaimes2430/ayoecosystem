@@ -6,6 +6,7 @@ import { ArrowUpRight, GraduationCap, Laptop, TrendingUp, Workflow, Wallet, Netw
 import { Link } from "react-router-dom";
 import inverfactLogo from "@/assets/logo-inverfact.png";
 import nomadhiveLogo from "@/assets/logo-nomadhive.png";
+import TextReveal from "@/components/TextReveal";
 
 const Activation = () => {
   return (
@@ -20,7 +21,7 @@ const Activation = () => {
               <span className="text-muted-foreground">Activación</span>
             </div>
             <h2 className="mt-5 font-display text-4xl md:text-6xl font-bold leading-tight">
-              Empieza <span className="text-[hsl(var(--brand-inverfact))]">desde cero</span>.
+              <TextReveal text="Empieza" /> <span className="text-[hsl(var(--brand-inverfact))]">desde cero</span>.
             </h2>
           </div>
           <p className="text-muted-foreground max-w-sm">

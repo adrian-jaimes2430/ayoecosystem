@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { ArrowRight, MessageCircle, Mail } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import TextReveal from "@/components/TextReveal";
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -108,7 +109,7 @@ const Contact = () => {
               Acceso al ecosistema
             </span>
             <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight">
-              Da el siguiente <span className="text-gradient-gold">movimiento</span>.
+              <TextReveal text="Da el siguiente" /> <span className="text-gradient-gold">movimiento</span>.
             </h2>
             <p className="mt-6 text-muted-foreground text-lg max-w-md">
               Solicita acceso a mentoría, consultoría o únete a la comunidad. Te respondemos

@@ -26,6 +26,8 @@ export interface BigBangSceneProps {
   accent?: string;
   /** Seconds the intro takes to reach the materialized mark. */
   introDuration?: number;
+  /** When false the canvas stops rendering (off-screen power saving). */
+  active?: boolean;
   onPhase?: (phase: PhaseName) => void;
 }
 
@@ -133,6 +135,7 @@ const BigBangScene = ({
   accent = "#ff3b30",
   introDuration = 9,
   onPhase,
+  active = true,
 }: BigBangSceneProps) => {
   const reduced = useReducedMotion();
 
@@ -153,6 +156,7 @@ const BigBangScene = ({
 
   return (
     <Canvas
+      frameloop={active ? "always" : "never"}
       dpr={dpr}
       gl={{
         antialias: false,

@@ -3,6 +3,7 @@ import Reveal from "@/components/Reveal";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, Briefcase, Target, Cog, BarChart3 } from "lucide-react";
+import TextReveal from "@/components/TextReveal";
 const aoLogo = "/logo-ao-light.png";
 
 const Scaling = () => {
@@ -22,7 +23,7 @@ const Scaling = () => {
               <span className="text-muted-foreground">Escalamiento</span>
             </div>
             <h2 className="mt-5 font-display text-4xl md:text-6xl font-bold leading-tight">
-              Escala tu <span className="text-[hsl(var(--brand-ao))]">empresa</span>.
+              <TextReveal text="Escala tu" /> <span className="text-[hsl(var(--brand-ao))]">empresa</span>.
             </h2>
           </div>
           <p className="text-muted-foreground max-w-sm">

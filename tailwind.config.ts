@@ -96,9 +96,10 @@ export default {
         "glow-pulse": "glow-pulse 4s ease-in-out infinite",
       },
       fontFamily: {
-        display: ['"Space Grotesk"', "system-ui", "sans-serif"],
-        sans: ['"Inter"', "system-ui", "sans-serif"],
+        display: ['"Montserrat"', '"Space Grotesk"', "system-ui", "sans-serif"],
+        sans: ['"Montserrat"', '"Inter"', "system-ui", "sans-serif"],
       },
+
     },
   },
   plugins: [require("tailwindcss-animate")],

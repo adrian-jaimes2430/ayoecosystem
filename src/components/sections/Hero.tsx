@@ -1,4 +1,4 @@
-import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useRef, lazy, Suspense, useState } from "react";
@@ -23,6 +23,7 @@ const Hero = () => {
   const ref = useRef<HTMLElement>(null);
   const scrollRef = useRef(0);
   const [phase, setPhase] = useState<PhaseName>("VOID");
+  const inView = useInView(ref, { amount: 0.05 });
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -44,7 +45,7 @@ const Hero = () => {
       {/* 3D genesis */}
       <div className="absolute inset-0 -z-10">
         <Suspense fallback={null}>
-          <BigBangScene scrollRef={scrollRef} onPhase={setPhase} />
+          <BigBangScene scrollRef={scrollRef} onPhase={setPhase} active={inView} />
         </Suspense>
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_45%,transparent_35%,hsl(0_0%_0%/0.75)_100%)]" />
       </div>

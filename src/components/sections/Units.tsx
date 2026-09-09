@@ -7,6 +7,7 @@ import anma from "@/assets/brand-anma.jpg";
 import nomadhive from "@/assets/brand-nomadhive.jpg";
 import consulting from "@/assets/brand-consulting.jpg";
 import software from "@/assets/brand-software.jpg";
+import TextReveal from "@/components/TextReveal";
 
 const units = [
   {
@@ -88,7 +89,7 @@ const Units = () => {
               Unidades de negocio
             </span>
             <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight max-w-2xl">
-              Cinco unidades. <span className="text-gradient-gold text-destructive">Un ecosistema.</span>
+              <TextReveal text="Cinco unidades." /> <span className="text-gradient-gold text-destructive">Un ecosistema.</span>
             </h2>
           </div>
           <p className="text-muted-foreground max-w-sm">
