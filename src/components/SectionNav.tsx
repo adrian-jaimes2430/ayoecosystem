@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 const SECTIONS = [
   { id: "top", label: "Génesis" },
   { id: "ecosistema", label: "Ecosistema" },
-  { id: "unidades", label: "Unidades" },
   { id: "activacion", label: "Activar" },
   { id: "monetizacion", label: "Generar" },
   { id: "escalamiento", label: "Escalar" },
