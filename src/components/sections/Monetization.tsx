@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { lazy, Suspense } from "react";
+import { motion, useInView } from "framer-motion";
+import { lazy, Suspense, useRef } from "react";
 import Reveal from "@/components/Reveal";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
@@ -12,8 +12,10 @@ const UnitObject = lazy(() => import("@/components/three/UnitObject"));
 
 
 const Monetization = () => {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { amount: 0.1 });
   return (
-    <section id="monetizacion" className="relative py-32">
+    <section id="monetizacion" ref={ref} className="relative py-32">
       <ParallaxLayer speed={0.4} className="absolute inset-0 -z-10 grid-bg opacity-30">
         <span />
       </ParallaxLayer>
@@ -56,7 +58,7 @@ const Monetization = () => {
                 <span className="font-display text-xs text-muted-foreground">02 / A</span>
               </div>
               <Suspense fallback={null}>
-                <UnitObject shape="octahedron" color="#ff6a00" className="mt-6 h-40 w-full md:h-52" />
+                <UnitObject shape="octahedron" color="#ff6a00" active={inView} className="mt-6 h-40 w-full md:h-52" />
               </Suspense>
               <div className="mt-8">
                 <span className="text-[10px] uppercase tracking-[0.25em] text-[hsl(var(--brand-anma))]">
