@@ -41,6 +41,14 @@ const Monetization = () => {
           <ParallaxLayer speed={0.6} className="absolute -top-32 -right-20 h-80 w-80 rounded-full bg-[hsl(var(--brand-anma)/0.18)] blur-3xl">
             <span />
           </ParallaxLayer>
+          <Suspense fallback={null}>
+            <UnitObject
+              shape="octahedron"
+              color="#ff6a00"
+              className="pointer-events-auto absolute top-2 right-3 h-40 w-40 md:h-56 md:w-56 z-10"
+            />
+          </Suspense>
+
           <div className="relative grid lg:grid-cols-5 gap-0">
             {/* Left brand panel */}
             <div className="lg:col-span-2 p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-border/40 flex flex-col justify-between">
