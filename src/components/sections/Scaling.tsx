@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { lazy, Suspense } from "react";
+import { motion, useInView } from "framer-motion";
+import { lazy, Suspense, useRef } from "react";
 import Reveal from "@/components/Reveal";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
@@ -10,8 +10,10 @@ const aoLogo = "/logo-ao-light.png";
 const UnitObject = lazy(() => import("@/components/three/UnitObject"));
 
 const Scaling = () => {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { amount: 0.1 });
   return (
-    <section id="escalamiento" className="relative py-32 overflow-hidden">
+    <section id="escalamiento" ref={ref} className="relative py-32 overflow-hidden">
 
       {/* Red accent ambient */}
       <ParallaxLayer speed={0.7} className="absolute top-0 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-[hsl(var(--brand-ao)/0.12)] blur-3xl">
@@ -61,6 +63,7 @@ const Scaling = () => {
                 <UnitObject
                   shape="box"
                   color="#e8252b"
+                  active={inView}
                   className="pointer-events-auto mt-6 h-44 w-full md:h-56"
                 />
               </Suspense>
