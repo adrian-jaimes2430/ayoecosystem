@@ -45,13 +45,13 @@ const SectionNav = () => {
   return (
     <nav aria-label="Progresión de la historia" className="fixed right-3 sm:right-5 top-1/2 -translate-y-1/2 z-40 hidden sm:flex flex-col items-end gap-3">
       {SECTIONS.map((s) => {
-        const active = active === s.id;
+        const isActive = active === s.id;
         return (
-          <a key={s.id} href={`#${s.id}`} aria-label={s.label} aria-current={active ? "true" : undefined} className="group flex items-center gap-2">
-            <span className={`text-[10px] uppercase tracking-[0.25em] transition-all duration-500 ${active ? "opacity-100 text-foreground" : "opacity-0 group-hover:opacity-100 text-muted-foreground"}`}>
+          <a key={s.id} href={`#${s.id}`} aria-label={s.label} aria-current={isActive ? "true" : undefined} className="group flex items-center gap-2">
+            <span className={`text-[10px] uppercase tracking-[0.25em] transition-all duration-500 ${isActive ? "opacity-100 text-foreground" : "opacity-0 group-hover:opacity-100 text-muted-foreground"}`}>
               {s.label}
             </span>
-            <span className={`block rounded-full transition-all duration-500 ${active ? "h-6 w-[3px] bg-primary shadow-[0_0_14px_hsl(var(--primary)/0.9)]" : "h-[3px] w-[3px] bg-foreground/35 group-hover:bg-foreground/70"}`} />
+            <span className={`block rounded-full transition-all duration-500 ${isActive ? "h-6 w-[3px] bg-primary shadow-[0_0_14px_hsl(var(--primary)/0.9)]" : "h-[3px] w-[3px] bg-foreground/35 group-hover:bg-foreground/70"}`} />
           </a>
         );
       })}
