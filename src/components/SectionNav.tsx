@@ -19,23 +19,37 @@ const SectionNav = () => {
   const [active, setActive] = useState("top");
 
   useEffect(() => {
-    const els = SECTIONS.map((s) => document.getElementById(s.id)).filter(
-      (e): e is HTMLElement => !!e,
-    );
-    if (!els.length) return;
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive(visible.target.id);
-      },
-      { rootMargin: "-45% 0px -45% 0px", threshold: [0, 0.25, 0.5, 1] },
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const mid = window.innerHeight / 2;
+      let best = SECTIONS[0].id;
+      let bestDist = Infinity;
+      for (const s of SECTIONS) {
+        const el = document.getElementById(s.id);
+        if (!el) continue;
+        const r = el.getBoundingClientRect();
+        const dist = Math.abs(r.top + r.height / 2 - mid);
+        if (r.bottom > 0 && r.top < window.innerHeight && dist < bestDist) {
+          bestDist = dist;
+          best = s.id;
+        }
+      }
+      setActive(best);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
+
 
   return (
     <nav
