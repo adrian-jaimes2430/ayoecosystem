@@ -3,7 +3,8 @@ import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { clamp01 } from "./phases";
-import model from "@/assets/ao-logo-3d.glb.asset.json";
+
+const MODEL_URL = "/ao-logo-3d.glb";
 
 /**
  * Real A&O 3D mark (GLB) as the hero protagonist — Active Theory style:
@@ -17,7 +18,7 @@ interface AOLogoModelProps {
 }
 
 const AOLogoModel = ({ progress, accent = "#ff3b30", appearAt = 0.62 }: AOLogoModelProps) => {
-  const { scene } = useGLTF(model.url);
+  const { scene } = useGLTF(MODEL_URL);
   const group = useRef<THREE.Group>(null);
   const drag = useRef(0);
   const pointer = useRef({ x: 0, y: 0 });
@@ -114,6 +115,6 @@ const AOLogoModel = ({ progress, accent = "#ff3b30", appearAt = 0.62 }: AOLogoMo
   );
 };
 
-useGLTF.preload(model.url);
+useGLTF.preload(MODEL_URL);
 
 export default AOLogoModel;
