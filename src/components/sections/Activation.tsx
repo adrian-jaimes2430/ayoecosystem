@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { lazy, Suspense, useRef } from "react";
 import Reveal from "@/components/Reveal";
 import ParallaxLayer from "@/components/ParallaxLayer";
 import { Button } from "@/components/ui/button";
@@ -8,9 +9,15 @@ import inverfactLogo from "@/assets/logo-inverfact.png";
 import nomadhiveLogo from "@/assets/logo-nomadhive.png";
 import TextReveal from "@/components/TextReveal";
 
+const UnitObject = lazy(() => import("@/components/three/UnitObject"));
+
 const Activation = () => {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { amount: 0.1 });
+
   return (
-    <section id="activacion" className="relative py-32 bg-gradient-dark">
+    <section id="activacion" ref={ref} className="relative py-32">
+
       <div className="mx-auto max-w-6xl px-6">
         {/* Stage header */}
         <Reveal direction="blur" className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
