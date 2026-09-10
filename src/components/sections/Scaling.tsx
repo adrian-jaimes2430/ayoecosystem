@@ -44,10 +44,10 @@ const Scaling = () => {
   const active = useInView(ref, { amount: 0.06 });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
-  const systemsOpacity = useTransform(scrollYProgress, [0, 0.34, 0.48], [1, 1, 0]);
-  const systemsY = useTransform(scrollYProgress, [0, 0.38, 0.5], [0, 0, -45]);
-  const convergenceOpacity = useTransform(scrollYProgress, [0.34, 0.48, 0.78, 0.9], [0, 1, 1, 0]);
-  const finaleOpacity = useTransform(scrollYProgress, [0.76, 0.9, 1], [0, 1, 1]);
+  const systemsOpacity = useTransform(scrollYProgress, [0, 0.32, 0.4], [1, 1, 0]);
+  const systemsY = useTransform(scrollYProgress, [0, 0.32, 0.4], [0, 0, -45]);
+  const convergenceOpacity = useTransform(scrollYProgress, [0.4, 0.48, 0.78, 0.86], [0, 1, 1, 0]);
+  const finaleOpacity = useTransform(scrollYProgress, [0.86, 0.92, 1], [0, 1, 1]);
   const finaleY = useTransform(scrollYProgress, [0.76, 1], [48, 0]);
   const coreScale = useTransform(scrollYProgress, [0.32, 0.68, 1], [0.8, 1.15, 0.78]);
   const modelScale = useTransform(scrollYProgress, [0, 0.28, 0.52], [0.9, 1, 0.72]);
