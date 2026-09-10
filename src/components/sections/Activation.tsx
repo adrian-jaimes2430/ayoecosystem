@@ -1,182 +1,49 @@
-import { motion, useInView } from "framer-motion";
-import { lazy, Suspense, useRef } from "react";
-import ChapterHeading from "@/components/ChapterHeading";
-import ParallaxLayer from "@/components/ParallaxLayer";
-import { Button } from "@/components/ui/button";
-import { ArrowUpRight, GraduationCap, Laptop, TrendingUp, Workflow, Wallet, Network } from "lucide-react";
-import { Link } from "react-router-dom";
+import { GraduationCap, Laptop, TrendingUp, Workflow, Wallet, Network } from "lucide-react";
 import inverfactLogo from "@/assets/logo-inverfact.png";
 import nomadhiveLogo from "@/assets/logo-nomadhive.png";
+import BusinessUnitChapter from "@/components/BusinessUnitChapter";
 
-const UnitObject = lazy(() => import("@/components/three/UnitObject"));
+const Detail = ({ icon: Icon, text }: { icon: typeof GraduationCap; text: string }) => (
+  <div className="flex items-center gap-3 text-foreground/80">
+    <Icon className="h-4 w-4 shrink-0 text-primary" />
+    <span>{text}</span>
+  </div>
+);
 
 const Activation = () => {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { amount: 0.1 });
-
   return (
-    <section id="activacion" ref={ref} className="relative py-32">
-
-      <div className="mx-auto max-w-6xl px-6">
-        {/* Stage header */}
-        <ChapterHeading
+    <section id="activacion" className="relative">
+      <BusinessUnitChapter
+          id="inverfact"
           eyebrow="03 — Capital"
           title="Aprender a mover el capital cambia el juego."
           text="INVERFACT nace como la puerta de entrada al conocimiento financiero, la educación y una nueva relación con las decisiones sobre capital."
           accent="hsl(var(--brand-inverfact))"
-          className="mb-14"
-        />
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* INVERFACT */}
-          <motion.article
-            initial={{ opacity: 0, y: 50, filter: "blur(12px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
-            className="group relative overflow-hidden rounded-3xl border border-[hsl(var(--brand-inverfact)/0.25)] bg-card/60 backdrop-blur-md p-8 hover:border-[hsl(var(--brand-inverfact)/0.6)] transition-all duration-500"
-          >
-            <ParallaxLayer speed={0.5} className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[hsl(var(--brand-inverfact)/0.18)] blur-3xl">
-              <span />
-            </ParallaxLayer>
-            <div className="relative flex flex-col h-full">
-              <Suspense fallback={null}>
-                <UnitObject
-                  modelUrl="/unit-inverfact.glb"
-                  shape="icosahedron"
-                  color="#ff8a00"
-                  active={inView}
-                  className="mb-4 h-36 w-full md:h-44"
-                />
-              </Suspense>
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="h-14 w-14 rounded-2xl bg-white p-1.5 flex items-center justify-center">
-                    <img src={inverfactLogo} alt="Inverfact" className="h-full w-full object-contain" />
-                  </div>
-                  <div>
-                    <h3 className="font-display text-2xl font-bold tracking-tight">INVERFACT</h3>
-                    <span className="text-[10px] uppercase tracking-[0.25em] text-[hsl(var(--brand-inverfact))]">
-                      03 — Capital · Educación financiera
-                    </span>
-                  </div>
-                </div>
-                <span className="font-display text-xs text-muted-foreground">01 / A</span>
-              </div>
-
-              <p className="mt-6 text-muted-foreground leading-relaxed">
-Educación financiera real, sin humo: generar, multiplicar y
-                proteger el capital con un sistema probado.
-              </p>
-
-              <ul className="mt-6 space-y-3 text-sm flex-1">
-                {[
-                  { i: GraduationCap, t: "Mentoría 1:1 con inversionistas activos" },
-                  { i: Wallet, t: "Sistema: generar, multiplicar, proteger" },
-                  { i: TrendingUp, t: "Comunidad privada + herramientas de tracking" },
-                ].map((b) => (
-                  <li key={b.t} className="flex items-center gap-3">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[hsl(var(--brand-inverfact)/0.12)] text-[hsl(var(--brand-inverfact))] border border-[hsl(var(--brand-inverfact)/0.3)]">
-                      <b.i className="h-4 w-4" />
-                    </span>
-                    <span>{b.t}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-8 pt-6 border-t border-border/40 flex items-center justify-between">
-                <p className="text-sm italic text-foreground/80 max-w-[60%]">
-                  "Si no sabes manejar tu dinero, nunca vas a crecer."
-                </p>
-                <Button asChild className="bg-[hsl(var(--brand-inverfact))] hover:bg-[hsl(var(--brand-inverfact)/0.9)] text-black font-semibold">
-                  <Link to="/inverfact">
-                    Explorar INVERFACT <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </motion.article>
-
-          {/* NOMADHIVE */}
-          <motion.article
-            initial={{ opacity: 0, y: 50, filter: "blur(12px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.95, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-            className="group relative overflow-hidden rounded-3xl border border-[hsl(var(--brand-nomad)/0.25)] bg-card/60 backdrop-blur-md p-8 hover:border-[hsl(var(--brand-nomad)/0.6)] transition-all duration-500"
-          >
-            <ParallaxLayer speed={0.5} className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[hsl(var(--brand-nomad)/0.18)] blur-3xl">
-              <span />
-            </ParallaxLayer>
-
-            {/* tech grid accent */}
-            <div className="absolute inset-0 opacity-[0.07] pointer-events-none"
-              style={{
-                backgroundImage:
-                  "linear-gradient(hsl(var(--brand-nomad)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--brand-nomad)) 1px, transparent 1px)",
-                backgroundSize: "40px 40px",
-              }}
-            />
-            <div className="relative flex flex-col h-full">
-              <Suspense fallback={null}>
-                <UnitObject
-                  modelUrl="/unit-nomadhive.glb"
-                  shape="torus"
-                  color="#00e08a"
-                  active={inView}
-                  className="mb-4 h-36 w-full md:h-44"
-                />
-              </Suspense>
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="h-14 w-14 rounded-2xl bg-black p-1.5 flex items-center justify-center border border-[hsl(var(--brand-nomad)/0.3)]">
-                    <img src={nomadhiveLogo} alt="NomadHive" className="h-full w-full object-contain" />
-                  </div>
-                  <div>
-                    <h3 className="font-display text-2xl font-bold tracking-tight">NOMADHIVE</h3>
-                    <span className="text-[10px] uppercase tracking-[0.25em] text-[hsl(var(--brand-nomad))]">
-                      04 — Personas · Trabajo remoto
-                    </span>
-                  </div>
-                </div>
-                <span className="font-display text-xs text-muted-foreground">01 / B</span>
-              </div>
-
-              <p className="mt-6 text-muted-foreground leading-relaxed">
-El crecimiento nunca fue individual. NOMADHIVE conecta talento,
-                movimiento, colaboración y oportunidades para construir una red
-                que puede crecer más allá de un solo lugar.
-              </p>
-
-              <ul className="mt-6 space-y-3 text-sm flex-1">
-                {[
-                  { i: Laptop, t: "Proceso de selección en 6 etapas" },
-                  { i: Workflow, t: "Formación en ventas, cierre y WhatsApp Business" },
-                  { i: Network, t: "Crecimiento por niveles: Junior → Staff Matriz" },
-                ].map((b) => (
-                  <li key={b.t} className="flex items-center gap-3">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[hsl(var(--brand-nomad)/0.12)] text-[hsl(var(--brand-nomad))] border border-[hsl(var(--brand-nomad)/0.3)]">
-                      <b.i className="h-4 w-4" />
-                    </span>
-                    <span>{b.t}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-8 pt-6 border-t border-border/40 flex items-center justify-between">
-                <p className="text-sm italic text-foreground/80 max-w-[60%]">
-                  "Ingresos por estructura y desempeño, no por suerte."
-                </p>
-                <Button asChild className="bg-[hsl(var(--brand-nomad))] hover:bg-[hsl(var(--brand-nomad)/0.9)] text-black font-semibold">
-                  <Link to="/nomadhive">
-                    Explorar NOMADHIVE <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </motion.article>
-        </div>
-      </div>
+          modelUrl="/unit-inverfact.glb" shape="icosahedron" color="#ff8a00"
+          logo={inverfactLogo} logoAlt="Inverfact" brand="INVERFACT"
+          category="Capital · Educación financiera"
+          description="Educación financiera real, sin humo: generar, multiplicar y proteger el capital con un sistema probado."
+          quote="Si no sabes manejar tu dinero, nunca vas a crecer."
+          route="/inverfact" cta="Explorar INVERFACT"
+        >
+          <Detail icon={GraduationCap} text="Mentoría 1:1 con inversionistas activos" />
+          <Detail icon={Wallet} text="Sistema: generar, multiplicar, proteger" />
+          <Detail icon={TrendingUp} text="Comunidad privada + herramientas de tracking" />
+        </BusinessUnitChapter>
+        <BusinessUnitChapter
+          id="nomadhive" reverse darkLogo eyebrow="04 — Personas"
+          title="El crecimiento nunca fue individual."
+          text="NOMADHIVE conecta talento, movimiento, colaboración y oportunidades para construir una red que puede crecer más allá de un solo lugar."
+          accent="hsl(var(--brand-nomad))" modelUrl="/unit-nomadhive.glb" shape="torus" color="#00e08a"
+          logo={nomadhiveLogo} logoAlt="NomadHive" brand="NOMADHIVE" category="Personas · Trabajo remoto"
+          description="Un sistema profesional de oportunidades remotas, formación, productividad e ingresos digitales con crecimiento por niveles."
+          quote="Ingresos por estructura y desempeño, no por suerte."
+          route="/nomadhive" cta="Explorar NOMADHIVE"
+        >
+          <Detail icon={Laptop} text="Proceso de selección en 6 etapas" />
+          <Detail icon={Workflow} text="Formación en ventas, cierre y WhatsApp Business" />
+          <Detail icon={Network} text="Crecimiento por niveles: Junior → Staff Matriz" />
+        </BusinessUnitChapter>
     </section>
   );
 };
