@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Float, Sparkles, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
@@ -344,7 +344,9 @@ export default function EcosystemStory() {
         <Environment resolution={64}>
           <EnvironmentFiles />
         </Environment>
-        <StoryWorld key={chapter.id} chapter={chapter} local={reduced ? 0.5 : local} pointer={pointer} navigate={navigate} />
+        <Suspense fallback={<SmokeField color={chapter.color} pointer={pointer} />}>
+          <StoryWorld key={chapter.id} chapter={chapter} local={reduced ? 0.5 : local} pointer={pointer} navigate={navigate} />
+        </Suspense>
       </Canvas>
 
       <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between p-5 md:p-8 pointer-events-none">
