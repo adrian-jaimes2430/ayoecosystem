@@ -18,8 +18,12 @@ const ScrollVideoBackdrop = () => {
   const current = useRef(0);
   const ready = useRef(false);
   const raf = useRef<number>();
-  const [reduced, setReduced] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [reduced, setReduced] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches,
+  );
 
   useEffect(() => {
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -50,8 +54,11 @@ const ScrollVideoBackdrop = () => {
     if (video.readyState >= 1) ready.current = true;
 
     const readScroll = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      target.current = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      const story = document.getElementById("story-flow");
+      if (!story) return;
+      const top = window.scrollY + story.getBoundingClientRect().top;
+      const max = Math.max(1, story.offsetHeight - window.innerHeight);
+      target.current = Math.min(1, Math.max(0, (window.scrollY - top) / max));
     };
 
     const tick = () => {
@@ -80,7 +87,7 @@ const ScrollVideoBackdrop = () => {
         // gentle cinematic breathing tied to story progress
         const scale = 1.08 - p * 0.08;
         wrap.style.transform = `scale(${scale.toFixed(4)})`;
-        wrap.style.opacity = (0.75 + Math.sin(p * Math.PI) * 0.25).toFixed(3);
+        wrap.style.opacity = (0.88 + Math.sin(p * Math.PI) * 0.12).toFixed(3);
       }
       return;
     };
@@ -119,9 +126,9 @@ const ScrollVideoBackdrop = () => {
         )}
       </div>
       {/* Legibility + brand grade over the film */}
-      <div className="absolute inset-0 bg-background/35" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,transparent_25%,hsl(var(--background)/0.7)_92%)]" />
-      <div className="absolute inset-0 mix-blend-overlay bg-[linear-gradient(160deg,hsl(var(--primary)/0.18),transparent_55%)]" />
+      <div className="absolute inset-0 bg-background/20" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,transparent_34%,hsl(var(--background)/0.58)_100%)]" />
+      <div className="absolute inset-0 mix-blend-overlay bg-[linear-gradient(160deg,hsl(var(--primary)/0.12),transparent_58%)]" />
     </div>
   );
 };

@@ -5,13 +5,10 @@ import Activation from "@/components/sections/Activation";
 import Monetization from "@/components/sections/Monetization";
 import Scaling from "@/components/sections/Scaling";
 import Value from "@/components/sections/Value";
-import Convergence from "@/components/sections/Convergence";
-import Pricing from "@/components/sections/Pricing";
 import Authority from "@/components/sections/Authority";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import StickyWhatsApp from "@/components/StickyWhatsApp";
-import SectionNav from "@/components/SectionNav";
 import ScrollVideoBackdrop from "@/components/ScrollVideoBackdrop";
 import SectionStage from "@/components/SectionStage";
 import AmbientAudio from "@/components/AmbientAudio";
@@ -24,17 +21,14 @@ const Index = () => {
       <ScrollVideoBackdrop />
       <AmbientAudio />
       <Navbar />
-      <SectionNav />
-      <Hero />
-
-
-      <SectionStage><About /></SectionStage>
-      <SectionStage><Activation /></SectionStage>
-      <SectionStage><Monetization /></SectionStage>
-      <SectionStage><Scaling /></SectionStage>
-      <SectionStage><Value /></SectionStage>
-      <SectionStage><Convergence /></SectionStage>
-      <SectionStage><Pricing /></SectionStage>
+      <div id="story-flow" className="relative">
+        <Hero />
+        <SectionStage><About /></SectionStage>
+        <SectionStage><Value /></SectionStage>
+        <Activation />
+        <Monetization />
+        <Scaling />
+      </div>
       <SectionStage><Authority /></SectionStage>
       <SectionStage><Contact /></SectionStage>
       <Footer />

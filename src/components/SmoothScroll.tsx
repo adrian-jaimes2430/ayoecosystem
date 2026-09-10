@@ -12,9 +12,10 @@ const SmoothScroll = () => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
-      touchMultiplier: 1.1,
+      duration: 1.3,
+      easing: (t) => 1 - Math.pow(1 - t, 4),
+      touchMultiplier: 1,
+      wheelMultiplier: 0.9,
     });
 
     let raf = 0;

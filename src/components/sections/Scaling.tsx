@@ -1,115 +1,129 @@
-import { motion, useInView } from "framer-motion";
 import { lazy, Suspense, useRef } from "react";
+import { motion, useInView, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { BarChart3, Briefcase, Cog, Target } from "lucide-react";
 import ChapterHeading from "@/components/ChapterHeading";
-import ParallaxLayer from "@/components/ParallaxLayer";
-import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Briefcase, Target, Cog, BarChart3 } from "lucide-react";
-const aoLogo = "/logo-ao-light.png";
+import inverfactLogo from "@/assets/logo-inverfact.png";
+import nomadhiveLogo from "@/assets/logo-nomadhive.png";
+import anmaLogo from "@/assets/logo-anma.png";
 
 const UnitObject = lazy(() => import("@/components/three/UnitObject"));
+const aoLogo = "/logo-ao-light.png";
 
+const services = [
+  { icon: Briefcase, title: "Arquitectura empresarial", text: "Estructura estratégica para fundadores y equipos." },
+  { icon: Target, title: "Posicionamiento de marca", text: "Diagnóstico, narrativa y estrategia de mercado." },
+  { icon: Cog, title: "Optimización de procesos", text: "Automatización y eficiencia operativa." },
+  { icon: BarChart3, title: "Crecimiento estructurado", text: "Sistemas de marketing y ventas medibles." },
+];
+
+const marks = [
+  { src: inverfactLogo, alt: "Inverfact", x: -190, y: -90, tone: "bg-foreground" },
+  { src: nomadhiveLogo, alt: "NomadHive", x: 190, y: -80, tone: "bg-background/80" },
+  { src: anmaLogo, alt: "ANMA Soluciones", x: 0, y: 145, tone: "bg-foreground" },
+];
+
+const ConvergingMark = ({ mark, progress }: { mark: (typeof marks)[number]; progress: MotionValue<number> }) => {
+  const x = useTransform(progress, [0.35, 0.72], [mark.x, 0]);
+  const y = useTransform(progress, [0.35, 0.72], [mark.y, 0]);
+  const opacity = useTransform(progress, [0.25, 0.42, 0.75, 0.92], [0, 1, 0.8, 0]);
+  const scale = useTransform(progress, [0.35, 0.72], [1, 0.62]);
+
+  return (
+    <motion.div
+      style={{ x, y, opacity, scale }}
+      className={`absolute left-1/2 top-1/2 -ml-8 -mt-8 flex h-16 w-16 items-center justify-center border border-foreground/15 p-2 ${mark.tone}`}
+    >
+      <img src={mark.src} alt={mark.alt} className="h-full w-full object-contain" loading="lazy" />
+    </motion.div>
+  );
+};
+
+/** Chapters 06–08 share one pinned sequence: systems become convergence. */
 const Scaling = () => {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { amount: 0.1 });
+  const active = useInView(ref, { amount: 0.06 });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+
+  const systemsOpacity = useTransform(scrollYProgress, [0, 0.32, 0.4], [1, 1, 0]);
+  const systemsY = useTransform(scrollYProgress, [0, 0.32, 0.4], [0, 0, -45]);
+  const convergenceOpacity = useTransform(scrollYProgress, [0.4, 0.48, 0.78, 0.86], [0, 1, 1, 0]);
+  const finaleOpacity = useTransform(scrollYProgress, [0.86, 0.92, 1], [0, 1, 1]);
+  const finaleY = useTransform(scrollYProgress, [0.76, 1], [48, 0]);
+  const coreScale = useTransform(scrollYProgress, [0.32, 0.68, 1], [0.8, 1.15, 0.78]);
+  const modelScale = useTransform(scrollYProgress, [0, 0.28, 0.52], [0.9, 1, 0.72]);
+  const modelOpacity = useTransform(scrollYProgress, [0, 0.35, 0.55], [1, 1, 0]);
+
   return (
-    <section id="escalamiento" ref={ref} className="relative py-32 overflow-hidden">
-
-      {/* Red accent ambient */}
-      <ParallaxLayer speed={0.7} className="absolute top-0 left-1/2 -translate-x-1/2 h-[500px] w-[500px] rounded-full bg-[hsl(var(--brand-ao)/0.12)] blur-3xl">
-        <span />
-      </ParallaxLayer>
-
-      <div className="relative mx-auto max-w-6xl px-6">
-        <ChapterHeading
-          eyebrow="06 — Sistemas"
-          title="Y entonces construimos las herramientas."
-          text="A&O System Tools reúne las soluciones que permiten organizar, automatizar, medir y multiplicar lo que ocurre dentro del ecosistema."
-          accent="hsl(var(--brand-ao))"
-          className="mb-14"
-        />
-
-        <motion.article
-          initial={{ opacity: 0, y: 60, filter: "blur(14px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-3xl border border-[hsl(var(--brand-ao)/0.3)] bg-black/60 backdrop-blur-md"
+    <section id="escalamiento" ref={ref} className="relative min-h-[360svh]">
+      <div className="sticky top-0 min-h-[100svh] overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,hsl(var(--background)/0.38),transparent_72%)]" />
+        <motion.div
+          style={{ opacity: modelOpacity, scale: modelScale }}
+          className="pointer-events-auto absolute inset-y-0 right-0 w-full md:w-[58%]"
         >
-          {/* Corporate frame */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-[hsl(var(--brand-ao))] to-transparent" />
-            <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-[hsl(var(--brand-ao)/0.5)] to-transparent" />
-          </div>
+          <Suspense fallback={null}>
+            <UnitObject
+              modelUrl="/ao-logo-3d.glb"
+              shape="box"
+              color="#e8252b"
+              active={active}
+              className="h-full w-full"
+            />
+          </Suspense>
+        </motion.div>
 
-          <div className="relative grid lg:grid-cols-12 gap-0">
-            <div className="lg:col-span-5 p-10 lg:p-12 border-b lg:border-b-0 lg:border-r border-[hsl(var(--brand-ao)/0.2)] flex flex-col justify-between">
-              <div className="flex items-start justify-between">
-                <div className="h-24 w-24 rounded-full bg-black border border-[hsl(var(--brand-ao)/0.4)] p-2 flex items-center justify-center">
-                  <img src={aoLogo} alt="A&O Ecosystem" className="h-full w-full object-contain" />
-                </div>
-                <span className="font-display text-xs text-muted-foreground">03 / A</span>
-              </div>
-              <Suspense fallback={null}>
-                <UnitObject
-                  modelUrl="/ao-logo-3d.glb"
-                  shape="box"
-                  color="#e8252b"
-                  active={inView}
-                  className="pointer-events-auto mt-6 h-44 w-full md:h-56"
-                />
-              </Suspense>
-
-              <div className="mt-10">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-[hsl(var(--brand-ao))]">
-                  Consultoría empresarial
-                </span>
-                <h3 className="mt-3 font-display text-4xl md:text-5xl font-bold tracking-tight leading-[0.95]">
-                  A&O<br />ECOSYSTEM
-                </h3>
-                <p className="mt-5 text-sm text-muted-foreground">
-                  Marketing · Automatización · Estructura estratégica
-                </p>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 p-10 lg:p-12">
-              <p className="text-lg text-foreground/90 leading-relaxed">
-                Ayudamos a empresas a escalar con marketing inteligente,
-                automatización de procesos y una estructura estratégica clara.
-              </p>
-
-              <div className="mt-8 space-y-4">
-                {[
-                  { i: Briefcase, t: "Mentoría empresarial", d: "Acompañamiento ejecutivo para fundadores y equipos." },
-                  { i: Target, t: "Posicionamiento de marca", d: "Diagnóstico, narrativa y estrategia de mercado." },
-                  { i: Cog, t: "Optimización de procesos", d: "Automatización y eficiencia operativa." },
-                  { i: BarChart3, t: "Crecimiento estructurado", d: "Sistemas de marketing y ventas medibles." },
-                ].map((b) => (
-                  <div key={b.t} className="flex gap-4 items-start group/item p-3 rounded-xl hover:bg-[hsl(var(--brand-ao)/0.06)] transition-colors">
-                    <span className="shrink-0 flex h-10 w-10 items-center justify-center rounded-lg bg-[hsl(var(--brand-ao)/0.12)] text-[hsl(var(--brand-ao))] border border-[hsl(var(--brand-ao)/0.3)]">
-                      <b.i className="h-4 w-4" />
-                    </span>
+        <motion.div style={{ opacity: systemsOpacity, y: systemsY }} className="absolute inset-0 flex items-center">
+          <div className="mx-auto w-full max-w-6xl px-6">
+            <div className="max-w-xl">
+              <ChapterHeading
+                eyebrow="06 — Sistemas"
+                title="Y entonces construimos las herramientas."
+                text="A&O System Tools reúne las soluciones que permiten organizar, automatizar, medir y multiplicar lo que ocurre dentro del ecosistema."
+                accent="hsl(var(--brand-ao))"
+              />
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                {services.map((service) => (
+                  <div key={service.title} className="flex gap-3 border-l border-foreground/15 pl-3">
+                    <service.icon className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                     <div>
-                      <div className="text-sm font-semibold">{b.t}</div>
-                      <div className="text-xs text-muted-foreground mt-0.5">{b.d}</div>
+                      <p className="text-sm font-medium">{service.title}</p>
+                      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{service.text}</p>
                     </div>
                   </div>
                 ))}
               </div>
-
-              <div className="mt-10 pt-6 border-t border-[hsl(var(--brand-ao)/0.2)] flex items-center justify-between flex-wrap gap-4">
-                <p className="text-sm italic text-foreground/80 max-w-md">
-                  "Construimos sistemas que escalan empresas, no solo ideas."
-                </p>
-                <Button asChild className="bg-[hsl(var(--brand-ao))] hover:bg-[hsl(var(--brand-ao)/0.9)] text-white font-semibold">
-                  <a href="#contacto">
-                    Solicitar asesoría <ArrowUpRight className="h-4 w-4" />
-                  </a>
-                </Button>
-              </div>
             </div>
           </div>
-        </motion.article>
+        </motion.div>
+
+        <motion.div style={{ opacity: convergenceOpacity }} className="absolute inset-0 flex items-center">
+          <div className="mx-auto grid w-full max-w-6xl items-center gap-8 px-6 md:grid-cols-[1fr_1.1fr]">
+            <ChapterHeading
+              eyebrow="07 — Convergencia"
+              title="Cuando todo se conecta, aparece el ecosistema."
+              text="Capital. Personas. Comercio. Tecnología. Cada unidad nació con un propósito distinto. Juntas forman una estructura mayor."
+            />
+            <div className="relative h-[42svh] min-h-[320px]">
+              <motion.div style={{ scale: coreScale }} className="absolute left-1/2 top-1/2 -ml-16 -mt-16 flex h-32 w-32 items-center justify-center border border-primary/40 bg-background/55 p-5 backdrop-blur-md">
+                <img src={aoLogo} alt="A&O Ecosystem" className="h-full w-full object-contain" />
+              </motion.div>
+              {marks.map((mark) => <ConvergingMark key={mark.alt} mark={mark} progress={scrollYProgress} />)}
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div style={{ opacity: finaleOpacity, y: finaleY }} className="absolute inset-0 flex items-center">
+          <div className="mx-auto w-full max-w-6xl px-6">
+            <div className="max-w-3xl">
+              <ChapterHeading
+                eyebrow="08 — A&O Ecosystem"
+                title="No es una marca. Es una estructura."
+                text="A&O Ecosystem conecta negocios, tecnología, talento y oportunidades para construir lo que viene después."
+                accent="hsl(var(--brand-ao))"
+              />
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
