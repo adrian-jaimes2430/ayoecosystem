@@ -44,8 +44,8 @@ const Scaling = () => {
   const active = useInView(ref, { amount: 0.06 });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
-  const systemsOpacity = useTransform(scrollYProgress, [0, 0.08, 0.34, 0.48], [0, 1, 1, 0]);
-  const systemsY = useTransform(scrollYProgress, [0, 0.12, 0.38, 0.5], [45, 0, 0, -45]);
+  const systemsOpacity = useTransform(scrollYProgress, [0, 0.34, 0.48], [1, 1, 0]);
+  const systemsY = useTransform(scrollYProgress, [0, 0.38, 0.5], [0, 0, -45]);
   const convergenceOpacity = useTransform(scrollYProgress, [0.34, 0.48, 0.78, 0.9], [0, 1, 1, 0]);
   const finaleOpacity = useTransform(scrollYProgress, [0.76, 0.9, 1], [0, 1, 1]);
   const finaleY = useTransform(scrollYProgress, [0.76, 1], [48, 0]);
@@ -56,6 +56,7 @@ const Scaling = () => {
   return (
     <section id="escalamiento" ref={ref} className="relative min-h-[360svh]">
       <div className="sticky top-0 min-h-[100svh] overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,hsl(var(--background)/0.38),transparent_72%)]" />
         <motion.div
           style={{ opacity: modelOpacity, scale: modelScale }}
           className="pointer-events-auto absolute inset-y-0 right-0 w-full md:w-[58%]"

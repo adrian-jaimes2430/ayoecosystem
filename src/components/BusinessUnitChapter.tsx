@@ -67,6 +67,7 @@ const BusinessUnitChapter = ({
       className="relative min-h-[125svh] md:min-h-[145svh]"
     >
       <div className="sticky top-0 flex min-h-[100svh] items-center overflow-hidden py-20">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,hsl(var(--background)/0.12),hsl(var(--background)/0.48)_48%,hsl(var(--background)/0.18))] max-lg:bg-[linear-gradient(180deg,hsl(var(--background)/0.08),hsl(var(--background)/0.52)_48%,hsl(var(--background)/0.3))]" />
         <div className="mx-auto grid w-full max-w-6xl items-center gap-7 px-6 lg:grid-cols-2 lg:gap-14">
           <motion.div
             style={{ scale: modelScale }}

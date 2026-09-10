@@ -18,8 +18,12 @@ const ScrollVideoBackdrop = () => {
   const current = useRef(0);
   const ready = useRef(false);
   const raf = useRef<number>();
-  const [reduced, setReduced] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [reduced, setReduced] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches,
+  );
 
   useEffect(() => {
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)");
