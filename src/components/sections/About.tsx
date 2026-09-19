@@ -27,15 +27,15 @@ const About = () => {
 
 
   return (
-    <section id="ecosistema" className="relative py-32">
-      <div className="mx-auto max-w-6xl px-6">
+    <section id="ecosistema" className="relative py-20 md:py-32">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <ChapterHeading
           eyebrow="02 — La forma"
           title="La visión tomó forma."
           text="La identidad dejó de ser un símbolo para convertirse en una estructura: una arquitectura preparada para conectar negocios, personas y sistemas."
         />
 
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-14 md:mt-20 md:grid-cols-3 md:gap-5">
           {pillars.map((p, i) => (
             <motion.div
               key={p.title}
@@ -43,7 +43,7 @@ const About = () => {
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative glass rounded-3xl p-7 transition-all duration-500 hover:-translate-y-1"
+              className="group relative glass rounded-2xl p-5 transition-all duration-500 hover:-translate-y-1 sm:p-7 md:rounded-3xl"
               style={{ borderColor: `${p.color}` }}
             >
               <div

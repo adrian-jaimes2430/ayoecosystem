@@ -65,7 +65,7 @@ const ScrollVideoBackdrop = () => {
       raf.current = requestAnimationFrame(tick);
       if (document.hidden) return;
 
-      current.current += (target.current - current.current) * 0.075;
+      current.current += (target.current - current.current) * (isMobile ? 0.11 : 0.075);
       const p = current.current;
 
       if (ready.current) {
@@ -73,7 +73,7 @@ const ScrollVideoBackdrop = () => {
         if (dur && Number.isFinite(dur)) {
           const t = p * (dur - 0.05);
           // wide-enough threshold to avoid seek storms / jitter
-          if (Math.abs(video.currentTime - t) > 0.05) {
+          if (Math.abs(video.currentTime - t) > (isMobile ? 0.11 : 0.05)) {
             try {
               video.currentTime = t;
             } catch {
@@ -85,7 +85,7 @@ const ScrollVideoBackdrop = () => {
 
       if (wrap) {
         // gentle cinematic breathing tied to story progress
-        const scale = 1.08 - p * 0.08;
+        const scale = (isMobile ? 1.04 : 1.08) - p * (isMobile ? 0.04 : 0.08);
         wrap.style.transform = `scale(${scale.toFixed(4)})`;
         wrap.style.opacity = (0.88 + Math.sin(p * Math.PI) * 0.12).toFixed(3);
       }
@@ -120,7 +120,7 @@ const ScrollVideoBackdrop = () => {
             poster={POSTER}
             muted
             playsInline
-            preload="auto"
+            preload={isMobile ? "metadata" : "auto"}
             className="h-full w-full object-cover"
           />
         )}

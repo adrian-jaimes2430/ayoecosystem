@@ -77,10 +77,10 @@ const HeroScene = ({
     () => (isMobile ? [0, 0.9, 0] : [1.9, 0.55, 0]),
     [isMobile],
   );
-  const size = isMobile ? 2.6 : 3.2;
+  const size = isMobile ? 2.25 : 3.2;
 
   const dpr = useMemo<[number, number]>(
-    () => (typeof window !== "undefined" && window.innerWidth < 640 ? [1, 1.5] : [1, 2]),
+    () => (typeof window !== "undefined" && window.innerWidth < 640 ? [1, 1.25] : [1, 2]),
     [],
   );
 
@@ -103,7 +103,7 @@ const HeroScene = ({
       <pointLight position={[-5, -1, 3]} intensity={5} color="#ff3b30" distance={20} />
       <pointLight position={[0, 2, 4]} intensity={2} color="#ffffff" distance={14} />
 
-      <Environment resolution={128}>
+      <Environment resolution={isMobile ? 64 : 128}>
         <Lightformer intensity={2.4} position={[0, 5, 4]} scale={[10, 10, 1]} color="#ffffff" />
         <Lightformer
           intensity={1.4}
@@ -121,7 +121,7 @@ const HeroScene = ({
         />
       </Environment>
 
-      <Dust />
+      <Dust count={isMobile ? 600 : 1400} />
 
       <Suspense fallback={null}>
         {/* offset to the right on desktop so the headline keeps the stage */}

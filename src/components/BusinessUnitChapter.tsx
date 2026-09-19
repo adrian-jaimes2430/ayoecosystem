@@ -64,14 +64,14 @@ const BusinessUnitChapter = ({
       id={id}
       ref={ref}
       style={{ opacity, y }}
-      className="relative min-h-[125svh] md:min-h-[145svh]"
+      className="relative py-16 md:min-h-[145svh] md:py-0"
     >
-      <div className="sticky top-0 flex min-h-[100svh] items-center overflow-hidden py-20">
+      <div className="relative flex min-h-0 items-center overflow-hidden md:sticky md:top-0 md:min-h-[100svh] md:py-20">
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,hsl(var(--background)/0.12),hsl(var(--background)/0.48)_48%,hsl(var(--background)/0.18))] max-lg:bg-[linear-gradient(180deg,hsl(var(--background)/0.08),hsl(var(--background)/0.52)_48%,hsl(var(--background)/0.3))]" />
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-7 px-6 lg:grid-cols-2 lg:gap-14">
+        <div className="mx-auto grid w-full max-w-6xl items-center gap-5 px-4 sm:px-6 lg:grid-cols-2 lg:gap-14">
           <motion.div
             style={{ scale: modelScale }}
-            className={`relative min-h-[34svh] lg:min-h-[66svh] ${reverse ? "lg:order-2" : ""}`}
+            className={`relative min-h-[30svh] max-h-[320px] lg:min-h-[66svh] lg:max-h-none ${reverse ? "lg:order-2" : ""}`}
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--primary)/0.12),transparent_62%)]" />
             <Suspense fallback={null}>
@@ -87,20 +87,20 @@ const BusinessUnitChapter = ({
 
           <div className={`relative ${reverse ? "lg:order-1" : ""}`}>
             <ChapterHeading eyebrow={eyebrow} title={title} text={text} accent={accent} />
-            <div className="mt-8 border-l border-foreground/15 pl-5 md:pl-7">
+            <div className="mt-6 border-l border-foreground/15 pl-4 sm:pl-5 md:mt-8 md:pl-7">
               <div className="flex items-center gap-3">
                 <span className={`flex h-12 w-12 items-center justify-center p-1.5 ${darkLogo ? "bg-background/70" : "bg-foreground"}`}>
                   <img src={logo} alt={logoAlt} className="h-full w-full object-contain" loading="lazy" />
                 </span>
                 <div>
                   <h3 className="font-display text-xl font-semibold">{brand}</h3>
-                  <p className="mt-1 text-[9px] uppercase tracking-[0.26em] text-muted-foreground">{category}</p>
+                  <p className="mt-1 text-[9px] uppercase tracking-[0.16em] text-muted-foreground sm:tracking-[0.26em]">{category}</p>
                 </div>
               </div>
-              <p className="mt-5 max-w-lg text-sm leading-relaxed text-foreground/72 md:text-base">{description}</p>
-              <div className="mt-6 grid gap-3 text-sm sm:grid-cols-2">{children}</div>
-              <p className="mt-6 max-w-lg text-sm italic text-foreground/70">“{quote}”</p>
-              <Button asChild variant="ghost" className="mt-5 px-0 text-foreground hover:bg-transparent hover:text-primary">
+              <p className="mt-4 max-w-lg text-[13px] leading-relaxed text-foreground/72 sm:text-sm md:mt-5 md:text-base">{description}</p>
+              <div className="mt-5 grid gap-3 text-[13px] sm:grid-cols-2 sm:text-sm md:mt-6">{children}</div>
+              <p className="mt-5 max-w-lg text-[13px] italic text-foreground/70 sm:text-sm md:mt-6">“{quote}”</p>
+              <Button asChild variant="ghost" className="mt-4 min-h-11 px-0 text-foreground hover:bg-transparent hover:text-primary md:mt-5">
                 <Link to={route}>
                   {cta} <ArrowUpRight className="h-4 w-4" />
                 </Link>

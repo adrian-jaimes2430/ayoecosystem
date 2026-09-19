@@ -97,8 +97,8 @@ const Contact = () => {
 
   return (
     <section id="contacto" className="relative py-16 md:py-20">
-      <div className="mx-auto max-w-5xl px-6">
-        <div className="glass rounded-3xl p-6 md:p-8 shadow-elegant">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+        <div className="rounded-2xl p-5 shadow-elegant glass sm:p-6 md:rounded-3xl md:p-8">
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             <motion.div
               initial={{ opacity: 0, y: 18 }}
@@ -117,13 +117,13 @@ const Contact = () => {
                 de forma directa, sin intermediarios.
               </p>
 
-              <Button asChild variant="whatsapp" className="mt-5">
+              <Button asChild variant="whatsapp" className="mt-5 w-full sm:w-auto">
                 <a href={CLUB_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="h-4 w-4" /> Accede al club gratuito ahora
                 </a>
               </Button>
 
-              <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
+              <ul className="mt-6 grid gap-2 sm:flex sm:flex-wrap sm:gap-x-5">
                 {EMAILS.map((e) => (
                   <li key={e.value} className="flex items-center gap-2 text-xs">
                     <Mail className="h-3.5 w-3.5 text-primary shrink-0" />
@@ -144,7 +144,7 @@ const Contact = () => {
                       href={s.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/40 px-2.5 py-1 text-[11px] text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
+                       className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-border bg-background/40 px-3 py-1 text-[11px] text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
                     >
                       <s.icon className="h-3 w-3" />
                       {s.label}
@@ -165,20 +165,20 @@ const Contact = () => {
               <div className="grid sm:grid-cols-2 gap-3">
                 <div>
                   <Label htmlFor="name" className="text-xs">Nombre</Label>
-                  <Input id="name" name="name" placeholder="Tu nombre" maxLength={80} required className="mt-1.5 bg-background/40 border-border h-10 rounded-xl" />
+                   <Input id="name" name="name" placeholder="Tu nombre" maxLength={80} required className="mt-1.5 h-11 rounded-xl border-border bg-background/40 text-base sm:text-sm" />
                 </div>
                 <div>
                   <Label htmlFor="email" className="text-xs">Email</Label>
-                  <Input id="email" name="email" type="email" placeholder="tucorreo@dominio.com" maxLength={160} required className="mt-1.5 bg-background/40 border-border h-10 rounded-xl" />
+                   <Input id="email" name="email" type="email" placeholder="tucorreo@dominio.com" maxLength={160} required className="mt-1.5 h-11 rounded-xl border-border bg-background/40 text-base sm:text-sm" />
                 </div>
               </div>
               <div>
                 <Label htmlFor="interest" className="text-xs">Te interesa</Label>
-                <Input id="interest" name="interest" placeholder="Mentoría, consultoría, comunidad…" maxLength={80} required className="mt-1.5 bg-background/40 border-border h-10 rounded-xl" />
+                 <Input id="interest" name="interest" placeholder="Mentoría, consultoría, comunidad…" maxLength={80} required className="mt-1.5 h-11 rounded-xl border-border bg-background/40 text-base sm:text-sm" />
               </div>
               <div>
                 <Label htmlFor="message" className="text-xs">Tu objetivo</Label>
-                <Textarea id="message" name="message" placeholder="Cuéntanos en qué punto estás y a dónde quieres llegar." rows={3} maxLength={800} required className="mt-1.5 bg-background/40 border-border rounded-xl" />
+                 <Textarea id="message" name="message" placeholder="Cuéntanos en qué punto estás y a dónde quieres llegar." rows={3} maxLength={800} required className="mt-1.5 rounded-xl border-border bg-background/40 text-base sm:text-sm" />
               </div>
               <Button type="submit" variant="hero" className="w-full" disabled={loading}>
                 {loading ? "Enviando…" : (<>Solicitar acceso <ArrowRight className="h-4 w-4" /></>)}
