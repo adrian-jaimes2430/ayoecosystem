@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ChapterHeading from "@/components/ChapterHeading";
 import { Button } from "@/components/ui/button";
 import type { UnitShape } from "@/components/three/UnitObject";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const UnitObject = lazy(() => import("@/components/three/UnitObject"));
 
@@ -53,7 +54,8 @@ const BusinessUnitChapter = ({
   darkLogo = false,
 }: BusinessUnitChapterProps) => {
   const ref = useRef<HTMLElement>(null);
-  const active = useInView(ref, { amount: 0.16 });
+  const isMobile = useIsMobile();
+  const active = useInView(ref, { amount: isMobile ? 0.4 : 0.16 });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const opacity = useTransform(scrollYProgress, [0, 0.18, 0.78, 1], [0, 1, 1, 0]);
   const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [48, 0, 0, -42]);

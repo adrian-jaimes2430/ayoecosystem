@@ -17,6 +17,7 @@ const ScrollVideoBackdrop = () => {
   const target = useRef(0);
   const current = useRef(0);
   const ready = useRef(false);
+  const lastSeek = useRef(0);
   const raf = useRef<number>();
   const [reduced, setReduced] = useState(() =>
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -73,9 +74,12 @@ const ScrollVideoBackdrop = () => {
         if (dur && Number.isFinite(dur)) {
           const t = p * (dur - 0.05);
           // wide-enough threshold to avoid seek storms / jitter
-          if (Math.abs(video.currentTime - t) > (isMobile ? 0.11 : 0.05)) {
+          const now = performance.now();
+          const canSeek = !isMobile || now - lastSeek.current > 90;
+          if (canSeek && Math.abs(video.currentTime - t) > (isMobile ? 0.14 : 0.05)) {
             try {
               video.currentTime = t;
+              lastSeek.current = now;
             } catch {
               /* seek not ready yet */
             }

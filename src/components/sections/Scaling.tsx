@@ -43,7 +43,6 @@ const ConvergingMark = ({ mark, progress }: { mark: (typeof marks)[number]; prog
 /** Chapters 06–08 share one pinned sequence: systems become convergence. */
 const Scaling = () => {
   const ref = useRef<HTMLElement>(null);
-  const isMobile = useIsMobile();
   const active = useInView(ref, { amount: 0.06 });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
