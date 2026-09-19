@@ -29,7 +29,7 @@ const Hero = () => {
     <section
       ref={ref}
       id="top"
-      className="relative min-h-[100svh] flex items-end overflow-hidden noise-overlay"
+      className="relative min-h-[112svh] flex items-end overflow-hidden noise-overlay sm:min-h-[100svh]"
     >
       {/* Interactive 3D genesis of the mark */}
       <div className="absolute inset-0 -z-10">
