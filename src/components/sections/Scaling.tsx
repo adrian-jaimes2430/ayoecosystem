@@ -98,7 +98,7 @@ const Scaling = () => {
           </div>
         </motion.div>
 
-        <motion.div style={{ opacity: convergenceOpacity }} className="absolute inset-0 flex items-center">
+        <motion.div style={{ opacity: convergenceOpacity }} className="absolute inset-0 flex items-center bg-background/60 md:bg-transparent">
           <div className="mx-auto grid w-full max-w-6xl items-center gap-3 px-4 sm:px-6 md:grid-cols-[1fr_1.1fr] md:gap-8">
             <ChapterHeading
               eyebrow="07 — Convergencia"
@@ -114,7 +114,7 @@ const Scaling = () => {
           </div>
         </motion.div>
 
-        <motion.div style={{ opacity: finaleOpacity, y: finaleY }} className="absolute inset-0 flex items-center">
+        <motion.div style={{ opacity: finaleOpacity, y: finaleY }} className="absolute inset-0 flex items-center bg-background/70 md:bg-transparent">
           <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
             <div className="max-w-3xl">
               <ChapterHeading

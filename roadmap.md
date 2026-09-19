@@ -8,4 +8,4 @@
 - [x] Optimizar portada y capítulos para pantallas móviles estrechas.
 - [x] Reducir la carga gráfica móvil sin perder nitidez.
 - [x] Ajustar contacto y controles flotantes a zonas táctiles seguras.
-- [ ] Validar la homepage completa en 360 px y 430 px.
+- [x] Validar la homepage completa en 360 px y 430 px.
