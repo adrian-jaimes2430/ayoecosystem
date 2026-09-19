@@ -25,15 +25,15 @@ const ChapterHeading = ({
   className,
 }: ChapterHeadingProps) => (
   <Reveal direction="blur" className={className}>
-    <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.4em]">
+    <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.24em] sm:tracking-[0.4em]">
       <span style={{ color: accent }}>{eyebrow}</span>
       <span className="h-px w-10" style={{ background: accent, opacity: 0.5 }} />
     </div>
-    <h2 className="mt-5 font-display text-3xl sm:text-4xl md:text-[3.4rem] font-semibold tracking-tight leading-[1.05] max-w-3xl">
+    <h2 className="mt-4 max-w-3xl font-display text-[1.8rem] font-semibold leading-[1.08] sm:mt-5 sm:text-4xl md:text-[3.4rem]">
       <TextReveal text={title} />
     </h2>
     {text ? (
-      <p className="mt-6 max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed">
+      <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base md:mt-6 md:text-lg">
         {text}
       </p>
     ) : null}

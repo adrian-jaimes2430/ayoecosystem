@@ -97,7 +97,7 @@ const UnitObject = ({
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const dpr = useMemo<[number, number]>(
-    () => (typeof window !== "undefined" && window.innerWidth < 640 ? [1, 1.5] : [1, 2]),
+    () => (typeof window !== "undefined" && window.innerWidth < 640 ? [1, 1.25] : [1, 2]),
     [],
   );
 

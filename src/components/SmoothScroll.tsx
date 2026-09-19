@@ -9,7 +9,9 @@ import Lenis from "lenis";
  */
 const SmoothScroll = () => {
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const touchFirst = window.matchMedia("(pointer: coarse)").matches;
+    if (reduced || touchFirst) return;
 
     const lenis = new Lenis({
       duration: 1.3,

@@ -94,7 +94,7 @@ const AmbientAudio = () => {
       type="button"
       onClick={toggle}
       aria-label={playing ? "Silenciar música" : "Activar música"}
-      className="fixed bottom-6 left-6 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-border/60 bg-background/60 backdrop-blur-md text-foreground/80 transition-colors hover:text-primary hover:border-primary/50"
+      className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-border/60 bg-background/70 backdrop-blur-md text-foreground/80 transition-colors hover:border-primary/50 hover:text-primary sm:bottom-6 sm:left-6"
     >
       {playing ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
     </button>

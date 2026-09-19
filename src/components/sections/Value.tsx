@@ -18,27 +18,27 @@ const us = [
 
 const Value = () => {
   return (
-    <section id="valor" className="relative py-32">
-      <div className="mx-auto max-w-6xl px-6">
+    <section id="valor" className="relative py-20 md:py-32">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal direction="blur" className="max-w-3xl">
           <span className="text-xs uppercase tracking-[0.3em] text-primary">
             Propuesta de valor
           </span>
-          <h2 className="mt-4 font-display text-4xl md:text-6xl font-bold leading-tight">
+          <h2 className="mt-4 font-display text-3xl font-bold leading-tight sm:text-4xl md:text-6xl">
             <TextReveal text="Resultados, no" /> <span className="line-through text-muted-foreground/60">motivación</span>.
           </h2>
-          <p className="mt-6 text-lg text-muted-foreground">
+          <p className="mt-5 text-base text-muted-foreground sm:text-lg">
             La diferencia entre sentirte productivo y crecer realmente está en el sistema que ejecutas.
           </p>
         </Reveal>
 
-        <div className="mt-16 grid md:grid-cols-2 gap-5">
+        <div className="mt-10 grid gap-4 sm:mt-16 md:grid-cols-2 md:gap-5">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl border border-border bg-card/40 p-8"
+            className="rounded-2xl border border-border bg-card/40 p-5 sm:p-8 md:rounded-3xl"
           >
             <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">
               El resto del mercado
@@ -60,7 +60,7 @@ const Value = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-3xl glass shadow-gold p-8 relative overflow-hidden"
+            className="relative overflow-hidden rounded-2xl p-5 shadow-gold glass sm:p-8 md:rounded-3xl"
           >
             <div className="absolute -top-20 -right-20 h-60 w-60 rounded-full bg-primary/20 blur-3xl" />
             <div className="text-xs uppercase tracking-[0.3em] text-primary mb-6 relative">
